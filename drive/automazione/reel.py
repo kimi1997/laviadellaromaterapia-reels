@@ -374,7 +374,7 @@ def render(png, dur, out, fade_in=True):
 #   "blend"?: {"nome", "quando", "oli": [{"olio", "gocce"}], "note"},
 #   "mito"?: [{"claim", "verdetto", "spiegazione"}],
 #   "rituale"?: {"titolo", "sub", "passi": ["..."]},
-#   "scheda"?: {"olio", "famiglia", "profumo", "abbinamenti", "usi": ["", "", ""]}}
+#   "scheda"?: {"olio", "famiglia", "profumo", "abbinamenti", "usi": ["", "", ""], "sostituti"?}}
 # Reel:      python3 reel.py contenuti.json out.mp4 audio.mp3 [--frames]
 # Riassunto: python3 reel.py contenuti.json --carousel cartella   (riassunto.jpg per Facebook)
 # Carosello del sabato: python3 reel.py contenuti.json --weekly-carousel cartella
@@ -544,10 +544,13 @@ def v3_card(s):
     y = label(d, "LA SCHEDA DELL'OLIO", 70, 290, bgc=GREEN, fs=32)
     y = block(d, s["olio"], fit(d, s["olio"], "Poppins-Bold.ttf", 130, 920, 2), y + 30, PURPLE, maxw=920, x=70)
     y = block(d, s.get("famiglia", ""), font("Poppins-Bold.ttf", 44), y + 6, GREEN, maxw=920, x=70) + 50
-    for t, body in (("PROFUMO", s["profumo"]), ("SI ABBINA CON", s["abbinamenti"]), ("3 USI", " · ".join(s["usi"]))):
+    secs = [("PROFUMO", s["profumo"]), ("SI ABBINA CON", s["abbinamenti"]), ("3 USI", " · ".join(s["usi"]))]
+    if s.get("sostituti"): secs.append(("SE NON CE L'HAI", s["sostituti"]))
+    fs, lines = (50, 4) if len(secs) == 3 else (44, 3)
+    for t, body in secs:
         d.rounded_rectangle([70, y, W - 70, y + 60], radius=30, fill=(255, 255, 255))
         d.text((100, y + 8), t, font=font("Poppins-Bold.ttf", 36), fill=TERRA)
-        y = block(d, body, fit(d, body, "Poppins-Regular.ttf", 50, 900, 4), y + 84, BODY, maxw=900, gap=1.38, x=90) + 40
+        y = block(d, body, fit(d, body, "Poppins-Regular.ttf", fs, 900, lines), y + 84, BODY, maxw=900, gap=1.34, x=90) + 34
     footer(d); return b, im
 
 def v3_scenes(c):
@@ -566,7 +569,7 @@ def v3_scenes(c):
     elif r == "rituale":
         rt = c["rituale"]; add(v3_ritual(rt), " ".join(rt["passi"]) + " " + rt["titolo"], 6, 9, True)
     elif r == "scheda":
-        s = c["scheda"]; add(v3_card(s), s["profumo"] + " " + s["abbinamenti"] + " " + " ".join(s["usi"]), 6, 9)
+        s = c["scheda"]; add(v3_card(s), s["profumo"] + " " + s["abbinamenti"] + " " + " ".join(s["usi"]) + " " + s.get("sostituti", ""), 6, 10)
         for i, t in enumerate(tips): add(v3_tip(t, i, len(tips)), t["title"] + " " + t["body"])
     else:
         for i, t in enumerate(tips): add(v3_tip(t, i, len(tips)), t["title"] + " " + t["body"])
@@ -581,7 +584,7 @@ def summary_tips(c):
     if r == "mito": return [{"title": f"{m['verdetto']}: {m['claim']}", "body": m["spiegazione"]} for m in c["mito"]]
     if r == "rituale": return [{"title": f"Passo {k}", "body": p} for k, p in enumerate(c["rituale"]["passi"], 1)]
     if r == "scheda":
-        s = c["scheda"]; return [{"title": "Profumo", "body": s["profumo"]}, {"title": "Si abbina con", "body": s["abbinamenti"]}, {"title": "Usi", "body": ", ".join(s["usi"])}]
+        s = c["scheda"]; return [{"title": "Profumo", "body": s["profumo"]}, {"title": "Si abbina con", "body": s["abbinamenti"]}, {"title": "Usi", "body": ", ".join(s["usi"])}] + ([{"title": "Se non ce l'hai", "body": s["sostituti"]}] if s.get("sostituti") else [])
     return []
 
 # ----- movimento: gocce dietro al testo + zoom lento -----
