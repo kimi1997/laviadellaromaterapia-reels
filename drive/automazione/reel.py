@@ -4,6 +4,7 @@ Reel 1080x1920:      python3 reel.py contenuti.json out.mp4 [audio.mp3] [--frame
 Immagini 1080x1350:  python3 reel.py contenuti.json --carousel cartella_output
    (slide_01.jpg ... slide_NN.jpg + riassunto.jpg per Facebook)
 JSON: {"hook", "sub", "tips": [{"title", "body"}], "cta", "cta_post"?, "handle"}
+Template v3 (rubriche, movimento) descritti nella sezione TEMPLATE v3 in fondo.
 Template (v2): hook e CTA stile "carosello lilla", consigli stile "capitolo rosa con goccia",
 riassunto stile "copertina guida". Niente foto: solo forme, testo ad alto contrasto.
 """
@@ -312,7 +313,7 @@ def slide_summary(c):
     paste_drop(im, 1010, -60, 330, 640, fill=GREYLILAC, alpha=200)
     d = ImageDraw.Draw(im)
     tips = c["tips"]
-    d.text((80, 70), "Il consiglio del giorno", font=font("Poppins-Bold.ttf", 34), fill=(108, 84, 168))
+    d.text((80, 70), globals().get("RUBRICHE", {}).get(c.get("rubrica"), "Il consiglio del giorno"), font=font("Poppins-Bold.ttf", 34), fill=(108, 84, 168))
     # badge
     bx, by, br = 900, 190, 120
     d.ellipse((bx - br, by - br, bx + br, by + br), fill=BEIGE)
@@ -365,7 +366,317 @@ def render(png, dur, out, fade_in=True):
                     "-r", str(FPS), "-c:v", "libx264", "-crf", "20", "-preset", "veryfast", "-pix_fmt", "yuv420p", part], check=True)
     os.replace(part, out)
 
-def main():
+
+# =====================================================================
+# TEMPLATE v3 (dal 7 novembre 2026): rubriche settimanali + movimento
+# JSON v3: {"rubrica": "momento|comesifa|blend|faidate|mito|rituale|scheda",
+#   "hook", "sub", "cta", "handle", "tips": [{"title", "body", "momento"?}],
+#   "blend"?: {"nome", "quando", "oli": [{"olio", "gocce"}], "note"},
+#   "mito"?: [{"claim", "verdetto", "spiegazione"}],
+#   "rituale"?: {"titolo", "sub", "passi": ["..."]},
+#   "scheda"?: {"olio", "famiglia", "profumo", "abbinamenti", "usi": ["", "", ""]}}
+# Reel:      python3 reel.py contenuti.json out.mp4 audio.mp3 [--frames]
+# Riassunto: python3 reel.py contenuti.json --carousel cartella   (riassunto.jpg per Facebook)
+# Carosello del sabato: python3 reel.py contenuti.json --weekly-carousel cartella
+# =====================================================================
+import random
+DEEP = (46, 30, 78); MOONC = (246, 236, 214)
+RUBRICHE = {"momento": "Un olio per ogni momento", "comesifa": "Come si fa", "blend": "Il blend della settimana",
+            "faidate": "Fai da te per la casa", "mito": "Vero o falso?", "rituale": "Il rituale di stagione",
+            "scheda": "La scheda dell'olio"}
+GIORNI = {"momento": "lunedì", "comesifa": "martedì", "blend": "mercoledì", "faidate": "giovedì", "mito": "venerdì", "rituale": "sabato", "scheda": "domenica"}
+MOMENT_COLS = [(182, 154, 224), (236, 170, 120), (150, 186, 140), (230, 160, 190), (170, 190, 230)]
+DROP_COLS = [(236, 150, 70), (170, 190, 90), (110, 170, 140), (182, 154, 224), (230, 160, 190)]
+
+def texture(w, h, base, blobs, seed=3, grain=6):
+    rnd = random.Random(seed)
+    im = Image.new("RGB", (w, h), base)
+    lay = Image.new("RGBA", (w, h), (0, 0, 0, 0)); d = ImageDraw.Draw(lay)
+    for col, a in blobs:
+        for _ in range(3):
+            cx, cy = rnd.randint(-200, w + 200), rnd.randint(-200, h + 200)
+            r = rnd.randint(int(w * .35), int(w * .7))
+            d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=tuple(col) + (a,))
+    lay = lay.filter(ImageFilter.GaussianBlur(160)); im.paste(lay, (0, 0), lay)
+    noise = Image.effect_noise((w, h), grain * 6).convert("L")
+    return Image.blend(im, Image.merge("RGB", [noise] * 3), 0.025)
+
+BG = {"light": (OFF, [(LILAC, 120), (PINK, 140), (BEIGE, 90)]),
+      "pink": (PINK, [((255, 255, 255), 120), (LILAC, 110)]),
+      "cream": (CREAM, [((255, 255, 255), 130), (BEIGE, 120)]),
+      "night": (DEEP, [((92, 64, 140), 160), ((150, 112, 196), 90)]),
+      "lilac": ((241, 235, 248), [((255, 255, 255), 140), (PINK, 120)])}
+def bg(kind, w=W, h=H, seed=3):
+    base, blobs = BG[kind]; return texture(w, h, base, blobs, seed, 8 if kind == "night" else 6)
+
+def label(d, text, x, y, bgc=PURPLE, fg=(255, 255, 255), fs=34):
+    f = font("Poppins-Bold.ttf", fs); tw = d.textlength(text, font=f)
+    d.rounded_rectangle([x, y, x + tw + 56, y + fs + 34], radius=(fs + 34) // 2, fill=bgc)
+    d.text((x + 28, y + 14), text, font=f, fill=fg); return y + fs + 34
+
+def header(im, dark=False):
+    if not dark: brand(im, 70, 70, 72, 38); return
+    lg = logo(72); im.paste(lg, (70, 70), lg)
+    d = ImageDraw.Draw(im)
+    spaced(d, (160, 76), "LA VIA", serif(30, "Bold"), (240, 232, 250))
+    spaced(d, (160, 112), "DELL’AROMATERAPIA", serif(17), (210, 198, 235))
+
+def footer(d, h=H, dark=False):
+    f = font("Poppins-Bold.ttf", 38); t = "@laviadellaromaterapia"
+    d.text(((W - d.textlength(t, font=f)) / 2, h - 140), t, font=f, fill=(230, 220, 245) if dark else GREEN)
+
+def fit(d, text, name, size, maxw, max_lines):
+    """riduce il corpo finche' il testo sta in max_lines righe"""
+    s = size
+    while s > size * 0.6 and len(wrap(d, text, font(name, s), maxw)) > max_lines: s -= 4
+    return font(name, s)
+
+def stars(d, seed, n, ymax, w=W):
+    rnd = random.Random(seed)
+    for _ in range(n): sparkle(d, rnd.randint(40, w - 40), rnd.randint(40, ymax), rnd.randint(5, 14), GOLD)
+
+def moon(im, cx, cy, r):
+    glow(im, cx, cy, r + 60, r + 60, MOONC, alpha=120, blur=80)
+    d = ImageDraw.Draw(im); d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=MOONC)
+    d.ellipse([cx - r * .55, cy - r * .55, cx - r * .18, cy - r * .18], fill=(232, 220, 196))
+    d.ellipse([cx + r * .2, cy + r * .15, cx + r * .5, cy + r * .45], fill=(232, 220, 196))
+
+# ----- scene: ognuna restituisce (sfondo, scena completa) -----
+def v3_cover(c):
+    night = c.get("rubrica") == "rituale"
+    b = bg("night" if night else "light", seed=3); im = b.copy()
+    if night: stars(ImageDraw.Draw(im), 8, 22, 640); moon(im, 800, 420, 160)
+    header(im, night); d = ImageDraw.Draw(im)
+    y = label(d, RUBRICHE.get(c.get("rubrica"), "Il consiglio del giorno").upper(), 70, 700 if night else 560,
+              bgc=GOLD if night else PURPLE, fg=DEEP if night else (255, 255, 255), fs=32)
+    fh = fit(d, c["hook"], "Poppins-Bold.ttf", 110, 920, 5)
+    y = block(d, c["hook"], fh, y + 50, (250, 244, 255) if night else PURPLE, maxw=920, gap=1.1, x=70)
+    if c.get("sub"): block(d, c["sub"], font("Poppins-Bold.ttf", 50), y + 30, GOLD if night else GREEN, maxw=900, x=70)
+    if not night: sprig(im, 930, 1640, 330, -105, 1.1)
+    footer(ImageDraw.Draw(im), dark=night); return b, im
+
+def v3_cta(c):
+    night = c.get("rubrica") == "rituale"
+    b = bg("night" if night else "light", seed=4); im = b.copy()
+    if night: stars(ImageDraw.Draw(im), 9, 14, 420)
+    else: sprig(im, 10, 600, 330, 52, 1.15); sprig(im, W - 20, 1650, 300, 112, 1.05)
+    header(im, night); d = ImageDraw.Draw(im)
+    cx, top = W // 2, 470
+    paste_drop(im, cx, top, 74, 150, fill=LILAC); paste_drop(im, cx, top, 74, 150, outline=GOLD if night else PURPLE, width=5)
+    d = ImageDraw.Draw(im)
+    y = block(d, c["cta"], fit(d, c["cta"], "Poppins-Bold.ttf", 88, 880, 4), 800, (250, 244, 255) if night else PURPLE, maxw=880, gap=1.14)
+    block(d, f"Ogni {GIORNI.get(c.get('rubrica'), 'giorno')}: {RUBRICHE.get(c.get('rubrica'), 'un consiglio pratico').lower()}", font("Poppins-Bold.ttf", 40), y + 60, GOLD if night else GREEN, maxw=860)
+    footer(d, dark=night); return b, im
+
+def v3_tip(t, i, n, kind="pink"):
+    b = bg(kind, seed=10 + i); im = b.copy()
+    top = 160; paste_drop(im, 230, top, 150, 270, fill=LILAC)
+    d = ImageDraw.Draw(im); num = f"{i + 1:02d}"; fn = font("Poppins-Bold.ttf", 140)
+    d.text((230 - d.textlength(num, font=fn) / 2 + 6, top + 270 - fn.size * 0.62), num, font=fn, fill=(255, 255, 255))
+    pill(d, f"{i + 1}/{n}", W - 70, 80)
+    y = top + 270 + 150 + 90
+    y = block(d, t["title"], fit(d, t["title"], "Poppins-BoldItalic.ttf", 84, 860, 3), y, PURPLE, maxw=860, gap=1.15, x=110)
+    block(d, t["body"], fit(d, t["body"], "Poppins-Regular.ttf", 58, 860, 7), y + 44, BODY, maxw=860, gap=1.45, x=110)
+    sprig(im, W - 70, 1730, 270, 112, 1.0)
+    lg = logo(60); im.paste(lg, (70, H - 160), lg)
+    d = ImageDraw.Draw(im); d.text((144, H - 150), "@laviadellaromaterapia", font=font("Poppins-Bold.ttf", 36), fill=PURPLE)
+    return b, im
+
+def v3_moment(t, i, n):
+    b = bg("pink", seed=20 + i); im = b.copy(); d = ImageDraw.Draw(im)
+    pill(d, f"{i + 1}/{n}", W - 70, 80)
+    cx, cy, r = W // 2, 600, 250
+    glow(im, cx, cy, r + 90, r + 90, (255, 255, 255), alpha=150, blur=70)
+    d = ImageDraw.Draw(im); d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=MOMENT_COLS[i % len(MOMENT_COLS)])
+    paste_drop(im, cx, cy - 150, 95, 140, fill=(255, 255, 255), alpha=235)
+    d = ImageDraw.Draw(im)
+    if t.get("momento"):
+        f = font("Poppins-Bold.ttf", 46); s = t["momento"].upper()
+        d.text(((W - d.textlength(s, font=f)) / 2, cy + r + 60), s, font=f, fill=GREEN)
+    y = block(d, t["title"], fit(d, t["title"], "Poppins-BoldItalic.ttf", 120, 900, 2), cy + r + 130, PURPLE, maxw=900)
+    block(d, t["body"], fit(d, t["body"], "Poppins-Regular.ttf", 56, 860, 5), y + 30, BODY, maxw=860, gap=1.4)
+    lg = logo(64); im.paste(lg, (70, H - 160), lg)
+    d = ImageDraw.Draw(im); d.text((150, H - 150), "@laviadellaromaterapia", font=font("Poppins-Bold.ttf", 36), fill=PURPLE)
+    return b, im
+
+def v3_blend(bl):
+    b = bg("cream", seed=21); im = b.copy(); header(im); d = ImageDraw.Draw(im)
+    y = label(d, "IL BLEND DELLA SETTIMANA", 70, 300, bgc=TERRA, fs=32)
+    y = block(d, bl["nome"], fit(d, bl["nome"], "Poppins-Bold.ttf", 96, 920, 2), y + 40, TERRA, maxw=920, gap=1.1, x=70)
+    y = block(d, bl.get("quando", ""), font("Poppins-Bold.ttf", 46), y + 20, GREEN, maxw=920, x=70) + 70
+    for k, o in enumerate(bl["oli"][:4]):
+        d.rounded_rectangle([70, y, W - 70, y + 210], radius=40, fill=(255, 255, 255))
+        d.text((120, y + 40), o["olio"], font=fit(d, o["olio"], "Poppins-Bold.ttf", 60, 560, 1), fill=PURPLE)
+        g = int(o["gocce"]); d.text((120, y + 120), f"{g} gocc{'ia' if g == 1 else 'e'}", font=font("Poppins-Regular.ttf", 44), fill=BODY)
+        for j in range(min(g, 6)): paste_drop(im, W - 130 - j * 62, y + 62, 22, 34, fill=DROP_COLS[k % len(DROP_COLS)])
+        d = ImageDraw.Draw(im); y += 240
+    if bl.get("note"): block(d, bl["note"], fit(d, bl["note"], "Poppins-Regular.ttf", 46, 920, 4), y + 30, BODY, maxw=920, gap=1.4, x=70)
+    footer(d); return b, im
+
+def v3_myth(m, i, n):
+    b = Image.new("RGB", (W, H), OFF); ImageDraw.Draw(b).rectangle([0, 0, W, 980], fill=LILAC)
+    b = Image.blend(b, bg("light", seed=30 + i), 0.25); im = b.copy()
+    header(im); d = ImageDraw.Draw(im)
+    label(d, "VERO O FALSO?", 70, 300, bgc=(255, 255, 255), fg=PURPLE, fs=34)
+    if n > 1: pill(d, f"{i + 1}/{n}", W - 70, 80)
+    claim = f"“{m['claim']}”"
+    block(d, claim, fit(d, claim, "Poppins-BoldItalic.ttf", 96, 920, 5), 440, PURPLE, maxw=920, gap=1.12, x=70)
+    v = m["verdetto"].upper(); f = font("Poppins-Bold.ttf", 140); tw = d.textlength(v, font=f)
+    d.rounded_rectangle([(W - tw) / 2 - 50, 910, (W + tw) / 2 + 50, 1090], radius=60, fill=TERRA if v.startswith("FALS") else GREEN)
+    d.text(((W - tw) / 2, 918), v, font=f, fill=(255, 255, 255))
+    block(d, m["spiegazione"], fit(d, m["spiegazione"], "Poppins-Regular.ttf", 58, 900, 6), 1200, BODY, maxw=900, gap=1.45)
+    footer(d); return b, im
+
+def v3_ritual(rt):
+    b = bg("night", seed=8); im = b.copy(); d = ImageDraw.Draw(im)
+    stars(d, 8, 22, 640); moon(im, 800, 420, 160); header(im, True); d = ImageDraw.Draw(im)
+    y = label(d, "IL RITUALE DI STAGIONE", 70, 700, bgc=GOLD, fg=DEEP, fs=32)
+    y = block(d, rt["titolo"], fit(d, rt["titolo"], "Poppins-Bold.ttf", 100, 920, 2), y + 40, (250, 244, 255), maxw=920, gap=1.1, x=70)
+    if rt.get("sub"): y = block(d, rt["sub"], font("Poppins-Bold.ttf", 46), y + 20, GOLD, maxw=920, x=70)
+    y += 50; fp = font("Poppins-Regular.ttf", 48 if len(rt["passi"]) <= 3 else 42)
+    for k, p in enumerate(rt["passi"][:5], 1):
+        d.text((70, y), f"{k}", font=font("Poppins-Bold.ttf", 54), fill=GOLD)
+        y = block(d, p, fp, y + 6, (236, 228, 248), maxw=860, gap=1.35, x=140) + 30
+    footer(d, dark=True); return b, im
+
+def v3_card(s):
+    b = bg("light", seed=31); im = b.copy(); header(im); d = ImageDraw.Draw(im)
+    y = label(d, "LA SCHEDA DELL'OLIO", 70, 290, bgc=GREEN, fs=32)
+    y = block(d, s["olio"], fit(d, s["olio"], "Poppins-Bold.ttf", 130, 920, 2), y + 30, PURPLE, maxw=920, x=70)
+    y = block(d, s.get("famiglia", ""), font("Poppins-Bold.ttf", 44), y + 6, GREEN, maxw=920, x=70) + 50
+    for t, body in (("PROFUMO", s["profumo"]), ("SI ABBINA CON", s["abbinamenti"]), ("3 USI", " · ".join(s["usi"]))):
+        d.rounded_rectangle([70, y, W - 70, y + 60], radius=30, fill=(255, 255, 255))
+        d.text((100, y + 8), t, font=font("Poppins-Bold.ttf", 36), fill=TERRA)
+        y = block(d, body, fit(d, body, "Poppins-Regular.ttf", 50, 900, 4), y + 84, BODY, maxw=900, gap=1.38, x=90) + 40
+    footer(d); return b, im
+
+def v3_scenes(c):
+    """sequenza di scene (sfondo, completa, durata, tipo sfondo) del reel per rubrica"""
+    r = c.get("rubrica", "comesifa"); tips = c.get("tips", []); sc = []
+    def add(pair, text, lo=3.2, hi=6.5, dark=False): sc.append(pair + (secs_for(text, lo, hi), dark))
+    add(v3_cover(c), c["hook"] + " " + c.get("sub", ""), 3.0, 4.5, r == "rituale")
+    if r == "momento":
+        for i, t in enumerate(tips): add(v3_moment(t, i, len(tips)), t["title"] + " " + t["body"])
+    elif r == "blend":
+        bl = c["blend"]; add(v3_blend(bl), bl["nome"] + " " + bl.get("note", "") + " x" * 8, 5, 8)
+        for i, t in enumerate(tips): add(v3_tip(t, i, len(tips)), t["title"] + " " + t["body"])
+    elif r == "mito":
+        ms = c["mito"]
+        for i, m in enumerate(ms): add(v3_myth(m, i, len(ms)), m["claim"] + " " + m["spiegazione"], 4.5, 7.5)
+    elif r == "rituale":
+        rt = c["rituale"]; add(v3_ritual(rt), " ".join(rt["passi"]) + " " + rt["titolo"], 6, 9, True)
+    elif r == "scheda":
+        s = c["scheda"]; add(v3_card(s), s["profumo"] + " " + s["abbinamenti"] + " " + " ".join(s["usi"]), 6, 9)
+        for i, t in enumerate(tips): add(v3_tip(t, i, len(tips)), t["title"] + " " + t["body"])
+    else:
+        for i, t in enumerate(tips): add(v3_tip(t, i, len(tips)), t["title"] + " " + t["body"])
+    add(v3_cta(c), c["cta"], 3.6, 4.2, r == "rituale")
+    return sc
+
+def summary_tips(c):
+    """punti per il riassunto Facebook, ricavati dalla rubrica se mancano i tips"""
+    if c.get("tips"): return c["tips"]
+    r = c.get("rubrica")
+    if r == "blend": return [{"title": o["olio"], "body": f"{o['gocce']} gocce"} for o in c["blend"]["oli"]] + ([{"title": "Come usarlo", "body": c["blend"]["note"]}] if c["blend"].get("note") else [])
+    if r == "mito": return [{"title": f"{m['verdetto']}: {m['claim']}", "body": m["spiegazione"]} for m in c["mito"]]
+    if r == "rituale": return [{"title": f"Passo {k}", "body": p} for k, p in enumerate(c["rituale"]["passi"], 1)]
+    if r == "scheda":
+        s = c["scheda"]; return [{"title": "Profumo", "body": s["profumo"]}, {"title": "Si abbina con", "body": s["abbinamenti"]}, {"title": "Usi", "body": ", ".join(s["usi"])}]
+    return []
+
+# ----- movimento: gocce dietro al testo + zoom lento -----
+def fg_layer(b, full):
+    """la scena senza lo sfondo: alfa = dove la scena differisce dallo sfondo"""
+    from PIL import ImageChops
+    diff = ImageChops.difference(full.convert("RGB"), b.convert("RGB")).convert("L")
+    mask = diff.point(lambda v: min(255, v * 22)).filter(ImageFilter.MaxFilter(3)).filter(ImageFilter.GaussianBlur(1.0))
+    fg = full.convert("RGBA"); fg.putalpha(mask); return fg
+
+def drops_layer(dark, seed=5):
+    rnd = random.Random(seed); im = Image.new("RGBA", (W, H * 2), (0, 0, 0, 0))
+    col = (214, 196, 240) if dark else (150, 112, 196); a = 70 if dark else 46
+    for _ in range(11):
+        cx, top, r = rnd.randint(60, W - 60), rnd.randint(0, H - 80), rnd.randint(14, 34)
+        for off in (0, H): paste_drop(im, cx, top + off, r, int(r * 1.5), fill=col, alpha=a)
+    return im
+
+def render_motion(b, full, dur, out, dark=False, fade_in=True, tmp="."):
+    bp, fp, dp = f"{out}.bg.png", f"{out}.fg.png", f"{out}.drops.png"
+    b.convert("RGB").save(bp); fg_layer(b, full).save(fp); drops_layer(dark).save(dp)
+    n = int(dur * FPS)
+    fin = "fade=t=in:st=0:d=0.35:color=0xFBF8F6," if fade_in else ""
+    fc = (f"[0:v][2:v]overlay=x=0:y='mod(t*70,{H})-{H}'[b];[b][1:v]overlay=0:0,format=yuv420p,"
+          f"scale=1620:2880,zoompan=z='1+0.045*on/{n}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s={W}x{H}:fps={FPS},"
+          f"trim=duration={dur:.2f},{fin}fade=t=out:st={dur - 0.35:.2f}:d=0.35:color=0xFBF8F6[v]")
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-loop", "1", "-framerate", str(FPS), "-t", f"{dur:.2f}", "-i", bp,
+                    "-loop", "1", "-framerate", str(FPS), "-t", f"{dur:.2f}", "-i", fp,
+                    "-loop", "1", "-framerate", str(FPS), "-t", f"{dur:.2f}", "-i", dp,
+                    "-filter_complex", fc, "-map", "[v]", "-r", str(FPS), "-c:v", "libx264", "-crf", "20", "-preset", "veryfast",
+                    "-pix_fmt", "yuv420p", out], check=True)
+    for p in (bp, fp, dp): os.remove(p)
+
+def reel_v3(c, out, audio=None, frames=False):
+    tmp = tempfile.mkdtemp(); sc = v3_scenes(c); files = []
+    for k, (b, full, dur, dark) in enumerate(sc):
+        mp4 = f"{tmp}/s{k}.mp4"; render_motion(b, full, dur, mp4, dark, fade_in=(k > 0)); files.append(mp4)
+    lst = f"{tmp}/list.txt"; open(lst, "w").write("".join(f"file '{f}'\n" for f in files))
+    silent = f"{tmp}/video.mp4"
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", lst, "-c", "copy", silent], check=True)
+    total = sum(s[2] for s in sc)
+    if audio:
+        af = f"afade=t=in:st=0:d=0.8,afade=t=out:st={total-2:.2f}:d=2,volume=0.85"
+        cmd = ["ffmpeg", "-y", "-loglevel", "error", "-i", silent, "-stream_loop", "-1", "-i", audio, "-map", "0:v", "-map", "1:a",
+               "-af", af, "-t", f"{total:.2f}", "-c:v", "copy", "-c:a", "aac", "-b:a", "160k", out]
+    else:
+        cmd = ["ffmpeg", "-y", "-loglevel", "error", "-i", silent, "-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo",
+               "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-c:a", "aac", "-shortest", out]
+    subprocess.run(cmd, check=True)
+    if frames:
+        for k, s in enumerate(sc): s[1].save(out[:-4] + f"_frame{k}.png")
+    print(out)
+
+# ----- carosello del sabato (1080x1350) -----
+def wc_cover(title, sub):
+    w, h = W, CH; im = bg("night", w, h, seed=8); d = ImageDraw.Draw(im)
+    stars(d, 4, 16, 480, w); moon(im, 830, 250, 130); header(im, True); d = ImageDraw.Draw(im)
+    y = label(d, "DA SALVARE", 70, 520, bgc=GOLD, fg=DEEP, fs=30)
+    y = block(d, title, fit(d, title, "Poppins-Bold.ttf", 92, 920, 3), y + 36, (250, 244, 255), maxw=920, gap=1.1, x=70)
+    if sub: block(d, sub, font("Poppins-Bold.ttf", 42), y + 20, GOLD, maxw=920, x=70)
+    arrow_label(d, "Scorri", w - 60, h - 110, color=(236, 228, 248)); return im
+
+def wc_slide(i, n, title, body):
+    w, h = W, CH; im = bg("lilac", w, h, seed=40 + i)
+    paste_drop(im, 150, 110, 80, 120, fill=LILAC); d = ImageDraw.Draw(im)
+    f = font("Poppins-Bold.ttf", 76); t = f"{i}"; d.text((150 - d.textlength(t, font=f) / 2, 160), t, font=f, fill=(255, 255, 255))
+    pill(d, f"{i}/{n}", w - 70, 80)
+    y = block(d, title, fit(d, title, "Poppins-BoldItalic.ttf", 78, 900, 3), 430, PURPLE, maxw=900, gap=1.15, x=90)
+    block(d, body, fit(d, body, "Poppins-Regular.ttf", 50, 900, 8), y + 40, BODY, maxw=900, gap=1.45, x=90)
+    sprig(im, w - 60, h - 120, 230, 112, 0.9); d = ImageDraw.Draw(im)
+    d.text((90, h - 100), "@laviadellaromaterapia", font=font("Poppins-Bold.ttf", 34), fill=PURPLE); return im
+
+def wc_end(cta):
+    w, h = W, CH; im = bg("night", w, h, seed=9); d = ImageDraw.Draw(im); stars(d, 6, 14, 280, w)
+    header(im, True); paste_drop(im, w // 2, 330, 74, 150, fill=LILAC); d = ImageDraw.Draw(im)
+    y = block(d, cta, fit(d, cta, "Poppins-Bold.ttf", 80, 880, 4), 640, (250, 244, 255), maxw=880, gap=1.14)
+    block(d, "Ogni sabato un nuovo rituale", font("Poppins-Bold.ttf", 40), y + 50, GOLD, maxw=860)
+    f = font("Poppins-Bold.ttf", 38); t = "@laviadellaromaterapia"; d.text(((w - d.textlength(t, font=f)) / 2, h - 120), t, font=f, fill=(230, 220, 245))
+    return im
+
+def weekly_carousel(c, outdir):
+    """copertina + una slide per passo (o consiglio) + chiusura; usa c['carosello'] se presente"""
+    os.makedirs(outdir, exist_ok=True)
+    cs = c.get("carosello") or {}
+    title = cs.get("titolo") or (c.get("rituale") or {}).get("titolo") or c["hook"]
+    sub = cs.get("sub") or (c.get("rituale") or {}).get("sub") or c.get("sub", "")
+    slides = cs.get("slides") or [{"title": t["title"], "body": t["body"]} for t in summary_tips(c)]
+    n = len(slides); ims = [wc_cover(title, sub)] + [wc_slide(i + 1, n, s["title"], s["body"]) for i, s in enumerate(slides)]
+    ims.append(wc_end(cs.get("cta") or "Salva il post e prova il rituale questa sera"))
+    paths = []
+    for k, im in enumerate(ims):
+        p = os.path.join(outdir, f"slide_{k + 1:02d}.jpg"); im.convert("RGB").save(p, "JPEG", quality=90); paths.append(p)
+    print("\n".join(paths))
+
+def main_v2():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     if "--carousel" in sys.argv:
         return carousel(json.load(open(args[0])), args[1])
@@ -393,6 +704,19 @@ def main():
     if "--frames" in sys.argv:
         for k, (im, _) in enumerate(scenes): im.save(out[:-4] + f"_frame{k}.png")
     print(out)
+
+
+def main():
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    c = json.load(open(args[0]))
+    if "--weekly-carousel" in sys.argv:
+        return weekly_carousel(c, args[1])
+    if "--carousel" in sys.argv:
+        if "rubrica" in c: c = dict(c, tips=summary_tips(c))
+        return carousel(c, args[1])
+    if "rubrica" in c:
+        return reel_v3(c, args[1], args[2] if len(args) > 2 else None, "--frames" in sys.argv)
+    return main_v2()
 
 if __name__ == "__main__":
     main()
