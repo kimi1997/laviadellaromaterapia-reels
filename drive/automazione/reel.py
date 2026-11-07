@@ -4,7 +4,7 @@ Reel 1080x1920:      python3 reel.py contenuti.json out.mp4 [audio.mp3] [--frame
 Immagini 1080x1350:  python3 reel.py contenuti.json --carousel cartella_output
    (slide_01.jpg ... slide_NN.jpg + riassunto.jpg per Facebook)
 JSON: {"hook", "sub", "tips": [{"title", "body"}], "cta", "cta_post"?, "handle"}
-Template v3 (rubriche, movimento) e v4 (foto stock, Ken Burns) descritti in fondo al file.
+Template v3 (rubriche, movimento) e v4.1 (foto stock, Ken Burns, nessuna illustrazione disegnata) descritti in fondo al file.
 Template (v2): hook e CTA stile "carosello lilla", consigli stile "capitolo rosa con goccia",
 riassunto stile "copertina guida". Niente foto: solo forme, testo ad alto contrasto.
 """
@@ -730,7 +730,7 @@ KEYWORDS = {"lavanda": "lavanda", "limone": "limone", "arancia": "arancio", "ara
             "valigia": "viaggio", "auto": "viaggio", "kit": "bottiglie", "scade": "bottiglie", "gocce": "bottiglie"}
 RUB_FOTO = {"momento": ("bottiglie", "bottiglie", "candele"), "comesifa": ("diffusore", "bottiglie", "diffusore"),
             "blend": ("bottiglie", "bottiglie", "candele"), "faidate": ("casa", "casa", "tessuti"),
-            "mito": ("bottiglie", "bottiglie", "bottiglie"), "rituale": ("candele", "luna", "luna"),
+            "mito": ("bottiglie", "bottiglie", "bottiglie"), "rituale": ("candele", "candele", "luna"),
             "scheda": ("erbe", "erbe", "bottiglie"), "pillola": ("bottiglie", "bottiglie", "candele")}
 
 def stock_ok():
@@ -764,7 +764,8 @@ def photo(name, w=W, h=H):
     if im.height - h > 40:
         e = im.convert("L").resize((im.width // 8, im.height // 8)).filter(ImageFilter.FIND_EDGES)
         import numpy as _np; rows = _np.asarray(e, dtype=float).sum(axis=1).tolist()
-        hh = h // 8; best = max(range(0, e.height - hh + 1), key=lambda r: sum(rows[r:r + hh]))
+        hh = h // 8; mid = (e.height - hh) / 2 or 1
+        best = max(range(0, e.height - hh + 1), key=lambda r: sum(rows[r:r + hh]) * (1 - 0.45 * abs(r - mid) / mid))
         y = min(im.height - h, best * 8)
     return im.crop((x, y, x + w, y + h))
 
@@ -909,14 +910,151 @@ def wc_cover_photo(title, sub, ph):
         if sub: block(dd, sub, font("Poppins-Bold.ttf", 42), y + 20 + dy, col or (250, 222, 160), maxw=920, x=70)
     shadow_text(im, draw); arrow_label(ImageDraw.Draw(im), "Scorri", w - 60, h - 100, color=WHITE); return im
 
+
+# ----- v4.1: schede senza illustrazioni disegnate (solo foto + pannello) -----
+def panel(ph, top, dark=False, h=H):
+    """foto nella fascia alta, pannello pieno sotto con angoli arrotondati"""
+    im = Image.new("RGB", (W, h), DEEP if dark else OFF); im.paste(photo(ph, W, top + 80), (0, 0))
+    im = shade(im, top=0.45); lay = Image.new("RGBA", (W, h), (0, 0, 0, 0))
+    ImageDraw.Draw(lay).rounded_rectangle([0, top, W, h + 80], radius=70, fill=(DEEP if dark else OFF) + (255,))
+    im.paste(lay, (0, 0), lay); header_white(im); return im
+
+def foot(im, dark=False, h=H):
+    d = ImageDraw.Draw(im); f = font("Poppins-Bold.ttf", 34); t = "@laviadellaromaterapia"
+    d.text(((W - d.textlength(t, font=f)) / 2, h - 120), t, font=f, fill=(222, 210, 240) if dark else PURPLE)
+
+def v4_ritual(rt, ph):
+    top = 640; im = panel(ph, top, dark=True); d = ImageDraw.Draw(im)
+    y = label(d, "IL RITUALE DI STAGIONE", 70, top + 70, bgc=GOLD, fg=DEEP, fs=32)
+    y = block(d, rt["titolo"], fit(d, rt["titolo"], "Poppins-Bold.ttf", 96, 940, 2), y + 36, (250, 244, 255), maxw=940, gap=1.1, x=70)
+    if rt.get("sub"): y = block(d, rt["sub"], font("Poppins-Bold.ttf", 44), y + 16, GOLD, maxw=940, x=70)
+    y += 44; fp = font("Poppins-Regular.ttf", 46 if len(rt["passi"]) <= 3 else 40)
+    for k, p in enumerate(rt["passi"][:5], 1):
+        d.text((70, y), f"{k}", font=font("Poppins-Bold.ttf", 52), fill=GOLD)
+        y = block(d, p, fp, y + 6, (236, 228, 248), maxw=860, gap=1.33, x=140) + 28
+    foot(im, True); return im
+
+def v4_blend(bl, ph):
+    top = 600; im = panel(ph, top); d = ImageDraw.Draw(im)
+    y = label(d, "IL BLEND DELLA SETTIMANA", 70, top + 60, bgc=TERRA, fs=30)
+    y = block(d, bl["nome"], fit(d, bl["nome"], "Poppins-Bold.ttf", 88, 940, 2), y + 30, TERRA, maxw=940, gap=1.1, x=70)
+    y = block(d, bl.get("quando", ""), font("Poppins-Bold.ttf", 42), y + 10, GREEN, maxw=940, x=70) + 40
+    for o in bl["oli"][:4]:
+        d.rounded_rectangle([70, y, W - 70, y + 130], radius=36, fill=(255, 255, 255))
+        d.text((110, y + 34), o["olio"], font=fit(d, o["olio"], "Poppins-Bold.ttf", 54, 600, 1), fill=PURPLE)
+        g = int(o["gocce"]); t = f"{g} gocc{'ia' if g == 1 else 'e'}"; f = font("Poppins-Bold.ttf", 44)
+        d.text((W - 110 - d.textlength(t, font=f), y + 40), t, font=f, fill=TERRA); y += 150
+    if bl.get("note"): block(d, bl["note"], fit(d, bl["note"], "Poppins-Regular.ttf", 44, 940, 4), y + 20, BODY, maxw=940, gap=1.38, x=70)
+    foot(im); return im
+
+def v4_myth(m, i, n, ph):
+    top = 700; im = panel(ph, top); d = ImageDraw.Draw(im)
+    if n > 1: pill(d, f"{i + 1}/{n}", W - 70, 80)
+    y = label(d, "VERO O FALSO?", 70, top + 70, bgc=PURPLE, fs=32); claim = f"“{m['claim']}”"
+    y = block(d, claim, fit(d, claim, "Poppins-BoldItalic.ttf", 80, 940, 4), y + 34, PURPLE, maxw=940, gap=1.12, x=70)
+    v = m["verdetto"].upper(); f = font("Poppins-Bold.ttf", 96); tw = d.textlength(v, font=f); y += 40
+    d.rounded_rectangle([70, y, 70 + tw + 90, y + 140], radius=50, fill=TERRA if v.startswith("FALS") else GREEN)
+    d.text((115, y + 10), v, font=f, fill=(255, 255, 255))
+    block(d, m["spiegazione"], fit(d, m["spiegazione"], "Poppins-Regular.ttf", 52, 940, 6), y + 190, BODY, maxw=940, gap=1.42, x=70)
+    foot(im); return im
+
+def v4_card(s, ph):
+    top = 560; im = panel(ph, top); d = ImageDraw.Draw(im)
+    y = label(d, "LA SCHEDA DELL'OLIO", 70, top + 56, bgc=GREEN, fs=30)
+    y = block(d, s["olio"], fit(d, s["olio"], "Poppins-Bold.ttf", 110, 940, 2), y + 20, PURPLE, maxw=940, x=70)
+    y = block(d, s.get("famiglia", ""), font("Poppins-Bold.ttf", 40), y + 2, GREEN, maxw=940, x=70) + 36
+    secs = [("PROFUMO", s["profumo"]), ("SI ABBINA CON", s["abbinamenti"]), ("3 USI", " · ".join(s["usi"]))]
+    if s.get("sostituti"): secs.append(("SE NON CE L'HAI", s["sostituti"]))
+    fs, lines = (46, 3) if len(secs) == 3 else (40, 3)
+    for t, body in secs:
+        d.text((70, y), t, font=font("Poppins-Bold.ttf", 34), fill=TERRA)
+        y = block(d, body, fit(d, body, "Poppins-Regular.ttf", fs, 940, lines), y + 50, BODY, maxw=940, gap=1.3, x=70) + 26
+    foot(im); return im
+
+def v4_cta(c, ph):
+    im = shade(photo(ph), top=0.5, flat=0.55, color=(30, 18, 46)); header_white(im)
+    lg = logo(170); im.paste(lg, ((W - 170) // 2, 560), lg); d = ImageDraw.Draw(im)
+    fc = fit(d, c["cta"], "Poppins-Bold.ttf", 88, 880, 4)
+    sub = ("Ogni sera alle 19:30 una nuova pillola" if c.get("rubrica") == "pillola" else
+           f"Ogni {GIORNI.get(c.get('rubrica'), 'giorno')}: {RUBRICHE.get(c.get('rubrica'), 'un consiglio pratico').lower()}")
+    def draw(dd, col, dx, dy):
+        y = block(dd, c["cta"], fc, 860 + dy, col or WHITE, maxw=880, gap=1.14)
+        block(dd, sub, font("Poppins-Bold.ttf", 40), y + 60 + dy, col or (250, 222, 160), maxw=860)
+    shadow_text(im, draw); d = ImageDraw.Draw(im)
+    t = "@laviadellaromaterapia"; f = font("Poppins-Bold.ttf", 38); d.text(((W - d.textlength(t, font=f)) / 2, H - 140), t, font=f, fill=SOFTW)
+    return im
+
+def v4_scenes(c):
+    r = c.get("rubrica", "comesifa"); tips = c.get("tips", []); cov, sce, cta = photos_for(c); sc = []
+    extra = [f for f in stock_files(c.get("foto", {}).get("scene", RUB_FOTO.get(r, RUB_FOTO["comesifa"])[1])) if f not in (cov, cta)]
+    used_tip = set()
+    def _tip_photo(i): return extra[(i + int(hashlib.md5(c["hook"].encode()).hexdigest(), 16)) % len(extra)] if extra else sce
+    def tip_photo(i):
+        for t in ((tips[i]["title"].lower(), tips[i].get("body", "").lower()) if i < len(tips) else ()):
+            for k, cat in KEYWORDS.items():
+                if k in t and cat in ("bottiglie", "lavanda", "limone", "arancio", "eucalipto", "erbe", "rosmarino", "incenso", "diffusore", "candele", "tessuti", "casa", "bagno", "te", "viaggio"):
+                    f = pick_photo(cat, c["hook"] + str(i), tuple(used_tip | {cov, cta})); used_tip.add(f); return f
+        return _tip_photo(i)
+    def add(im, text, lo=3.2, hi=6.5, dark=False): sc.append((im, secs_for(text, lo, hi), dark))
+    add(v4_cover(c, cov), c["hook"] + " " + c.get("sub", ""), 3.0, 4.5, True)
+    def tipscenes():
+        for i, t in enumerate(tips): add(v4_tip(t, i, len(tips), tip_photo(i)), t["title"] + " " + t["body"])
+    if r == "blend":
+        bl = c["blend"]; add(v4_blend(bl, sce), bl["nome"] + " " + bl.get("note", "") + " x" * 8, 5, 8); tipscenes()
+    elif r == "mito":
+        for i, m in enumerate(c["mito"]): add(v4_myth(m, i, len(c["mito"]), _tip_photo(i)), m["claim"] + " " + m["spiegazione"], 4.5, 7.5)
+    elif r == "rituale":
+        rt = c["rituale"]; add(v4_ritual(rt, sce), " ".join(rt["passi"]) + " " + rt["titolo"], 6, 9, True)
+    elif r == "scheda":
+        s = c["scheda"]; ph = pick_photo(next((cat for k, cat in KEYWORDS.items() if k in s["olio"].lower()), sce), c["hook"] + "s", (cov,)) if any(k in s["olio"].lower() for k in KEYWORDS) else sce
+        add(v4_card(s, ph), s["profumo"] + " " + s["abbinamenti"] + " " + " ".join(s["usi"]) + " " + s.get("sostituti", ""), 6, 10); tipscenes()
+    else: tipscenes()
+    add(v4_cta(c, cta), c["cta"], 3.6, 4.2, True)
+    return sc, (cov, sce, cta)
+
+# carosello del sabato senza disegni
+def wc_slide_photo(i, n, title, body, ph):
+    w, h = W, CH; top = 600; im = panel(ph, top, h=h); d = ImageDraw.Draw(im); pill(d, f"{i}/{n}", w - 70, 80)
+    cx = 170; d.ellipse([cx - 80, top - 80, cx + 80, top + 80], fill=PURPLE, outline=OFF, width=10)
+    t = f"{i}"; f = font("Poppins-Bold.ttf", 76); d.text((cx - d.textlength(t, font=f) / 2, top - 52), t, font=f, fill=WHITE)
+    y = block(d, title, fit(d, title, "Poppins-BoldItalic.ttf", 78, 920, 2), top + 120, PURPLE, maxw=920, gap=1.12, x=80)
+    block(d, body, fit(d, body, "Poppins-Regular.ttf", 54, 920, 5), y + 30, BODY, maxw=920, gap=1.42, x=80)
+    d.text((80, h - 90), "@laviadellaromaterapia", font=font("Poppins-Bold.ttf", 32), fill=PURPLE); return im
+
+def wc_end_photo(cta, ph):
+    w, h = W, CH; im = shade(photo(ph, w, h), top=0.5, flat=0.58, color=(30, 18, 46)); header_white(im)
+    lg = logo(150); im.paste(lg, ((w - 150) // 2, 330), lg); d = ImageDraw.Draw(im); fc = fit(d, cta, "Poppins-Bold.ttf", 80, 880, 4)
+    def draw(dd, col, dx, dy):
+        y = block(dd, cta, fc, 600 + dy, col or WHITE, maxw=880, gap=1.14)
+        block(dd, "Ogni sabato un nuovo rituale", font("Poppins-Bold.ttf", 40), y + 50 + dy, col or (250, 222, 160), maxw=860)
+    shadow_text(im, draw); d = ImageDraw.Draw(im); f = font("Poppins-Bold.ttf", 36); t = "@laviadellaromaterapia"
+    d.text(((w - d.textlength(t, font=f)) / 2, h - 110), t, font=f, fill=SOFTW); return im
+
+def weekly_carousel_v4(c, outdir):
+    os.makedirs(outdir, exist_ok=True); cs = c.get("carosello") or {}
+    title = cs.get("titolo") or (c.get("rituale") or {}).get("titolo") or c["hook"]
+    sub = cs.get("sub") or (c.get("rituale") or {}).get("sub") or c.get("sub", "")
+    slides = cs.get("slides") or [{"title": t["title"], "body": t["body"]} for t in summary_tips(c)]
+    cov, sce, cta = photos_for(c); r = c.get("rubrica", "rituale")
+    pool = [f for f in stock_files(c.get("foto", {}).get("scene", RUB_FOTO.get(r, RUB_FOTO["comesifa"])[1])) + stock_files("candele") + stock_files("tessuti") if f not in (cov, cta)]
+    pool = list(dict.fromkeys(pool)); n = len(slides)
+    def sp(i):
+        for k, cat in KEYWORDS.items():
+            if k in (slides[i]["title"] + " " + slides[i]["body"]).lower() and cat not in ("luna",): return pick_photo(cat, title + str(i), (cov, cta))
+        return pool[(i + int(hashlib.md5(title.encode()).hexdigest(), 16)) % len(pool)]
+    ims = [wc_cover_photo(title, sub, cov)] + [wc_slide_photo(i + 1, n, s["title"], s["body"], sp(i)) for i, s in enumerate(slides)]
+    end = cta if not cta.startswith("luna_") else pick_photo("candele", title + "e", (cov,))
+    ims.append(wc_end_photo(cs.get("cta") or "Salva il post e prova il rituale questa sera", end))
+    paths = []
+    for k, im in enumerate(ims):
+        p = os.path.join(outdir, f"slide_{k + 1:02d}.jpg"); im.convert("RGB").save(p, "JPEG", quality=90); paths.append(p)
+    print("\n".join(paths))
+
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     c = json.load(open(args[0])); v4 = stock_ok() and "--v3" not in sys.argv
     if "--weekly-carousel" in sys.argv:
-        if v4:
-            global wc_cover
-            ph = photos_for(c)[0]; wc_cover = lambda title, sub: wc_cover_photo(title, sub, ph)
-        return weekly_carousel(c, args[1])
+        return (weekly_carousel_v4 if v4 else weekly_carousel)(c, args[1])
     if "--carousel" in sys.argv:
         if "rubrica" in c: c = dict(c, tips=summary_tips(c))
         return carousel(c, args[1])
