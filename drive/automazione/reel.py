@@ -4,7 +4,7 @@ Reel 1080x1920:      python3 reel.py contenuti.json out.mp4 [audio.mp3] [--frame
 Immagini 1080x1350:  python3 reel.py contenuti.json --carousel cartella_output
    (slide_01.jpg ... slide_NN.jpg + riassunto.jpg per Facebook)
 JSON: {"hook", "sub", "tips": [{"title", "body"}], "cta", "cta_post"?, "handle"}
-Template v3 (rubriche, movimento) descritti nella sezione TEMPLATE v3 in fondo.
+Template v3 (rubriche, movimento) e v4 (foto stock, Ken Burns) descritti in fondo al file.
 Template (v2): hook e CTA stile "carosello lilla", consigli stile "capitolo rosa con goccia",
 riassunto stile "copertina guida". Niente foto: solo forme, testo ad alto contrasto.
 """
@@ -709,16 +709,220 @@ def main_v2():
     print(out)
 
 
+# =====================================================================
+# TEMPLATE v4 (dall'8 novembre 2026): foto stock di sfondo + movimento Ken Burns
+# Si attiva da solo se esiste la cartella stock/ (accanto a reel.py o in $STOCK_DIR).
+# JSON v4 = JSON v3 + "foto"?: {"cover": "lavanda", "scene": "bottiglie", "cta": "candele"}
+#   ogni valore e' una categoria di stock/catalogo.json oppure un nome file (es. "lavanda_4936400.jpg").
+#   Se "foto" manca, le categorie vengono scelte dalla rubrica e dalle parole dell'hook.
+# Rubrica serale "pillola" (reel delle 19:30): come comesifa, 1-3 tips, "serie": nome della serie mostrato in copertina.
+# Forzare i vecchi template: aggiungere --v3 alla riga di comando.
+# =====================================================================
+import hashlib
+RUBRICHE["pillola"] = "La pillola della sera"; GIORNI["pillola"] = "sera"
+STOCK_DIR = os.environ.get("STOCK_DIR") or os.path.join(os.path.dirname(os.path.abspath(__file__)), "stock")
+KEYWORDS = {"lavanda": "lavanda", "limone": "limone", "arancia": "arancio", "arancio": "arancio", "mandarino": "arancio",
+            "bergamotto": "arancio", "agrum": "arancio", "eucalipto": "eucalipto", "menta": "erbe", "rosmarino": "rosmarino",
+            "tea tree": "erbe", "cedro": "bottiglie", "salvia": "erbe", "timo": "erbe", "ylang": "candele", "geranio": "erbe", "cannella": "natale", "chiodi di garofano": "natale", "camomilla": "erbe", "incenso": "incenso", "diffusore": "diffusore", "candel": "candele",
+            "sera": "candele", "notte": "luna", "luna": "luna", "sonno": "luna", "autunno": "autunno", "freddo": "tessuti",
+            "inverno": "tessuti", "natale": "natale", "regal": "natale", "bagno": "bagno", "tisana": "te", "tè": "te",
+            "casa": "casa", "pulizi": "casa", "fritto": "casa", "bucato": "tessuti", "armadio": "tessuti", "viaggio": "viaggio",
+            "valigia": "viaggio", "auto": "viaggio", "kit": "bottiglie", "scade": "bottiglie", "gocce": "bottiglie"}
+RUB_FOTO = {"momento": ("bottiglie", "bottiglie", "candele"), "comesifa": ("diffusore", "bottiglie", "diffusore"),
+            "blend": ("bottiglie", "bottiglie", "candele"), "faidate": ("casa", "casa", "tessuti"),
+            "mito": ("bottiglie", "bottiglie", "bottiglie"), "rituale": ("candele", "luna", "luna"),
+            "scheda": ("erbe", "erbe", "bottiglie"), "pillola": ("bottiglie", "bottiglie", "candele")}
+
+def stock_ok():
+    return os.path.isdir(STOCK_DIR) and any(f.endswith(".jpg") for f in os.listdir(STOCK_DIR))
+
+def stock_files(cat):
+    fs = sorted(f for f in os.listdir(STOCK_DIR) if f.endswith(".jpg") and f.split("_")[0] == cat)
+    return fs or sorted(f for f in os.listdir(STOCK_DIR) if f.startswith("bottiglie_"))
+
+def pick_photo(spec, seed, avoid=()):
+    if spec.endswith(".jpg") and os.path.exists(os.path.join(STOCK_DIR, spec)): return spec
+    fs = [f for f in stock_files(spec) if f not in avoid] or stock_files(spec)
+    return fs[int(hashlib.md5(seed.encode()).hexdigest(), 16) % len(fs)]
+
+def photos_for(c):
+    r = c.get("rubrica", "comesifa"); dflt = list(RUB_FOTO.get(r, RUB_FOTO["comesifa"]))
+    txt = (c.get("hook", "") + " " + c.get("sub", "") + " " + json.dumps(c.get("scheda", {}), ensure_ascii=False)).lower()
+    for k, cat in KEYWORDS.items():
+        if k in txt: dflt[0] = cat; break
+    f = c.get("foto") or {}
+    spec = {"cover": f.get("cover", dflt[0]), "scene": f.get("scene", dflt[1]), "cta": f.get("cta", dflt[2])}
+    seed = c.get("hook", "") + c.get("data", "")
+    cov = pick_photo(spec["cover"], seed + "c"); sce = pick_photo(spec["scene"], seed + "s", (cov,))
+    cta = pick_photo(spec["cta"], seed + "t", (cov, sce)); return cov, sce, cta
+
+def photo(name, w=W, h=H):
+    """ritaglio w x h; se la foto e' piu' alta del riquadro sceglie la fascia con piu' dettagli (il soggetto)"""
+    im = Image.open(os.path.join(STOCK_DIR, name)).convert("RGB")
+    s = max(w / im.width, h / im.height); im = im.resize((round(im.width * s), round(im.height * s)), Image.LANCZOS)
+    x, y = (im.width - w) // 2, (im.height - h) // 2
+    if im.height - h > 40:
+        e = im.convert("L").resize((im.width // 8, im.height // 8)).filter(ImageFilter.FIND_EDGES)
+        import numpy as _np; rows = _np.asarray(e, dtype=float).sum(axis=1).tolist()
+        hh = h // 8; best = max(range(0, e.height - hh + 1), key=lambda r: sum(rows[r:r + hh]))
+        y = min(im.height - h, best * 8)
+    return im.crop((x, y, x + w, y + h))
+
+def shade(im, top=0.0, bottom=0.0, color=(28, 18, 40), start=0.35, flat=0.0):
+    """sfumatura scura dall'alto e dal basso per leggere il testo bianco"""
+    w, h = im.size; g = Image.new("L", (1, h))
+    for y in range(h):
+        t = y / h; a = flat
+        if bottom: a = max(a, bottom * max(0.0, (t - start) / (1 - start)) ** 1.25)
+        if top: a = max(a, top * max(0.0, 1 - t / 0.22))
+        g.putpixel((0, y), int(255 * min(1, a)))
+    over = Image.new("RGB", (w, h), color); return Image.composite(over, im, g.resize((w, h)))
+
+def soft_bg(name, dark=False, w=W, h=H):
+    """foto sfocata e schiarita (o scurita) come fondo delle schede piene di testo"""
+    p = photo(name, w, h).filter(ImageFilter.GaussianBlur(28))
+    if dark: return Image.blend(p, Image.new("RGB", (w, h), DEEP), 0.68)
+    return Image.blend(p, Image.new("RGB", (w, h), OFF), 0.84)
+
+WHITE = (255, 255, 255); SOFTW = (244, 236, 250)
+def header_white(im):
+    lg = logo(72); im.paste(lg, (70, 70), lg); d = ImageDraw.Draw(im)
+    spaced(d, (160, 76), "LA VIA", serif(30, "Bold"), WHITE); spaced(d, (160, 112), "DELL’AROMATERAPIA", serif(17), SOFTW)
+
+def shadow_text(im, fn):
+    """disegna il testo con un'ombra morbida: fn(draw, color, dx, dy)"""
+    sh = Image.new("RGBA", im.size, (0, 0, 0, 0)); fn(ImageDraw.Draw(sh), (0, 0, 0, 150), 0, 4)
+    sh = sh.filter(ImageFilter.GaussianBlur(8)); im.paste(sh, (0, 0), sh); fn(ImageDraw.Draw(im), None, 0, 0)
+
+def v4_cover(c, ph):
+    im = shade(photo(ph), top=0.55, bottom=0.88, start=0.30); header_white(im); d = ImageDraw.Draw(im)
+    fh = fit(d, c["hook"], "Poppins-Bold.ttf", 112, 940, 5); lines = wrap(d, c["hook"], fh, 940)
+    fs = font("Poppins-Bold.ttf", 50); sl = wrap(d, c.get("sub", ""), fs, 920) if c.get("sub") else []
+    hh = len(lines) * fh.size * 1.1 + (30 + len(sl) * 50 * 1.22 if sl else 0)
+    y0 = int(H - 260 - hh); y = label(d, (c.get("serie") or RUBRICHE.get(c.get("rubrica"), "Il consiglio del giorno")).upper(), 70, y0 - 100,
+                                      bgc=GOLD, fg=DEEP, fs=32)
+    def draw(dd, col, dx, dy):
+        yy = block(dd, c["hook"], fh, y0 + dy, col or WHITE, maxw=940, gap=1.1, x=70 + dx)
+        if sl: block(dd, c["sub"], fs, yy + 30 + dy, col or (250, 222, 160), maxw=920, x=70 + dx)
+    shadow_text(im, draw); d = ImageDraw.Draw(im)
+    t = "@laviadellaromaterapia"; f = font("Poppins-Bold.ttf", 36); d.text(((W - d.textlength(t, font=f)) / 2, H - 130), t, font=f, fill=SOFTW)
+    return im
+
+def v4_tip(t, i, n, ph):
+    """foto in alto, pannello crema in basso con numero e consiglio"""
+    top = 860; im = Image.new("RGB", (W, H), OFF); im.paste(photo(ph, W, top + 80), (0, 0))
+    im = shade(im, top=0.4); pan = Image.new("RGBA", (W, H), (0, 0, 0, 0)); pd = ImageDraw.Draw(pan)
+    pd.rounded_rectangle([0, top, W, H + 80], radius=70, fill=OFF + (255,)); im.paste(pan, (0, 0), pan)
+    header_white(im); d = ImageDraw.Draw(im); pill(d, f"{i + 1}/{n}", W - 70, 80)
+    cx = 180; d.ellipse([cx - 90, top - 90, cx + 90, top + 90], fill=PURPLE, outline=OFF, width=10)
+    num = f"{i + 1:02d}"; fn = font("Poppins-Bold.ttf", 82); d.text((cx - d.textlength(num, font=fn) / 2, top - 58), num, font=fn, fill=WHITE)
+    y = top + 150
+    if t.get("momento"):
+        f = font("Poppins-Bold.ttf", 44); d.text((90, y), t["momento"].upper(), font=f, fill=GREEN); y += 80
+    y = block(d, t["title"], fit(d, t["title"], "Poppins-BoldItalic.ttf", 100, 900, 3), y, PURPLE, maxw=900, gap=1.12, x=90)
+    block(d, t["body"], fit(d, t["body"], "Poppins-Regular.ttf", 62, 900, 7), y + 40, BODY, maxw=900, gap=1.42, x=90)
+    lg = logo(56); im.paste(lg, (90, H - 150), lg); d = ImageDraw.Draw(im)
+    d.text((160, H - 142), "@laviadellaromaterapia", font=font("Poppins-Bold.ttf", 34), fill=PURPLE); return im
+
+def v4_cta(c, ph):
+    im = shade(photo(ph), top=0.5, flat=0.55, color=(30, 18, 46)); header_white(im); d = ImageDraw.Draw(im)
+    cx, top = W // 2, 520; paste_drop(im, cx, top, 74, 150, fill=LILAC); paste_drop(im, cx, top, 74, 150, outline=GOLD, width=5)
+    d = ImageDraw.Draw(im); fc = fit(d, c["cta"], "Poppins-Bold.ttf", 88, 880, 4)
+    sub = ("Ogni sera alle 19:30 una nuova pillola" if c.get("rubrica") == "pillola" else
+           f"Ogni {GIORNI.get(c.get('rubrica'), 'giorno')}: {RUBRICHE.get(c.get('rubrica'), 'un consiglio pratico').lower()}")
+    def draw(dd, col, dx, dy):
+        y = block(dd, c["cta"], fc, 860 + dy, col or WHITE, maxw=880, gap=1.14)
+        block(dd, sub, font("Poppins-Bold.ttf", 40), y + 60 + dy, col or (250, 222, 160), maxw=860)
+    shadow_text(im, draw); d = ImageDraw.Draw(im)
+    t = "@laviadellaromaterapia"; f = font("Poppins-Bold.ttf", 38); d.text(((W - d.textlength(t, font=f)) / 2, H - 140), t, font=f, fill=SOFTW)
+    return im
+
+def on_photo(pair, ph, dark=False):
+    """riusa una scheda v3 (blend, mito, rituale, scheda) sostituendo la texture con la foto sfocata"""
+    b, full = pair; fg = fg_layer(b, full); nb = soft_bg(ph, dark); nb.paste(fg, (0, 0), fg); return nb
+
+def render_kb(im, dur, out, fade_in=True, zoom_out=False, dark=False):
+    """Ken Burns: zoom lento su tutta la scena (avanti o indietro)"""
+    png = out + ".png"; im.convert("RGB").save(png); n = int(dur * FPS)
+    z = f"1.06-0.06*on/{n}" if zoom_out else f"1+0.05*on/{n}"
+    col = "0x1C1228" if dark else "0xFBF8F6"
+    fin = f"fade=t=in:st=0:d=0.3:color={col}," if fade_in else ""
+    vf = (f"scale=1620:2880,zoompan=z='{z}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d={n}:s={W}x{H}:fps={FPS},"
+          f"format=yuv420p,trim=duration={dur:.2f},{fin}fade=t=out:st={dur - 0.3:.2f}:d=0.3:color={col}")
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-loop", "1", "-framerate", str(FPS), "-t", f"{dur:.2f}", "-i", png,
+                    "-vf", vf, "-r", str(FPS), "-c:v", "libx264", "-crf", "20", "-preset", "veryfast", "-pix_fmt", "yuv420p", out], check=True)
+    os.remove(png)
+
+def v4_scenes(c):
+    r = c.get("rubrica", "comesifa"); tips = c.get("tips", []); cov, sce, cta = photos_for(c); sc = []
+    extra = [f for f in stock_files(c.get("foto", {}).get("scene", RUB_FOTO.get(r, RUB_FOTO["comesifa"])[1])) if f not in (cov, cta)]
+    used_tip = set()
+    def tip_photo(i):
+        for t in ((tips[i]["title"].lower(), tips[i].get("body", "").lower()) if i < len(tips) else ()):
+          for k, cat in KEYWORDS.items():
+            if k in t and cat in ("bottiglie", "lavanda", "limone", "arancio", "eucalipto", "erbe", "rosmarino", "incenso", "diffusore", "candele", "tessuti", "casa", "bagno", "te", "viaggio"):
+                f = pick_photo(cat, c["hook"] + str(i), tuple(used_tip | {cov, cta})); used_tip.add(f); return f
+        return _tip_photo(i)
+    def _tip_photo(i): return extra[(i + int(hashlib.md5(c["hook"].encode()).hexdigest(), 16)) % len(extra)] if extra else sce
+    def add(im, text, lo=3.2, hi=6.5, dark=False): sc.append((im, secs_for(text, lo, hi), dark))
+    add(v4_cover(c, cov), c["hook"] + " " + c.get("sub", ""), 3.0, 4.5, True)
+    def tipscenes():
+        for i, t in enumerate(tips): add(v4_tip(t, i, len(tips), tip_photo(i)), t["title"] + " " + t["body"])
+    if r == "blend":
+        bl = c["blend"]; add(on_photo(v3_blend(bl), sce), bl["nome"] + " " + bl.get("note", "") + " x" * 8, 5, 8); tipscenes()
+    elif r == "mito":
+        for i, m in enumerate(c["mito"]): add(on_photo(v3_myth(m, i, len(c["mito"])), tip_photo(i)), m["claim"] + " " + m["spiegazione"], 4.5, 7.5)
+    elif r == "rituale":
+        rt = c["rituale"]; add(on_photo(v3_ritual(rt), sce, True), " ".join(rt["passi"]) + " " + rt["titolo"], 6, 9, True)
+    elif r == "scheda":
+        s = c["scheda"]; add(on_photo(v3_card(s), sce), s["profumo"] + " " + s["abbinamenti"] + " " + " ".join(s["usi"]) + " " + s.get("sostituti", ""), 6, 10); tipscenes()
+    else: tipscenes()
+    add(v4_cta(c, cta), c["cta"], 3.6, 4.2, True)
+    return sc, (cov, sce, cta)
+
+def reel_v4(c, out, audio=None, frames=False):
+    tmp = tempfile.mkdtemp(); sc, used = v4_scenes(c); files = []
+    for k, (im, dur, dark) in enumerate(sc):
+        mp4 = f"{tmp}/s{k}.mp4"; render_kb(im, dur, mp4, fade_in=(k > 0), zoom_out=(k % 2 == 1), dark=dark); files.append(mp4)
+    lst = f"{tmp}/list.txt"; open(lst, "w").write("".join(f"file '{f}'\n" for f in files))
+    silent = f"{tmp}/video.mp4"
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", lst, "-c", "copy", silent], check=True)
+    total = sum(s[1] for s in sc)
+    if audio:
+        af = f"afade=t=in:st=0:d=0.8,afade=t=out:st={total-2:.2f}:d=2,volume=0.85"
+        cmd = ["ffmpeg", "-y", "-loglevel", "error", "-i", silent, "-stream_loop", "-1", "-i", audio, "-map", "0:v", "-map", "1:a",
+               "-af", af, "-t", f"{total:.2f}", "-c:v", "copy", "-c:a", "aac", "-b:a", "160k", out]
+    else:
+        cmd = ["ffmpeg", "-y", "-loglevel", "error", "-i", silent, "-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo",
+               "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-c:a", "aac", "-shortest", out]
+    subprocess.run(cmd, check=True)
+    if frames:
+        for k, s in enumerate(sc): s[0].convert("RGB").save(out[:-4] + f"_frame{k}.png")
+    print(out); print("FOTO_USATE:", ",".join(used))
+
+def wc_cover_photo(title, sub, ph):
+    w, h = W, CH; im = shade(photo(ph, w, h), top=0.55, bottom=0.9, start=0.25); header_white(im); d = ImageDraw.Draw(im)
+    ft = fit(d, title, "Poppins-Bold.ttf", 92, 920, 3); lines = wrap(d, title, ft, 920)
+    y0 = int(h - 230 - len(lines) * ft.size * 1.1 - (70 if sub else 0)); label(d, "DA SALVARE", 70, y0 - 100, bgc=GOLD, fg=DEEP, fs=30)
+    def draw(dd, col, dx, dy):
+        y = block(dd, title, ft, y0 + dy, col or WHITE, maxw=920, gap=1.1, x=70)
+        if sub: block(dd, sub, font("Poppins-Bold.ttf", 42), y + 20 + dy, col or (250, 222, 160), maxw=920, x=70)
+    shadow_text(im, draw); arrow_label(ImageDraw.Draw(im), "Scorri", w - 60, h - 100, color=WHITE); return im
+
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
-    c = json.load(open(args[0]))
+    c = json.load(open(args[0])); v4 = stock_ok() and "--v3" not in sys.argv
     if "--weekly-carousel" in sys.argv:
+        if v4:
+            global wc_cover
+            ph = photos_for(c)[0]; wc_cover = lambda title, sub: wc_cover_photo(title, sub, ph)
         return weekly_carousel(c, args[1])
     if "--carousel" in sys.argv:
         if "rubrica" in c: c = dict(c, tips=summary_tips(c))
         return carousel(c, args[1])
     if "rubrica" in c:
-        return reel_v3(c, args[1], args[2] if len(args) > 2 else None, "--frames" in sys.argv)
+        fn = reel_v4 if v4 else reel_v3
+        return fn(c, args[1], args[2] if len(args) > 2 else None, "--frames" in sys.argv)
     return main_v2()
 
 if __name__ == "__main__":

@@ -1,0 +1,467 @@
+{
+ "licenza": "Pexels License: uso gratuito anche commerciale, attribuzione non obbligatoria. Nessuna persona riconoscibile, nessun marchio visibile.",
+ "categorie": {
+  "arancio": [
+   {
+    "file": "arancio_30291266.jpg",
+    "pexels_id": "30291266",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/30291266/"
+   },
+   {
+    "file": "arancio_30925639.jpg",
+    "pexels_id": "30925639",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/30925639/"
+   },
+   {
+    "file": "arancio_7656854.jpg",
+    "pexels_id": "7656854",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/7656854/"
+   }
+  ],
+  "autunno": [
+   {
+    "file": "autunno_14014291.jpg",
+    "pexels_id": "14014291",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/14014291/"
+   },
+   {
+    "file": "autunno_14257872.jpg",
+    "pexels_id": "14257872",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/14257872/"
+   },
+   {
+    "file": "autunno_14456978.jpg",
+    "pexels_id": "14456978",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/14456978/"
+   },
+   {
+    "file": "autunno_9622383.jpg",
+    "pexels_id": "9622383",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/9622383/"
+   },
+   {
+    "file": "autunno_9634191.jpg",
+    "pexels_id": "9634191",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/9634191/"
+   }
+  ],
+  "bagno": [
+   {
+    "file": "bagno_21661433.jpg",
+    "pexels_id": "21661433",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/21661433/"
+   },
+   {
+    "file": "bagno_7691101.jpg",
+    "pexels_id": "7691101",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/7691101/"
+   }
+  ],
+  "bottiglie": [
+   {
+    "file": "bottiglie_18708752.jpg",
+    "pexels_id": "18708752",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/18708752/"
+   },
+   {
+    "file": "bottiglie_40557468.jpg",
+    "pexels_id": "40557468",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/40557468/"
+   },
+   {
+    "file": "bottiglie_6693951.jpg",
+    "pexels_id": "6693951",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/6693951/"
+   },
+   {
+    "file": "bottiglie_6693962.jpg",
+    "pexels_id": "6693962",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/6693962/"
+   },
+   {
+    "file": "bottiglie_6693973.jpg",
+    "pexels_id": "6693973",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/6693973/"
+   },
+   {
+    "file": "bottiglie_6694181.jpg",
+    "pexels_id": "6694181",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/6694181/"
+   },
+   {
+    "file": "bottiglie_6694188.jpg",
+    "pexels_id": "6694188",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/6694188/"
+   },
+   {
+    "file": "bottiglie_6694216.jpg",
+    "pexels_id": "6694216",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/6694216/"
+   },
+   {
+    "file": "bottiglie_6766543.jpg",
+    "pexels_id": "6766543",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/6766543/"
+   },
+   {
+    "file": "bottiglie_6914957.jpg",
+    "pexels_id": "6914957",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/6914957/"
+   },
+   {
+    "file": "bottiglie_6915310.jpg",
+    "pexels_id": "6915310",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/6915310/"
+   },
+   {
+    "file": "bottiglie_7797738.jpg",
+    "pexels_id": "7797738",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/7797738/"
+   },
+   {
+    "file": "bottiglie_8054327.jpg",
+    "pexels_id": "8054327",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/8054327/"
+   },
+   {
+    "file": "bottiglie_8490090.jpg",
+    "pexels_id": "8490090",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/8490090/"
+   },
+   {
+    "file": "bottiglie_9898734.jpg",
+    "pexels_id": "9898734",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/9898734/"
+   },
+   {
+    "file": "bottiglie_9898737.jpg",
+    "pexels_id": "9898737",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/9898737/"
+   }
+  ],
+  "candele": [
+   {
+    "file": "candele_36563156.jpg",
+    "pexels_id": "36563156",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/36563156/"
+   },
+   {
+    "file": "candele_39572247.jpg",
+    "pexels_id": "39572247",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/39572247/"
+   },
+   {
+    "file": "candele_9687370.jpg",
+    "pexels_id": "9687370",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/9687370/"
+   }
+  ],
+  "casa": [
+   {
+    "file": "casa_10568358.jpg",
+    "pexels_id": "10568358",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/10568358/"
+   },
+   {
+    "file": "casa_10573235.jpg",
+    "pexels_id": "10573235",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/10573235/"
+   }
+  ],
+  "diffusore": [
+   {
+    "file": "diffusore_6914718.jpg",
+    "pexels_id": "6914718",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/6914718/"
+   },
+   {
+    "file": "diffusore_6914777.jpg",
+    "pexels_id": "6914777",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/6914777/"
+   },
+   {
+    "file": "diffusore_6914874.jpg",
+    "pexels_id": "6914874",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/6914874/"
+   },
+   {
+    "file": "diffusore_6915261.jpg",
+    "pexels_id": "6915261",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/6915261/"
+   },
+   {
+    "file": "diffusore_6915263.jpg",
+    "pexels_id": "6915263",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/6915263/"
+   }
+  ],
+  "erbe": [
+   {
+    "file": "erbe_10083955.jpg",
+    "pexels_id": "10083955",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/10083955/"
+   },
+   {
+    "file": "erbe_6694137.jpg",
+    "pexels_id": "6694137",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/6694137/"
+   },
+   {
+    "file": "erbe_6694168.jpg",
+    "pexels_id": "6694168",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/6694168/"
+   },
+   {
+    "file": "erbe_837275.jpg",
+    "pexels_id": "837275",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/837275/"
+   }
+  ],
+  "eucalipto": [
+   {
+    "file": "eucalipto_4134558.jpg",
+    "pexels_id": "4134558",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/4134558/"
+   },
+   {
+    "file": "eucalipto_6068430.jpg",
+    "pexels_id": "6068430",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/6068430/"
+   },
+   {
+    "file": "eucalipto_6168330.jpg",
+    "pexels_id": "6168330",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/6168330/"
+   }
+  ],
+  "incenso": [
+   {
+    "file": "incenso_40382309.jpg",
+    "pexels_id": "40382309",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/40382309/"
+   },
+   {
+    "file": "incenso_40403077.jpg",
+    "pexels_id": "40403077",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/40403077/"
+   },
+   {
+    "file": "incenso_40557226.jpg",
+    "pexels_id": "40557226",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/40557226/"
+   }
+  ],
+  "lavanda": [
+   {
+    "file": "lavanda_10592224.jpg",
+    "pexels_id": "10592224",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/10592224/"
+   },
+   {
+    "file": "lavanda_12686034.jpg",
+    "pexels_id": "12686034",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/12686034/"
+   },
+   {
+    "file": "lavanda_12970054.jpg",
+    "pexels_id": "12970054",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/12970054/"
+   },
+   {
+    "file": "lavanda_4936400.jpg",
+    "pexels_id": "4936400",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/4936400/"
+   }
+  ],
+  "limone": [
+   {
+    "file": "limone_11295023.jpg",
+    "pexels_id": "11295023",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/11295023/"
+   },
+   {
+    "file": "limone_28550319.jpg",
+    "pexels_id": "28550319",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/28550319/"
+   },
+   {
+    "file": "limone_7195128.jpg",
+    "pexels_id": "7195128",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/7195128/"
+   }
+  ],
+  "luna": [
+   {
+    "file": "luna_12863822.jpg",
+    "pexels_id": "12863822",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/12863822/"
+   },
+   {
+    "file": "luna_5226087.jpg",
+    "pexels_id": "5226087",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/5226087/"
+   },
+   {
+    "file": "luna_8488394.jpg",
+    "pexels_id": "8488394",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/8488394/"
+   }
+  ],
+  "natale": [
+   {
+    "file": "natale_10479624.jpg",
+    "pexels_id": "10479624",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/10479624/"
+   },
+   {
+    "file": "natale_11126264.jpg",
+    "pexels_id": "11126264",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/11126264/"
+   },
+   {
+    "file": "natale_30841186.jpg",
+    "pexels_id": "30841186",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/30841186/"
+   }
+  ],
+  "rosmarino": [
+   {
+    "file": "rosmarino_4750309.jpg",
+    "pexels_id": "4750309",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/4750309/"
+   },
+   {
+    "file": "rosmarino_5857650.jpg",
+    "pexels_id": "5857650",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/5857650/"
+   }
+  ],
+  "te": [
+   {
+    "file": "te_11285384.jpg",
+    "pexels_id": "11285384",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/11285384/"
+   },
+   {
+    "file": "te_29677265.jpg",
+    "pexels_id": "29677265",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/29677265/"
+   },
+   {
+    "file": "te_6634321.jpg",
+    "pexels_id": "6634321",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/6634321/"
+   }
+  ],
+  "tessuti": [
+   {
+    "file": "tessuti_11541395.jpg",
+    "pexels_id": "11541395",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/11541395/"
+   },
+   {
+    "file": "tessuti_34535745.jpg",
+    "pexels_id": "34535745",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/34535745/"
+   },
+   {
+    "file": "tessuti_34854182.jpg",
+    "pexels_id": "34854182",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/34854182/"
+   },
+   {
+    "file": "tessuti_5475173.jpg",
+    "pexels_id": "5475173",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/5475173/"
+   },
+   {
+    "file": "tessuti_7232409.jpg",
+    "pexels_id": "7232409",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/7232409/"
+   }
+  ],
+  "viaggio": [
+   {
+    "file": "viaggio_11499403.jpg",
+    "pexels_id": "11499403",
+    "tono": "scuro",
+    "url": "https://www.pexels.com/photo/11499403/"
+   },
+   {
+    "file": "viaggio_5705068.jpg",
+    "pexels_id": "5705068",
+    "tono": "chiaro",
+    "url": "https://www.pexels.com/photo/5705068/"
+   }
+  ]
+ }
+}
