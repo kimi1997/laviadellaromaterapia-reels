@@ -1210,6 +1210,142 @@ def render_kb(im, dur, out, fade_in=True, zoom_out=False, dark=False):
     p.stdin.close(); p.wait()
     if p.returncode: raise RuntimeError("ffmpeg render_kb fallito")
 
+
+# ----- v4.3 (audit del 7/11): primi 2 secondi piu' forti, tagli secchi, durata nei limiti, controllo del testo -----
+# Copertina 1,8-2,2 s con zoom piu' deciso (7%) e testo che si muove dal fotogramma zero (il primo fotogramma resta
+# leggibile: e' la copertina di Instagram). Niente dissolvenze tra le scene: tagli secchi, cosi' il reel puo' andare in loop.
+# Durata totale: rubrica 20-30 s, pillola 12-18 s (oppure "durata": [min, max] nel JSON, usato nei test).
+# Prima del render stampa CONTROLLO_TESTO: OK oppure gli avvisi (parole per schermata, hook lungo, parole vietate).
+COVER_ZOOM = 0.07
+POP = 0.05            # il testo della copertina parte al 105% e si assesta in 0,35 s
+PAROLE_MAX = 25
+HOOK_MAX = 7
+VIETATE = ["salute", "curare", "guarisc", "guarire", "terapeutic", "terapia", "rimedio", "sintom", "malatt",
+           "dolore", "mal di testa", "emicrania", "ansia", "insonnia", "depression", "infiamm", "antibatteric", "antivir",
+           "immunitari", "disintossic", "detox", "medic", "farmac", "gravidanza", "incinta", "raffreddore", "tosse",
+           "influenza", "digestion", "ingerire", "da bere", "per cucinare", "nei piatti", "puro sulla pelle", "bocchetta", "aspirapolvere",
+           "ferro da stiro", "umidificatore", "stress"]
+DURATE = {"pillola": (12, 18)}
+
+def v4_cta(c, ph):
+    im = shade(photo(ph), top=0.5, flat=0.55, color=(30, 18, 46)); header_white(im)
+    lg = logo(150); im.paste(lg, ((SX0 + SX1 - 150) // 2, 470), lg); d = ImageDraw.Draw(im)
+    fc = fit(d, c["cta"], "Poppins-Bold.ttf", 84, SW, 4)
+    sub = c.get("cta_sub") or ("Ogni sera alle 19:30 una nuova pillola" if c.get("rubrica") == "pillola" else
+           f"Ogni {GIORNI.get(c.get('rubrica'), 'giorno')}: {RUBRICHE.get(c.get('rubrica'), 'un consiglio pratico').lower()}")
+    out = {}
+    def draw(dd, col, dx, dy):
+        y = block(dd, c["cta"], fc, 700 + dy, col or WHITE, maxw=SW, gap=1.14, width=SX0 + SX1)
+        out["y"] = block(dd, sub, font("Poppins-Bold.ttf", 40), y + 50 + dy, col or (250, 222, 160), maxw=SW, width=SX0 + SX1)
+    shadow_text(im, draw); return im, out["y"]
+
+def _testi(c):
+    """testo di ogni schermata, nello stesso ordine delle scene"""
+    r = c.get("rubrica"); out = [("copertina", c["hook"] + " " + c.get("sub", ""))]
+    tips = [("consiglio %d" % (i + 1), t["title"] + " " + t.get("body", "") + " " + t.get("momento", "")) for i, t in enumerate(c.get("tips", []))]
+    if r == "blend":
+        bl = c["blend"]; out.append(("blend", " ".join([bl["nome"], bl.get("quando", ""), bl.get("note", "")]))); out += tips
+    elif r == "mito": out += [("vero o falso %d" % (i + 1), m["claim"] + " " + m["verdetto"] + " " + m["spiegazione"]) for i, m in enumerate(c["mito"])]
+    elif r == "rituale": rt = c["rituale"]; out.append(("rituale", " ".join([rt["titolo"]] + rt["passi"])))
+    elif r == "scheda":
+        s = c["scheda"]; out.append(("scheda", " ".join([s["olio"], s["profumo"], s["abbinamenti"], s.get("sostituti", "")] + s["usi"]))); out += tips
+    else: out += tips
+    out.append(("chiusura", c["cta"] + " " + c.get("cta_sub", "")))
+    return out
+
+def controllo_testo(c):
+    avvisi = []
+    if len(c["hook"].split()) > HOOK_MAX: avvisi.append(f"hook di {len(c['hook'].split())} parole (max {HOOK_MAX})")
+    for nome, t in _testi(c):
+        n = len(t.split())
+        if nome not in ("copertina", "chiusura") and n > PAROLE_MAX: avvisi.append(f"{nome}: {n} parole (max {PAROLE_MAX})")
+    import re
+    tutto = " ".join(t for _, t in _testi(c)).lower()
+    for v in VIETATE:
+        if re.search(r"\b" + re.escape(v.strip()), tutto): avvisi.append(f"parola da evitare: '{v.strip()}'")
+    print("CONTROLLO_TESTO:", "OK" if not avvisi else " | ".join(avvisi))
+    return avvisi
+
+def _durate(c, sc):
+    lo, hi = c.get("durata") or DURATE.get(c.get("rubrica"), (20, 30))
+    durs = [s[1] for s in sc]; tot = sum(durs); fixed = durs[0]
+    if tot > hi:
+        k = (hi - fixed) / max(0.1, tot - fixed)
+        durs = [durs[0]] + [max(2.4, d * k) for d in durs[1:]]
+    if sum(durs) < lo: print("AVVISO_DURATA: %.1f s, sotto i %d s previsti: aggiungi un consiglio" % (sum(durs), lo))
+    return durs
+
+def _strato(a, b):
+    """parti di a che non ci sono in b, come livello trasparente"""
+    from PIL import ImageChops, ImageFilter
+    m = ImageChops.difference(a.convert("RGB"), b.convert("RGB")).convert("L").point(lambda v: 255 if v > 4 else 0)
+    m = m.filter(ImageFilter.MaxFilter(5)).filter(ImageFilter.GaussianBlur(0.8))
+    lay = a.convert("RGBA"); lay.putalpha(m); return lay, m.getbbox()
+
+def _pipe(out, dur):
+    return subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",
+                             "-r", str(FPS), "-i", "-", "-vf", "format=yuv420p", "-r", str(FPS), "-c:v", "libx264", "-crf", "20",
+                             "-preset", "veryfast", "-pix_fmt", "yuv420p", "-t", f"{dur:.3f}", out], stdin=subprocess.PIPE)
+
+def _zoom(src, z):
+    w, h = W / z, H / z; x0, y0 = (W - w) / 2, (H - h) / 2
+    return src.transform((W, H), Image.EXTENT, (x0, y0, x0 + w, y0 + h), Image.BICUBIC)
+
+def render_cover43(bg, full, ph, dur, out):
+    import math
+    hdr = bg.copy(); header_white(hdr)
+    head, _ = _strato(hdr, bg); txt, bb = _strato(full, hdr)
+    cx, cy = ((bb[0] + bb[2]) / 2, (bb[1] + bb[3]) / 2) if bb else (W / 2, H / 2)
+    n = max(2, int(round(dur * FPS))); p = _pipe(out, dur); src = bg.convert("RGB")
+    for f in range(n):
+        t = f / (n - 1); e = 1 - (1 - t) ** 2                       # parte veloce e rallenta: movimento subito
+        fr = _zoom(src, 1 + COVER_ZOOM * e).convert("RGBA")
+        fr.alpha_composite(head)
+        tt = min(1.0, (f / FPS) / 0.35); s = 1 + POP * (1 - (0.5 - 0.5 * math.cos(math.pi * tt)))
+        if s > 1.0005:
+            w, h = W / s, H / s; x0, y0 = cx - cx / s, cy - cy / s
+            lay = txt.transform((W, H), Image.EXTENT, (x0, y0, x0 + w, y0 + h), Image.BICUBIC)
+        else: lay = txt
+        fr.alpha_composite(lay); p.stdin.write(fr.convert("RGB").tobytes())
+    p.stdin.close(); p.wait()
+    if p.returncode: raise RuntimeError("ffmpeg copertina fallito")
+
+def render_cut(im, dur, out, zoom_out=False):
+    import math
+    src = im.convert("RGB"); n = max(2, int(round(dur * FPS))); p = _pipe(out, dur)
+    for f in range(n):
+        t = f / (n - 1); e = 0.5 - 0.5 * math.cos(math.pi * t)
+        p.stdin.write(_zoom(src, 1 + ZOOM_AMP * ((1 - e) if zoom_out else e)).tobytes())
+    p.stdin.close(); p.wait()
+    if p.returncode: raise RuntimeError("ffmpeg scena fallito")
+
+def reel_v43(c, out, audio=None, frames=False):
+    controllo_testo(c)
+    tmp = tempfile.mkdtemp(); sc, used = v4_scenes(c); cov = used[0]
+    sc[0] = (sc[0][0], secs_for(c["hook"] + " " + c.get("sub", ""), 1.8, 2.2), sc[0][2])
+    durs = _durate(c, sc); files = []
+    for k, ((im, _, dark), dur) in enumerate(zip(sc, durs)):
+        mp4 = f"{tmp}/s{k}.mp4"
+        if k == 0: render_cover43(shade(photo(cov), top=0.6, bottom=0.9, start=0.28), im, cov, dur, mp4)
+        else: render_cut(im, dur, mp4, zoom_out=(k % 2 == 1))
+        files.append(mp4)
+    lst = f"{tmp}/list.txt"; open(lst, "w").write("".join(f"file '{f}'\n" for f in files))
+    silent = f"{tmp}/video.mp4"
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", lst, "-c", "copy", silent], check=True)
+    total = sum(durs)
+    if audio:
+        af = f"afade=t=in:st=0:d=0.3,afade=t=out:st={total-1.2:.2f}:d=1.2,volume=0.85"
+        cmd = ["ffmpeg", "-y", "-loglevel", "error", "-i", silent, "-stream_loop", "-1", "-i", audio, "-map", "0:v", "-map", "1:a",
+               "-af", af, "-t", f"{total:.2f}", "-c:v", "copy", "-c:a", "aac", "-b:a", "160k", out]
+    else:
+        cmd = ["ffmpeg", "-y", "-loglevel", "error", "-i", silent, "-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo",
+               "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-c:a", "aac", "-shortest", out]
+    subprocess.run(cmd, check=True)
+    if frames:
+        for k, s in enumerate(sc): s[0].convert("RGB").save(out[:-4] + f"_frame{k}.png")
+    print(out); print("DURATA: %.1f s" % total); print("FOTO_USATE:", ",".join(used))
+
+
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     c = json.load(open(args[0])); v4 = stock_ok() and "--v3" not in sys.argv
@@ -1218,8 +1354,10 @@ def main():
     if "--carousel" in sys.argv:
         if "rubrica" in c: c = dict(c, tips=summary_tips(c))
         return carousel(c, args[1])
+    if "--controllo" in sys.argv:
+        return controllo_testo(c)
     if "rubrica" in c:
-        fn = reel_v4 if v4 else reel_v3
+        fn = reel_v43 if v4 else reel_v3
         return fn(c, args[1], args[2] if len(args) > 2 else None, "--frames" in sys.argv)
     return main_v2()
 
