@@ -1346,9 +1346,88 @@ def reel_v43(c, out, audio=None, frames=False):
     print(out); print("DURATA: %.1f s" % total); print("FOTO_USATE:", ",".join(used))
 
 
+
+# ----- POST DEL FEED (dal 10/11): caroselli a se', alle 9 e alle 16, tra un reel e l'altro -----
+# python3 reel.py post.json --post cartella   (slide_01.jpg ... 1080x1350)
+# JSON: {"tipo": "post", "pilastro": "umano|sensi|strategia|emozione|cosmo|pianta", "titolo", "sub"?, "slides": [{"title", "body"}] 4-6,
+#        "domanda", "foto": {"cover": categoria o file, "end": categoria o file}?}
+# Stile editoriale diverso dai reel: copertina in foto, slide di testo su crema con titoli serif, chiusura con la domanda.
+PILASTRI = {"umano": "L'ESSERE UMANO", "sensi": "I CINQUE SENSI", "strategia": "STRATEGIA", "emozione": "EMOZIONI",
+            "cosmo": "NATURA E COSMO", "pianta": "PIANTE AROMATICHE"}
+PIL_FOTO = {"umano": ("tessuti", "candele"), "sensi": ("erbe", "te"), "strategia": ("bottiglie", "casa"), "emozione": ("candele", "autunno"),
+            "cosmo": ("luna", "candele"), "pianta": ("erbe", "lavanda")}
+POST_TITOLO_MAX, POST_SLIDE_MAX = 9, 45
+
+def _fit_serif(d, text, size, maxw, lines, weight="Bold"):
+    while size > 30:
+        f = serif(size, weight)
+        if len(wrap(d, text, f, maxw)) <= lines: return f
+        size -= 4
+    return serif(30, weight)
+
+def _brand_dark(im, x=70, y=70):
+    lg = logo(64); im.paste(lg, (x, y), lg); d = ImageDraw.Draw(im)
+    spaced(d, (x + 80, y + 4), "LA VIA", serif(28, "Bold"), PURPLE); spaced(d, (x + 80, y + 38), "DELL’AROMATERAPIA", serif(16), (120, 100, 150))
+
+def post_cover(p, ph):
+    w, h = W, CH; im = shade(photo(ph, w, h), top=0.5, bottom=0.92, start=0.2); header_white(im, y=70); d = ImageDraw.Draw(im)
+    t = p["titolo"]; ft = _fit_serif(d, t, 104, 920, 4); lines = wrap(d, t, ft, 920)
+    y0 = int(h - 210 - len(lines) * ft.size * 1.12 - (80 if p.get("sub") else 0))
+    label(d, PILASTRI.get(p.get("pilastro"), "CURIOSITÀ"), 70, y0 - 100, bgc=GOLD, fg=DEEP, fs=30)
+    def draw(dd, col, dx, dy):
+        y = block(dd, t, ft, y0 + dy, col or WHITE, maxw=920, gap=1.12, x=70)
+        if p.get("sub"): block(dd, p["sub"], font("Poppins-Bold.ttf", 42), y + 22 + dy, col or (250, 222, 160), maxw=920, x=70)
+    shadow_text(im, draw); arrow_label(ImageDraw.Draw(im), "Scorri", w - 60, h - 90, color=WHITE); return im
+
+def post_slide(i, n, s):
+    w, h = W, CH; im = Image.new("RGB", (w, h), OFF); d = ImageDraw.Draw(im)
+    big = serif(420, "Bold"); num = str(i); d.text((w - 70 - d.textlength(num, font=big), h - 560), num, font=big, fill=(240, 233, 244))
+    _brand_dark(im); pill(d, f"{i}/{n}", w - 70, 80)
+    d.line([(70, 250), (190, 250)], fill=GOLD, width=6)
+    y = block(d, s["title"], _fit_serif(d, s["title"], 92, 940, 3), 310, PURPLE, maxw=940, gap=1.12, x=70)
+    block(d, s["body"], fit(d, s["body"], "Poppins-Regular.ttf", 60, 940, 10), y + 56, BODY, maxw=940, gap=1.45, x=70)
+    d.text((70, h - 100), "@laviadellaromaterapia", font=font("Poppins-Bold.ttf", 32), fill=PURPLE); return im
+
+def post_end(p, ph):
+    w, h = W, CH; im = shade(photo(ph, w, h), top=0.5, flat=0.6, color=(30, 18, 46)); header_white(im, y=70)
+    lg = logo(140); im.paste(lg, ((w - 140) // 2, 300), lg); d = ImageDraw.Draw(im); q = p["domanda"]
+    fq = _fit_serif(d, q, 80, 880, 4)
+    def draw(dd, col, dx, dy):
+        y = block(dd, q, fq, 520 + dy, col or WHITE, maxw=880, gap=1.14)
+        y = block(dd, "Rispondi nei commenti", font("Poppins-Bold.ttf", 42), y + 50 + dy, col or (250, 222, 160), maxw=860)
+        block(dd, "e salva il post per rileggerlo", font("Poppins-Regular.ttf", 38), y + 16 + dy, col or SOFTW, maxw=860)
+    shadow_text(im, draw); d = ImageDraw.Draw(im); f = font("Poppins-Bold.ttf", 36); t = "@laviadellaromaterapia"
+    d.text(((w - d.textlength(t, font=f)) / 2, h - 110), t, font=f, fill=SOFTW); return im
+
+def controllo_post(p):
+    import re
+    avvisi = []
+    if p.get("pilastro") not in PILASTRI: avvisi.append("pilastro mancante o sconosciuto (umano, sensi, strategia, emozione, cosmo, pianta)")
+    if len(p["titolo"].split()) > POST_TITOLO_MAX: avvisi.append(f"titolo di {len(p['titolo'].split())} parole (max {POST_TITOLO_MAX})")
+    if not 4 <= len(p.get("slides", [])) <= 6: avvisi.append("servono 4-6 slide")
+    for i, s in enumerate(p.get("slides", []), 1):
+        n = len((s["title"] + " " + s["body"]).split())
+        if n > POST_SLIDE_MAX: avvisi.append(f"slide {i}: {n} parole (max {POST_SLIDE_MAX})")
+    tutto = " ".join([p["titolo"], p.get("sub", ""), p.get("domanda", "")] + [s["title"] + " " + s["body"] for s in p.get("slides", [])]).lower()
+    for v in VIETATE:
+        if re.search(r"\b" + re.escape(v.strip()), tutto): avvisi.append(f"parola da evitare: '{v.strip()}'")
+    print("CONTROLLO_TESTO:", "OK" if not avvisi else " | ".join(avvisi)); return avvisi
+
+def post_carousel(p, outdir):
+    controllo_post(p); os.makedirs(outdir, exist_ok=True); seed = p["titolo"]
+    fc, fe = PIL_FOTO.get(p.get("pilastro"), ("erbe", "candele")); fo = p.get("foto", {})
+    cov = pick_photo(fo.get("cover", fc), seed); end = pick_photo(fo.get("end", fe), seed + "e", (cov,))
+    n = len(p["slides"]); ims = [post_cover(p, cov)] + [post_slide(i + 1, n, s) for i, s in enumerate(p["slides"])] + [post_end(p, end)]
+    paths = []
+    for k, im in enumerate(ims):
+        q = os.path.join(outdir, f"slide_{k + 1:02d}.jpg"); im.convert("RGB").save(q, "JPEG", quality=90); paths.append(q)
+    print("\n".join(paths)); print("FOTO_USATE:", f"{cov},{end}")
+
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     c = json.load(open(args[0])); v4 = stock_ok() and "--v3" not in sys.argv
+    if c.get("tipo") == "post":
+        return controllo_post(c) if "--controllo" in sys.argv else post_carousel(c, args[1])
     if "--weekly-carousel" in sys.argv:
         return (weekly_carousel_v4 if v4 else weekly_carousel)(c, args[1])
     if "--carousel" in sys.argv:
