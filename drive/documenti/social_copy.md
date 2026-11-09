@@ -1,6 +1,6 @@
 # Social e copy – bio, didascalie e hashtag
 
-Versione 2.2 · 9 novembre 2026 (post del feed, tono di voce del brand); versione 2 del 7 novembre, sera (dopo l'audit social, in 03 Analisi e strategia). La versione 1 del 6 novembre è nel cestino del Drive.
+Versione 2.3 · 10 novembre 2026 (post del feed anche su Facebook, tre stili v5.1); versione 2.2 del 9 novembre (post del feed, tono di voce del brand); versione 2 del 7 novembre, sera (dopo l'audit social, in 03 Analisi e strategia). La versione 1 del 6 novembre è nel cestino del Drive.
 
 ## Tono di voce (dal brand)
 
@@ -11,7 +11,7 @@ Confidenziale come un'amica, rassicurante, non commerciale, con la calma di una 
 | Canale | Nome | Cosa pubblichiamo |
 | --- | --- | --- |
 | Instagram | @laviadellaromaterapia (account Business) | Post (carosello) alle 9:00, reel della rubrica alle 12, post alle 16:00, pillola della sera alle 19:30 (dom-ven), carosello del rituale il sabato alle 19:30 |
-| Facebook | La via dell'aromaterapia (pagina collegata a Instagram) | Il reel ricondiviso da Meta + un post con l'immagine riassuntiva |
+| Facebook | La via dell'aromaterapia (pagina collegata a Instagram) | Il reel ricondiviso da Meta, un post con l'immagine riassuntiva e i due post del feed (9:00 e 16:00: copertina + tutto il testo delle slide in didascalia, perché il connettore non pubblica caroselli su Facebook) |
 | TikTok | @laviadellaromater1 (nome da cambiare) | Il reel di mezzogiorno alle 18:30, dom-lun-mer-gio-sab, max 19 al mese |
 
 ## Bio Instagram
@@ -45,6 +45,12 @@ Pillola della sera: stessa struttura più corta, "Ogni sera alle 19:30 una nuova
 ## Post del feed (caroselli delle 9:00 e delle 16:00)
 
 Gancio con le parole che la gente cerca, riga vuota, 2-4 righe brevi (max un emoji per riga), la domanda della slide finale, invito a salvare o mandarlo a qualcuno, riga vuota e 4-6 hashtag di nicchia sul tema più #laviadellaromaterapia (es. #olfatto #memoriaolfattiva #rosmarino #piantearomatiche #lunapiena).
+
+Il contenuto dei post è sempre diverso da quello dei reel: altro argomento e altro taglio, mai un riassunto o una variante di un reel.
+
+Tre stili (template v5.1 del 10/11), ognuno con il titolo sempre nello stesso punto: atmosfera (umano, emozione, cosmo; foto d'atmosfera, titolo al centro), botanico (pianta; foto della pianta o degli oli, titolo in alto), testo (sensi, strategia; solo testo, titolo in basso). I due post dello stesso giorno hanno stili diversi e il reel di mezzogiorno prende la posizione rimasta libera.
+
+Didascalia Facebook dei post (didascalia_fb.txt): titolo, sub, slide numerate con il loro testo, domanda + "Raccontacelo nei commenti.", "Seguici anche su Instagram: @laviadellaromaterapia", 3 hashtag.
 
 Pilastri: l'essere umano, i cinque sensi, strategia, emozioni, natura e cosmo, piante aromatiche. Il mondo astrale ed energetico si racconta come tradizione e simbolo ("nella tradizione…", "si dice che…"), mai come effetto promesso.
 
