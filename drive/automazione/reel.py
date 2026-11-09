@@ -580,7 +580,7 @@ def summary_tips(c):
     """punti per il riassunto Facebook, ricavati dalla rubrica se mancano i tips"""
     if c.get("tips"): return c["tips"]
     r = c.get("rubrica")
-    if r == "blend": return [{"title": o["olio"], "body": f"{o['gocce']} gocce"} for o in c["blend"]["oli"]] + ([{"title": "Come usarlo", "body": c["blend"]["note"]}] if c["blend"].get("note") else [])
+    if r == "blend": return [{"title": o["olio"], "body": f"{o['gocce']} gocc{'ia' if int(o['gocce']) == 1 else 'e'}"} for o in c["blend"]["oli"]] + ([{"title": "Come usarlo", "body": c["blend"]["note"]}] if c["blend"].get("note") else [])
     if r == "mito": return [{"title": f"{m['verdetto']}: {m['claim']}", "body": m["spiegazione"]} for m in c["mito"]]
     if r == "rituale": return [{"title": f"Passo {k}", "body": p} for k, p in enumerate(c["rituale"]["passi"], 1)]
     if r == "scheda":
@@ -1216,15 +1216,16 @@ def render_kb(im, dur, out, fade_in=True, zoom_out=False, dark=False):
 # leggibile: e' la copertina di Instagram). Niente dissolvenze tra le scene: tagli secchi, cosi' il reel puo' andare in loop.
 # Durata totale: rubrica 20-30 s, pillola 12-18 s (oppure "durata": [min, max] nel JSON, usato nei test).
 # Prima del render stampa CONTROLLO_TESTO: OK oppure gli avvisi (parole per schermata, hook lungo, parole vietate).
+# Dal 9/11 "rimedio", "ansia" e "stress" sono permessi (decisione di Michele); restano vietate le parole mediche e le promesse.
 COVER_ZOOM = 0.07
 POP = 0.05            # il testo della copertina parte al 105% e si assesta in 0,35 s
 PAROLE_MAX = 25
 HOOK_MAX = 7
-VIETATE = ["salute", "curare", "guarisc", "guarire", "terapeutic", "terapia", "rimedio", "sintom", "malatt",
-           "dolore", "mal di testa", "emicrania", "ansia", "insonnia", "depression", "infiamm", "antibatteric", "antivir",
+VIETATE = ["salute", "curare", "cura l", "cura il", "cura la", "guarisc", "guarire", "terapeutic", "terapia", "sintom", "malatt",
+           "dolore", "mal di testa", "emicrania", "insonnia", "elimina l", "fa sparire", "depression", "infiamm", "antibatteric", "antivir",
            "immunitari", "disintossic", "detox", "medic", "farmac", "gravidanza", "incinta", "raffreddore", "tosse",
            "influenza", "digestion", "ingerire", "da bere", "per cucinare", "nei piatti", "puro sulla pelle", "bocchetta", "aspirapolvere",
-           "ferro da stiro", "umidificatore", "stress", "purific", "protegg"]
+           "ferro da stiro", "umidificatore", "purific", "protegg"]
 DURATE = {"pillola": (12, 18)}
 
 def v4_cta(c, ph):
@@ -1423,8 +1424,269 @@ def post_carousel(p, outdir):
         q = os.path.join(outdir, f"slide_{k + 1:02d}.jpg"); im.convert("RGB").save(q, "JPEG", quality=90); paths.append(q)
     print("\n".join(paths)); print("FOTO_USATE:", f"{cov},{end}")
 
+
+# ===== v5 (brand identity, 9/11): titoli in Lora, accenti e foto secondo la stagione, un solo stile di carosello =====
+# Colori fissi del brand: viola-notte, viola, crema, logo. Cambiano con la stagione (meteorologica, fuso Europe/Rome;
+# oppure "stagione" nel JSON o la variabile STAGIONE): l'accento (etichette, numeri, linee), la luce (sottotitoli su
+# foto e su viola-notte), la tinta dei fondi chiari, il numero tenue e la foto preferita per chiusure e post generici.
+STAGIONI = {
+ "autunno":   {"accento": (212, 160, 78),  "luce": (250, 222, 160), "tinta": (251, 246, 239), "tenue": (243, 232, 220), "foto": "autunno"},
+ "inverno":   {"accento": (195, 206, 230), "luce": (227, 233, 245), "tinta": (247, 247, 251), "tenue": (233, 236, 244), "foto": "candele"},
+ "primavera": {"accento": (232, 176, 191), "luce": (248, 217, 225), "tinta": (252, 246, 247), "tenue": (246, 231, 235), "foto": "lavanda"},
+ "estate":    {"accento": (233, 194, 85),  "luce": (251, 231, 166), "tinta": (252, 250, 241), "tenue": (245, 239, 214), "foto": "limone"},
+}
+VLOGO = (82, 62, 115)   # viola-logo: righe secondarie su crema (8,6:1)
+_STAG = None
+
+def stagione(c=None):
+    s = (c or {}).get("stagione") or os.environ.get("STAGIONE")
+    if s in STAGIONI: return s
+    try:
+        from zoneinfo import ZoneInfo; import datetime as _dt
+        m = _dt.datetime.now(ZoneInfo("Europe/Rome")).month
+    except Exception:
+        import datetime as _dt; m = _dt.datetime.now().month
+    return {12: "inverno", 1: "inverno", 2: "inverno", 3: "primavera", 4: "primavera", 5: "primavera",
+            6: "estate", 7: "estate", 8: "estate"}.get(m, "autunno")
+
+def S(): return STAGIONI[_STAG or stagione()]
+
+def foto_stagione(c=None):
+    s = _STAG or stagione(c)
+    if s == "inverno":
+        try:
+            from zoneinfo import ZoneInfo; import datetime as _dt
+            if _dt.datetime.now(ZoneInfo("Europe/Rome")).month == 12: return "natale"
+        except Exception: pass
+    return STAGIONI[s]["foto"]
+
+def tfit(d, text, size, maxw, lines): return _fit_serif(d, text, size, maxw, lines)
+
+def etichetta(d, text, x, y, fs=30): return label(d, text, x, y, bgc=S()["accento"], fg=DEEP, fs=fs)
+
+def panel(ph, top, dark=False, h=H):
+    bg = DEEP if dark else S()["tinta"]
+    im = Image.new("RGB", (W, h), bg); im.paste(photo(ph, W, top + 80), (0, 0))
+    im = shade(im, top=0.45); lay = Image.new("RGBA", (W, h), (0, 0, 0, 0))
+    ImageDraw.Draw(lay).rounded_rectangle([0, top, W, h + 80], radius=70, fill=bg + (255,))
+    im.paste(lay, (0, 0), lay); header_white(im); return im
+
+def v4_cover(c, ph):
+    im = shade(photo(ph), top=0.6, bottom=0.9, start=0.28); header_white(im); d = ImageDraw.Draw(im)
+    fh = tfit(d, c["hook"], 108, SW, 5); lines = wrap(d, c["hook"], fh, SW)
+    fs = font("Poppins-Bold.ttf", 44); sl = wrap(d, c.get("sub", ""), fs, SW) if c.get("sub") else []
+    hh = len(lines) * int(fh.size * 1.12) + (26 + len(sl) * int(fs.size * 1.22) if sl else 0)
+    y0 = SY1 - hh
+    etichetta(d, (c.get("serie") or RUBRICHE.get(c.get("rubrica"), "Il consiglio del giorno")).upper(), SX0, y0 - 96)
+    def draw(dd, col, dx, dy):
+        yy = block(dd, c["hook"], fh, y0 + dy, col or WHITE, maxw=SW, gap=1.12, x=SX0 + dx)
+        if sl: block(dd, c["sub"], fs, yy + 26 + dy, col or S()["luce"], maxw=SW, x=SX0 + dx)
+    shadow_text(im, draw); return im, SY1
+
+def v4_tip(t, i, n, ph):
+    top = 720; T = S()["tinta"]; im = Image.new("RGB", (W, H), T); im.paste(photo(ph, W, top + 80), (0, 0))
+    im = shade(im, top=0.45); lay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    ImageDraw.Draw(lay).rounded_rectangle([0, top, W, H + 80], radius=70, fill=T + (255,)); im.paste(lay, (0, 0), lay)
+    header_white(im); d = ImageDraw.Draw(im); pill(d, f"{i + 1}/{n}", SX1, SY0 + 10)
+    cx = 160; d.ellipse([cx - 84, top - 84, cx + 84, top + 84], fill=DEEP, outline=T, width=10)
+    num = f"{i + 1}"; fn = serif(92, "Bold"); d.text((cx - d.textlength(num, font=fn) / 2, top - 62), num, font=fn, fill=S()["accento"])
+    y = top + 130
+    if t.get("momento"):
+        f = font("Poppins-Bold.ttf", 40); y = block(d, t["momento"].upper(), f, y, VLOGO, maxw=SW, x=SX0 + 10) + 14
+    y = block(d, t["title"], tfit(d, t["title"], 90, SW, 3), y, PURPLE, maxw=SW, gap=1.12, x=SX0 + 10)
+    y = block(d, t["body"], fit(d, t["body"], "Poppins-Regular.ttf", 56, SW, 6), y + 34, BODY, maxw=SW, gap=1.42, x=SX0 + 10)
+    return im, y
+
+def v4_cta(c, ph):
+    im = shade(photo(ph), top=0.5, flat=0.58, color=(30, 18, 46)); header_white(im)
+    lg = logo(150); im.paste(lg, ((SX0 + SX1 - 150) // 2, 470), lg); d = ImageDraw.Draw(im)
+    fc = tfit(d, c["cta"], 88, SW, 4)
+    sub = c.get("cta_sub") or ("Ogni sera alle 19:30 una nuova pillola" if c.get("rubrica") == "pillola" else
+           f"Ogni {GIORNI.get(c.get('rubrica'), 'giorno')}: {RUBRICHE.get(c.get('rubrica'), 'un consiglio pratico').lower()}")
+    out = {}
+    def draw(dd, col, dx, dy):
+        y = block(dd, c["cta"], fc, 700 + dy, col or WHITE, maxw=SW, gap=1.14, width=SX0 + SX1)
+        out["y"] = block(dd, sub, font("Poppins-Bold.ttf", 40), y + 50 + dy, col or S()["luce"], maxw=SW, width=SX0 + SX1)
+    shadow_text(im, draw); return im, out["y"]
+
+def v4_ritual(rt, ph):
+    top = 600; im = panel(ph, top, dark=True); d = ImageDraw.Draw(im); A = S()["accento"]
+    y = etichetta(d, "IL RITUALE DI STAGIONE", SX0, top + 60)
+    y = block(d, rt["titolo"], tfit(d, rt["titolo"], 94, SW, 2), y + 32, (250, 244, 255), maxw=SW, gap=1.1, x=SX0)
+    if rt.get("sub"): y = block(d, rt["sub"], font("Poppins-Bold.ttf", 42), y + 12, S()["luce"], maxw=SW, x=SX0)
+    y += 40; fp = font("Poppins-Regular.ttf", 46 if len(rt["passi"]) <= 3 else 40)
+    for k, p in enumerate(rt["passi"][:5], 1):
+        d.text((SX0, y - 6), f"{k}", font=serif(58, "Bold"), fill=A)
+        y = block(d, p, fp, y + 6, (236, 228, 248), maxw=SW - 70, gap=1.33, x=SX0 + 70) + 26
+    return im, y
+
+def v4_blend(bl, ph):
+    top = 560; im = panel(ph, top); d = ImageDraw.Draw(im)
+    y = etichetta(d, "IL BLEND DELLA SETTIMANA", SX0, top + 56, fs=28)
+    y = block(d, bl["nome"], tfit(d, bl["nome"], 88, SW, 2), y + 26, PURPLE, maxw=SW, gap=1.1, x=SX0)
+    y = block(d, bl.get("quando", ""), font("Poppins-Bold.ttf", 40), y + 8, VLOGO, maxw=SW, x=SX0) + 34
+    rh = int(118 * _FS)
+    for o in bl["oli"][:4]:
+        d.rounded_rectangle([SX0, y, SX1, y + rh], radius=34, fill=(255, 255, 255))
+        g = int(o["gocce"]); t = f"{g} gocc{'ia' if g == 1 else 'e'}"; f = font("Poppins-Bold.ttf", 42); tw = d.textlength(t, font=f)
+        d.text((SX0 + 36, y + rh * 0.22), o["olio"], font=_fit_serif(d, o["olio"], 54, SW - tw - 110, 1), fill=PURPLE)
+        d.text((SX1 - 36 - tw, y + rh * 0.3), t, font=f, fill=VLOGO); y += rh + 18
+    if bl.get("note"): y = block(d, bl["note"], fit(d, bl["note"], "Poppins-Regular.ttf", 44, SW, 4), y + 18, BODY, maxw=SW, gap=1.38, x=SX0)
+    return im, y
+
+def v4_myth(m, i, n, ph):
+    top = 640; im = panel(ph, top); d = ImageDraw.Draw(im)
+    if n > 1: pill(d, f"{i + 1}/{n}", SX1, SY0 + 10)
+    y = etichetta(d, "VERO O FALSO?", SX0, top + 64); claim = f"“{m['claim']}”"
+    y = block(d, claim, tfit(d, claim, 80, SW, 4), y + 30, PURPLE, maxw=SW, gap=1.12, x=SX0)
+    v = m["verdetto"].upper(); f = font("Poppins-Bold.ttf", 88); tw = d.textlength(v, font=f); y += 36; bh = int(f.size * 1.45)
+    d.rounded_rectangle([SX0, y, SX0 + tw + 80, y + bh], radius=bh // 2, fill=TERRA if v.startswith("FALS") else (GREEN if v.startswith("VER") else DEEP))
+    d.text((SX0 + 40, y + (bh - f.size) * 0.32), v, font=f, fill=(255, 255, 255))
+    y = block(d, m["spiegazione"], fit(d, m["spiegazione"], "Poppins-Regular.ttf", 50, SW, 6), y + bh + 40, BODY, maxw=SW, gap=1.42, x=SX0)
+    return im, y
+
+def v4_card(s, ph):
+    top = 500; im = panel(ph, top); d = ImageDraw.Draw(im)
+    y = etichetta(d, "LA SCHEDA DELL'OLIO", SX0, top + 52, fs=28)
+    y = block(d, s["olio"], tfit(d, s["olio"], 110, SW, 2), y + 16, PURPLE, maxw=SW, x=SX0)
+    y = block(d, s.get("famiglia", ""), font("Poppins-Bold.ttf", 38), y, VLOGO, maxw=SW, x=SX0) + 30
+    secs = [("PROFUMO", s["profumo"]), ("SI ABBINA CON", s["abbinamenti"]), ("3 USI", " · ".join(s["usi"]))]
+    if s.get("sostituti"): secs.append(("SE NON CE L'HAI", s["sostituti"]))
+    fs = 44 if len(secs) == 3 else 40
+    for t, body in secs:
+        d.text((SX0, y), t, font=font("Poppins-Bold.ttf", 30), fill=VLOGO)
+        y = block(d, body, fit(d, body, "Poppins-Regular.ttf", fs, SW, 3), y + int(46 * _FS), BODY, maxw=SW, gap=1.3, x=SX0) + 22
+    return im, y
+
+_photos_for0 = photos_for
+def photos_for(c):
+    cov, sce, cta = _photos_for0(c)
+    if not (c.get("foto") or {}).get("cta"): cta = pick_photo(foto_stagione(c), c.get("hook", "") + "t", (cov, sce))
+    return cov, sce, cta
+
+# --- caroselli: un solo stile (post del feed, carosello del sabato) ---
+def post_cover(p, ph):
+    w, h = W, CH; im = shade(photo(ph, w, h), top=0.5, bottom=0.92, start=0.2); header_white(im, y=70); d = ImageDraw.Draw(im)
+    t = p["titolo"]; ft = _fit_serif(d, t, 104, 920, 4); lines = wrap(d, t, ft, 920)
+    y0 = int(h - 210 - len(lines) * ft.size * 1.12 - (80 if p.get("sub") else 0))
+    etichetta(d, p.get("etichetta") or PILASTRI.get(p.get("pilastro"), "CURIOSITÀ"), 70, y0 - 100)
+    def draw(dd, col, dx, dy):
+        y = block(dd, t, ft, y0 + dy, col or WHITE, maxw=920, gap=1.12, x=70)
+        if p.get("sub"): block(dd, p["sub"], font("Poppins-Bold.ttf", 42), y + 22 + dy, col or S()["luce"], maxw=920, x=70)
+    shadow_text(im, draw); arrow_label(ImageDraw.Draw(im), "Scorri", w - 60, h - 90, color=WHITE); return im
+
+def post_slide(i, n, s):
+    w, h = W, CH; im = Image.new("RGB", (w, h), S()["tinta"]); d = ImageDraw.Draw(im)
+    big = serif(420, "Bold"); num = str(i); d.text((w - 70 - d.textlength(num, font=big), h - 560), num, font=big, fill=S()["tenue"])
+    _brand_dark(im); pill(d, f"{i}/{n}", w - 70, 80)
+    d.line([(70, 250), (190, 250)], fill=S()["accento"], width=6)
+    y = block(d, s["title"], _fit_serif(d, s["title"], 92, 940, 3), 310, PURPLE, maxw=940, gap=1.12, x=70)
+    block(d, s["body"], fit(d, s["body"], "Poppins-Regular.ttf", 60, 940, 10), y + 56, BODY, maxw=940, gap=1.45, x=70)
+    d.text((70, h - 100), "@laviadellaromaterapia", font=font("Poppins-Bold.ttf", 32), fill=PURPLE); return im
+
+def post_end(p, ph):
+    w, h = W, CH; im = shade(photo(ph, w, h), top=0.5, flat=0.6, color=(30, 18, 46)); header_white(im, y=70)
+    lg = logo(140); im.paste(lg, ((w - 140) // 2, 300), lg); d = ImageDraw.Draw(im); q = p["domanda"]
+    fq = _fit_serif(d, q, 80, 880, 4); r1 = p.get("riga1") or "Rispondi nei commenti"; r2 = p.get("riga2") or "e salva il post per rileggerlo"
+    def draw(dd, col, dx, dy):
+        y = block(dd, q, fq, 520 + dy, col or WHITE, maxw=880, gap=1.14)
+        y = block(dd, r1, font("Poppins-Bold.ttf", 42), y + 50 + dy, col or S()["luce"], maxw=860)
+        block(dd, r2, font("Poppins-Regular.ttf", 38), y + 16 + dy, col or SOFTW, maxw=860)
+    shadow_text(im, draw); d = ImageDraw.Draw(im); f = font("Poppins-Bold.ttf", 36); t = "@laviadellaromaterapia"
+    d.text(((w - d.textlength(t, font=f)) / 2, h - 110), t, font=f, fill=SOFTW); return im
+
+def post_carousel(p, outdir):
+    global _STAG
+    _STAG = stagione(p); controllo_post(p); os.makedirs(outdir, exist_ok=True); seed = p["titolo"]
+    fc, fe = PIL_FOTO.get(p.get("pilastro"), ("erbe", "candele")); fo = p.get("foto", {})
+    if p.get("pilastro") in ("umano", "emozione", "cosmo") and not fo.get("cover"): fc = foto_stagione(p) if p.get("pilastro") != "cosmo" else "luna"
+    cov = pick_photo(fo.get("cover", fc), seed); end = pick_photo(fo.get("end", foto_stagione(p)), seed + "e", (cov,))
+    n = len(p["slides"]); ims = [post_cover(p, cov)] + [post_slide(i + 1, n, s) for i, s in enumerate(p["slides"])] + [post_end(p, end)]
+    paths = []
+    for k, im in enumerate(ims):
+        q = os.path.join(outdir, f"slide_{k + 1:02d}.jpg"); im.convert("RGB").save(q, "JPEG", quality=90); paths.append(q)
+    print("\n".join(paths)); print("STAGIONE:", _STAG); print("FOTO_USATE:", f"{cov},{end}")
+
+def weekly_carousel_v4(c, outdir):
+    """carosello del sabato nello stesso stile dei post del feed"""
+    cs = c.get("carosello") or {}; rt = c.get("rituale") or {}
+    slides = cs.get("slides") or [{"title": t["title"], "body": t["body"]} for t in summary_tips(c)]
+    p = {"tipo": "post", "pilastro": "rituale", "etichetta": "IL RITUALE DI STAGIONE", "titolo": cs.get("titolo") or rt.get("titolo") or c["hook"],
+         "sub": cs.get("sub") or rt.get("sub") or c.get("sub", ""), "slides": slides[:6],
+         "domanda": cs.get("cta") or "Hai un tuo piccolo rituale per questo periodo?", "riga1": "Raccontalo nei commenti", "riga2": "Ogni sabato un nuovo rituale",
+         "foto": {"cover": (c.get("foto") or {}).get("cover") or "candele"}, "stagione": c.get("stagione")}
+    post_carousel(p, outdir)
+
+def controllo_post(p):
+    import re
+    avvisi = []
+    if p.get("pilastro") not in PILASTRI and p.get("pilastro") != "rituale": avvisi.append("pilastro mancante o sconosciuto (umano, sensi, strategia, emozione, cosmo, pianta)")
+    if len(p["titolo"].split()) > POST_TITOLO_MAX: avvisi.append(f"titolo di {len(p['titolo'].split())} parole (max {POST_TITOLO_MAX})")
+    if not 3 <= len(p.get("slides", [])) <= 6: avvisi.append("servono 4-6 slide")
+    for i, s in enumerate(p.get("slides", []), 1):
+        n = len((s["title"] + " " + s["body"]).split())
+        if n > POST_SLIDE_MAX: avvisi.append(f"slide {i}: {n} parole (max {POST_SLIDE_MAX})")
+    tutto = " ".join([p["titolo"], p.get("sub", ""), p.get("domanda", "")] + [s["title"] + " " + s["body"] for s in p.get("slides", [])]).lower()
+    for v in VIETATE:
+        if re.search(r"\b" + re.escape(v.strip()), tutto): avvisi.append(f"parola da evitare: '{v.strip()}'")
+    print("CONTROLLO_TESTO:", "OK" if not avvisi else " | ".join(avvisi)); return avvisi
+
+# --- riassunto Facebook nello stile del brand (1080x1350) ---
+def riassunto_v5(c):
+    w, h = W, CH; cov, sce, cta = photos_for(c); top = 440; T = S()["tinta"]
+    im = Image.new("RGB", (w, h), T); im.paste(photo(cov, w, top + 80), (0, 0)); im = shade(im, top=0.5)
+    lay = Image.new("RGBA", (w, h), (0, 0, 0, 0)); ImageDraw.Draw(lay).rounded_rectangle([0, top, w, h + 80], radius=70, fill=T + (255,))
+    im.paste(lay, (0, 0), lay); header_white(im, y=70); d = ImageDraw.Draw(im)
+    y = etichetta(d, (c.get("serie") or RUBRICHE.get(c.get("rubrica"), "Il consiglio del giorno")).upper(), 70, top + 54, fs=28)
+    y = block(d, c["hook"], _fit_serif(d, c["hook"], 76, 940, 2), y + 24, PURPLE, maxw=940, gap=1.1, x=70) + 26
+    core = summary_tips(dict(c, tips=[])) if c.get("rubrica") in ("blend", "mito", "rituale", "scheda") else []
+    tips = (core + [t for t in c.get("tips", []) if t not in core])[:5]; fb = 46 if len(tips) <= 3 else 40
+    for t in tips:
+        if y > h - 300: break
+        d.ellipse([70, y + 14, 88, y + 32], fill=S()["accento"])
+        y = block(d, t["title"], font("Poppins-Bold.ttf", fb), y, PURPLE, maxw=900, x=110)
+        y = block(d, t.get("body", ""), font("Poppins-Regular.ttf", fb - 4), y + 2, BODY, maxw=900, gap=1.3, x=110) + 18
+    d.text((70, h - 100), "@laviadellaromaterapia", font=font("Poppins-Bold.ttf", 32), fill=PURPLE)
+    return im
+
+def carousel(c, outdir):
+    global _STAG
+    _STAG = stagione(c); os.makedirs(outdir, exist_ok=True)
+    s = os.path.join(outdir, "riassunto.jpg"); riassunto_v5(c).convert("RGB").save(s, "JPEG", quality=90); print(s)
+
+# --- copertine delle storie in evidenza (1080x1080, viola-notte, simbolo lilla-chiaro) ---
+def _goccia(d, cx, cy, r, fill):
+    """goccia liscia con la punta in alto: cy = centro della parte tonda"""
+    import math
+    pts = []
+    for k in range(0, 360):
+        t = math.radians(k)
+        x = r * math.sin(t) * (math.sin(t / 2) ** 1.0) * 1.15
+        y = -r * 1.55 * math.cos(t) * 0.82 + r * 0.25
+        pts.append((cx + x, cy + y))
+    d.polygon(pts, fill=fill)
+
+def highlight_covers(outdir):
+    os.makedirs(outdir, exist_ok=True); L = SOFTW; A = (191, 166, 231)
+    def base():
+        im = Image.new("RGB", (1080, 1080), DEEP); return im, ImageDraw.Draw(im)
+    im, d = base(); _goccia(d, 540, 560, 190, L); im.save(os.path.join(outdir, "evidenza_inizia-qui.jpg"), quality=92)
+    im, d = base()
+    for r in range(3):
+        for k in range(3): _goccia(d, 340 + k * 200, 350 + r * 190, 58, L if (r + k) % 2 == 0 else A)
+    im.save(os.path.join(outdir, "evidenza_tabella-gocce.jpg"), quality=92)
+    im, d = base(); d.ellipse([290, 290, 790, 790], outline=L, width=26); _goccia(d, 540, 560, 120, A)
+    im.save(os.path.join(outdir, "evidenza_chi-siamo.jpg"), quality=92); print(outdir)
+
+_reel_v43_0 = reel_v43
+def reel_v43(c, out, audio=None, frames=False):
+    global _STAG
+    _STAG = stagione(c); print("STAGIONE:", _STAG); return _reel_v43_0(c, out, audio, frames)
+
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    if "--evidenza" in sys.argv:
+        return highlight_covers(args[0])
     c = json.load(open(args[0])); v4 = stock_ok() and "--v3" not in sys.argv
     if c.get("tipo") == "post":
         return controllo_post(c) if "--controllo" in sys.argv else post_carousel(c, args[1])
