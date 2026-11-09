@@ -1224,7 +1224,7 @@ VIETATE = ["salute", "curare", "guarisc", "guarire", "terapeutic", "terapia", "r
            "dolore", "mal di testa", "emicrania", "ansia", "insonnia", "depression", "infiamm", "antibatteric", "antivir",
            "immunitari", "disintossic", "detox", "medic", "farmac", "gravidanza", "incinta", "raffreddore", "tosse",
            "influenza", "digestion", "ingerire", "da bere", "per cucinare", "nei piatti", "puro sulla pelle", "bocchetta", "aspirapolvere",
-           "ferro da stiro", "umidificatore", "stress"]
+           "ferro da stiro", "umidificatore", "stress", "purific", "protegg"]
 DURATE = {"pillola": (12, 18)}
 
 def v4_cta(c, ph):
