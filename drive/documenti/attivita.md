@@ -1,17 +1,23 @@
 # Attività automatiche – istruzioni
 
-Aggiornato al 9 novembre 2026, sera (post del feed, brand identity e template v5). La versione in uso è quella salvata nelle attività pianificate su Claude: questo documento ne è il riassunto ufficiale e va aggiornato a ogni modifica.
+Aggiornato al 10 novembre 2026 (template v5.1, post anche su Facebook, istruzioni di mezzogiorno su GitHub); versione del 9 novembre sera (post del feed, brand identity e template v5). La versione in uso è quella salvata nelle attività pianificate su Claude: questo documento ne è il riassunto ufficiale e va aggiornato a ogni modifica.
 
 | Attività | Quando | Cosa fa | Connettori |
 | --- | --- | --- | --- |
 | Reel giornaliero oli essenziali (giro pesante) | Ogni giorno 11:57 (Roma) | Crea e pubblica il reel delle 12 + riassunto Facebook; crea la pillola della sera (dom-ven) o il carosello (sab) e li lascia pronti su GitHub; dom, lun, mer, gio, sab programma TikTok su Metricool per le 18:30 (max 19 al mese) | Windsor.ai, Metricool, GitHub |
 | Reel della sera oli essenziali (giro leggero) | Ogni giorno 19:23 | Pubblica soltanto: la pillola (dom-ven) o il carosello (sab) preparati a mezzogiorno | Windsor.ai, GitHub |
-| Post del feed oli essenziali (9:00 e 16:00) | Ogni giorno 8:53 e 15:53 | Pubblica soltanto il carosello preparato il giorno prima (cartella post/ su GitHub) | Windsor.ai, GitHub |
+| Post del feed oli essenziali (9:00 e 16:00) | Ogni giorno 8:53 e 15:53 | Pubblica soltanto il post preparato il giorno prima (cartella post/ su GitHub): carosello su Instagram e copertina con tutto il testo in didascalia sulla pagina Facebook | Windsor.ai, GitHub |
 | Report settimanale Instagram oli essenziali | Lunedì 8:43 | Numeri degli ultimi 28 giorni in 07 Performance + riepilogo, con l'esito della settimana di test; il primo lunedì del mese pulisce GitHub (media più vecchi di 30 giorni) | Windsor.ai, GitHub, Google Drive |
 
 Dal 7/11 pomeriggio: un solo giro pesante al giorno per risparmiare utilizzo di Claude. Dal 9/11, con i post del feed, le esecuzioni sono 29 a settimana (7 pesanti e 22 leggere). Le vecchie attività "Carosello del sabato" e "TikTok" separata non esistono più; il vecchio reel giornaliero è disattivato ([SOSTITUITA]).
 
 Tutte girano con approvazione automatica e mandano una notifica sul telefono.
+
+## Novità del 10/11
+
+- Template v5.1: tre stili di post (atmosfera, botanico, testo) con il titolo in punti diversi; il reel di mezzogiorno e la pillola prendono la posizione libera (campo "pos").
+- I post del feed escono anche su Facebook (didascalia_fb.txt con tutto il testo delle slide). Il contenuto dei post è sempre diverso da quello dei reel.
+- Le istruzioni complete del giro di mezzogiorno sono nel repository GitHub (istruzioni/mezzogiorno.txt): l'attività le legge da lì.
 
 ## Novità del 9/11 sera (brand identity, script v5)
 
@@ -90,7 +96,9 @@ Su Instagram reel e post si alternano: post alle 9:00, reel alle 12, post alle 1
 
 Rotazione (mattina / pomeriggio): lunedì umano / cosmo · martedì sensi / pianta · mercoledì emozione / pianta · giovedì strategia / sensi · venerdì cosmo / umano · sabato pianta / emozione · domenica strategia / pianta.
 
-Formato: titolo max 9 parole, 4-6 slide di testo (max 45 parole l'una), domanda finale; copertina e chiusura in foto, slide di testo su crema con titoli serif. Comando: `python3 reel.py post.json cartella` (il controllo dei testi con `--controllo`). File su GitHub in post/AAAA-MM-GG-mattina/ e post/AAAA-MM-GG-pomeriggio/ con slide, didascalia.txt e contenuti.json; riga "post" in temi.csv.
+Stili: atmosfera (umano, emozione, cosmo; titolo al centro, campo facoltativo "parola"), botanico (pianta; titolo in alto), testo (sensi, strategia; titolo in basso); campo "stile" per cambiarlo. I due post dello stesso giorno hanno stili diversi.
+
+Formato: titolo max 9 parole, 4-6 slide di testo (max 45 parole l'una), domanda finale; copertina e chiusura in foto, slide di testo su crema con titoli serif. Comando: `python3 reel.py post.json cartella` (il controllo dei testi con `--controllo`). File su GitHub in post/AAAA-MM-GG-mattina/ e post/AAAA-MM-GG-pomeriggio/ con slide, didascalia.txt (Instagram), didascalia_fb.txt (Facebook) e contenuti.json; riga "post" in temi.csv.
 
 ## 2. Pillola della sera (creata a mezzogiorno, pubblicata alle 19:30; 12-18 secondi, 1-2 consigli)
 
