@@ -1683,6 +1683,166 @@ def reel_v43(c, out, audio=None, frames=False):
     global _STAG
     _STAG = stagione(c); print("STAGIONE:", _STAG); return _reel_v43_0(c, out, audio, frames)
 
+
+# ===== v5.1 (10/11): tre stili di post e posizioni diverse dei titoli =====
+# Stili dei post (campo "stile", altrimenti dal pilastro):
+#   "atmosfera" (umano, emozione, cosmo, rituale): foto a tutta pagina velata, titolo al CENTRO, una parola chiave in maiuscolo spaziato
+#   "botanico"  (pianta): foto della pianta o dell'olio, logo piccolo al centro in alto, titolo in corsivo IN ALTO
+#   "testo"     (sensi, strategia): solo testo sulla tinta della stagione, titolo IN BASSO a sinistra
+# Reel: "pos" = "alto" | "centro" | "basso" sposta il titolo della copertina (default dalla rubrica).
+STILE_PILASTRO = {"umano": "atmosfera", "emozione": "atmosfera", "cosmo": "atmosfera", "rituale": "atmosfera",
+                  "pianta": "botanico", "sensi": "testo", "strategia": "testo"}
+POS_RUBRICA = {"momento": "basso", "comesifa": "alto", "blend": "centro", "faidate": "basso", "mito": "alto",
+               "rituale": "centro", "scheda": "basso", "pillola": "alto"}
+
+def _tw(d, text, f, track): return sum(d.textlength(ch, font=f) for ch in text) + f.size * track * max(0, len(text) - 1)
+
+def tracked(d, text, f, y, color, maxw, track=0.14, x=None, width=W, gap=1.3):
+    """testo con lettere spaziate, a capo; centrato se x e' None"""
+    lines, cur = [], ""
+    for w in text.split():
+        t = (cur + " " + w).strip()
+        if _tw(d, t, f, track) <= maxw or not cur: cur = t
+        else: lines.append(cur); cur = w
+    if cur: lines.append(cur)
+    for ln in lines:
+        xx = (width - _tw(d, ln, f, track)) / 2 if x is None else x
+        for ch in ln:
+            d.text((xx, y), ch, font=f, fill=color); xx += d.textlength(ch, font=f) + f.size * track
+        y += int(f.size * gap)
+    return y
+
+def _fit_tracked(d, text, size, maxw, lines, weight="Bold", track=0.14):
+    while size > 34:
+        f = serif(size, weight); n, cur = 1, ""
+        for w in text.split():
+            t = (cur + " " + w).strip()
+            if _tw(d, t, f, track) <= maxw or not cur: cur = t
+            else: n += 1; cur = w
+        if n <= lines and all(_tw(d, w, f, track) <= maxw for w in text.split()): return f
+        size -= 4
+    return serif(34, weight)
+
+def serif_it(size, weight="Medium"):
+    f = font("Lora-Italic-Variable.ttf", size)
+    try: f.set_variation_by_name(weight)
+    except Exception: pass
+    return f
+
+def thin_arrow(d, x0, x1, y, color):
+    d.line((x0, y, x1, y), fill=color, width=3); d.line((x1 - 22, y - 13, x1, y), fill=color, width=3); d.line((x1 - 22, y + 13, x1, y), fill=color, width=3)
+
+def _logo_centro(im, y=70, size=76):
+    lg = logo(size); im.paste(lg, ((im.size[0] - size) // 2, y), lg)
+
+def stile_post(p): return p.get("stile") or STILE_PILASTRO.get(p.get("pilastro"), "testo")
+
+# --- copertine ---
+def cover_atmosfera(p, ph):
+    w, h = W, CH; im = photo(ph, w, h).filter(ImageFilter.GaussianBlur(1.2)); im = shade(im, top=0.35, bottom=0.6, start=0.45, flat=0.38, color=(24, 16, 34))
+    header_white(im, y=70); d = ImageDraw.Draw(im); t = p["titolo"]; k = (p.get("parola") or "").upper()
+    ft = _fit_serif(d, t, 78, 860, 3, "SemiBold"); fk = _fit_tracked(d, k, 108, 900, 2) if k else None
+    th = len(wrap(d, t, ft, 860)) * int(ft.size * 1.18); y0 = int(h * 0.40 - th / 2 - (70 if k else 0))
+    def draw(dd, col, dx, dy):
+        y = block(dd, t, ft, y0 + dy, col or WHITE, maxw=860, gap=1.18, width=w)
+        if k: tracked(dd, k, fk, y + 34 + dy, col or S()["luce"], 900, width=w)
+        if p.get("sub"): block(dd, p["sub"], _fit_serif(dd, p["sub"], 50, 880, 2, "Medium"), int(h * 0.80) + dy, col or WHITE, maxw=880, width=w)
+    shadow_text(im, draw); thin_arrow(ImageDraw.Draw(im), w - 300, w - 90, h - 110, WHITE); return im
+
+def cover_botanico(p, ph):
+    w, h = W, CH; im = shade(photo(ph, w, h), top=0.0, flat=0.0); g = Image.new("L", (1, h))
+    for y in range(h): g.putpixel((0, y), int(255 * max(0.0, 0.72 * (1 - y / (h * 0.62)))))
+    im = Image.composite(Image.new("RGB", (w, h), (24, 16, 34)), im, g.resize((w, h))); _logo_centro(im)
+    d = ImageDraw.Draw(im); t = p["titolo"]; ft = serif_it(74, "Medium")
+    while len(wrap(d, t, ft, 800)) > 3 and ft.size > 44: ft = serif_it(ft.size - 4, "Medium")
+    def draw(dd, col, dx, dy):
+        y = tracked(dd, t, ft, 200 + dy, col or WHITE, 800, track=0.05, width=w, gap=1.28)
+        if not col: dd.line(((w - 70) // 2, y + 22, (w + 70) // 2, y + 22), fill=S()["luce"], width=3)
+        if p.get("sub"): tracked(dd, p["sub"].upper(), font("Poppins-Bold.ttf", 26), y + 56 + dy, col or S()["luce"], 820, track=0.2, width=w)
+    shadow_text(im, draw); thin_arrow(ImageDraw.Draw(im), w - 300, w - 90, h - 110, WHITE); return im
+
+def cover_testo(p, ph=None):
+    w, h = W, CH; im = Image.new("RGB", (w, h), S()["tinta"]); d = ImageDraw.Draw(im); _brand_dark(im)
+    tracked(d, PILASTRI.get(p.get("pilastro"), p.get("etichetta", "CURIOSITÀ")), font("Poppins-Bold.ttf", 26), 86, VLOGO, 500, track=0.2, x=w - 70 - _tw(d, PILASTRI.get(p.get("pilastro"), p.get("etichetta", "CURIOSITÀ")), font("Poppins-Bold.ttf", 26), 0.2))
+    t = p["titolo"]; ft = _fit_serif(d, t, 124, 940, 4); lines = wrap(d, t, ft, 940); sub = p.get("sub")
+    fs = font("Poppins-Regular.ttf", 44); sh = (len(wrap(d, sub, fs, 900)) * int(fs.size * 1.35) + 36) if sub else 0
+    y0 = h - 170 - sh - len(lines) * int(ft.size * 1.08)
+    d.line([(70, y0 - 50), (210, y0 - 50)], fill=S()["accento"], width=6)
+    y = block(d, t, ft, y0, PURPLE, maxw=940, gap=1.08, x=70)
+    if sub: block(d, sub, fs, y + 30, BODY, maxw=900, gap=1.35, x=70)
+    thin_arrow(d, w - 300, w - 90, h - 100, PURPLE); return im
+
+# --- slide interne ---
+def slide_atmosfera(i, n, s, ph):
+    w, h = W, CH; im = photo(ph, w, h).filter(ImageFilter.GaussianBlur(6)); im = shade(im, flat=0.62, color=(24, 16, 34))
+    header_white(im, y=70); d = ImageDraw.Draw(im); pill(d, f"{i}/{n}", w - 70, 80)
+    ft = _fit_tracked(d, s["title"].upper(), 58, 900, 3, track=0.12); fb = fit(d, s["body"], "Poppins-Regular.ttf", 54, 900, 9)
+    hh = len(wrap(d, s["body"], fb, 900)) * int(fb.size * 1.5) + 190
+    y = tracked(d, s["title"].upper(), ft, int((h - hh) / 2), S()["luce"], 900, track=0.12, x=90, gap=1.3)
+    block(d, s["body"], fb, y + 40, (244, 238, 250), maxw=900, gap=1.5, x=90); return im
+
+def slide_botanico(i, n, s):
+    w, h = W, CH; im = Image.new("RGB", (w, h), S()["tinta"]); d = ImageDraw.Draw(im); _logo_centro(im)
+    tracked(d, f"{i} / {n}", font("Poppins-Bold.ttf", 24), 172, VLOGO, 300, track=0.2, width=w)
+    ft = serif_it(70, "Medium")
+    while len(wrap(d, s["title"], ft, 860)) > 2 and ft.size > 46: ft = serif_it(ft.size - 4, "Medium")
+    y = block(d, s["title"], ft, 330, PURPLE, maxw=860, gap=1.2, width=w)
+    d.line(((w - 70) // 2, y + 26, (w + 70) // 2, y + 26), fill=S()["accento"], width=4)
+    block(d, s["body"], fit(d, s["body"], "Poppins-Regular.ttf", 52, 860, 9), y + 76, BODY, maxw=860, gap=1.5, width=w)
+    f = font("Poppins-Bold.ttf", 30); t = "@laviadellaromaterapia"; d.text(((w - d.textlength(t, font=f)) / 2, h - 100), t, font=f, fill=PURPLE); return im
+
+def slide_testo(i, n, s):
+    w, h = W, CH; im = Image.new("RGB", (w, h), S()["tinta"]); d = ImageDraw.Draw(im); _brand_dark(im); pill(d, f"{i}/{n}", w - 70, 80)
+    fb = fit(d, s["body"], "Poppins-Regular.ttf", 56, 940, 9)
+    y = block(d, s["body"], fb, 300, BODY, maxw=940, gap=1.5, x=70)
+    ft = _fit_tracked(d, s["title"].upper(), 50, 940, 2, track=0.14)
+    yk = max(y + 110, h - 400); d.line([(70, yk - 44), (190, yk - 44)], fill=S()["accento"], width=6)
+    tracked(d, s["title"].upper(), ft, yk, PURPLE, 940, track=0.14, x=70)
+    d.text((70, h - 100), "@laviadellaromaterapia", font=font("Poppins-Bold.ttf", 32), fill=PURPLE); return im
+
+def end_stile(p, ph, stile):
+    if stile != "testo": return post_end(p, ph)
+    w, h = W, CH; im = Image.new("RGB", (w, h), DEEP); d = ImageDraw.Draw(im); _logo_centro(im, y=250, size=140); q = p["domanda"]
+    y = block(d, q, _fit_serif(d, q, 80, 880, 4), 470, WHITE, maxw=880, gap=1.14, width=w)
+    y = block(d, p.get("riga1") or "Rispondi nei commenti", font("Poppins-Bold.ttf", 42), y + 50, S()["luce"], maxw=860, width=w)
+    block(d, p.get("riga2") or "e salva il post per rileggerlo", font("Poppins-Regular.ttf", 38), y + 16, SOFTW, maxw=860, width=w)
+    f = font("Poppins-Bold.ttf", 36); t = "@laviadellaromaterapia"; d.text(((w - d.textlength(t, font=f)) / 2, h - 110), t, font=f, fill=SOFTW); return im
+
+def post_carousel(p, outdir):
+    global _STAG
+    _STAG = stagione(p); controllo_post(p); os.makedirs(outdir, exist_ok=True); seed = p["titolo"]; st = stile_post(p)
+    fc, fe = PIL_FOTO.get(p.get("pilastro"), ("erbe", "candele")); fo = p.get("foto", {})
+    if st == "atmosfera" and not fo.get("cover"): fc = "luna" if p.get("pilastro") == "cosmo" else foto_stagione(p)
+    cov = pick_photo(fo.get("cover", fc), seed); end = pick_photo(fo.get("end", foto_stagione(p)), seed + "e", (cov,))
+    n = len(p["slides"])
+    if st == "atmosfera": ims = [cover_atmosfera(p, cov)] + [slide_atmosfera(i + 1, n, s, cov) for i, s in enumerate(p["slides"])]
+    elif st == "botanico": ims = [cover_botanico(p, cov)] + [slide_botanico(i + 1, n, s) for i, s in enumerate(p["slides"])]
+    else: ims = [cover_testo(p)] + [slide_testo(i + 1, n, s) for i, s in enumerate(p["slides"])]
+    ims.append(end_stile(p, end, st)); paths = []
+    for k, im in enumerate(ims):
+        q = os.path.join(outdir, f"slide_{k + 1:02d}.jpg"); im.convert("RGB").save(q, "JPEG", quality=90); paths.append(q)
+    print("\n".join(paths)); print("STAGIONE:", _STAG); print("STILE:", st, "· titolo", {"atmosfera": "al centro", "botanico": "in alto", "testo": "in basso"}[st]); print("FOTO_USATE:", f"{cov},{end}")
+
+# --- copertina dei reel con posizione del titolo ---
+def v4_cover(c, ph):
+    pos = c.get("pos") or POS_RUBRICA.get(c.get("rubrica"), "basso")
+    kw = {"basso": dict(top=0.6, bottom=0.9, start=0.28), "alto": dict(top=0.0, bottom=0.55, start=0.5, flat=0.0), "centro": dict(top=0.5, bottom=0.6, start=0.5, flat=0.42)}[pos]
+    im = photo(ph)
+    if pos == "alto":
+        g = Image.new("L", (1, H))
+        for y in range(H): g.putpixel((0, y), int(255 * max(0.0, 0.86 * (1 - y / (H * 0.62)))))
+        im = Image.composite(Image.new("RGB", (W, H), (28, 18, 40)), im, g.resize((W, H)))
+    im = shade(im, **kw); header_white(im); d = ImageDraw.Draw(im)
+    fh = tfit(d, c["hook"], 108, SW, 5); lines = wrap(d, c["hook"], fh, SW)
+    fs = font("Poppins-Bold.ttf", 44); sl = wrap(d, c.get("sub", ""), fs, SW) if c.get("sub") else []
+    hh = len(lines) * int(fh.size * 1.12) + (26 + len(sl) * int(fs.size * 1.22) if sl else 0)
+    y0 = {"basso": SY1 - hh, "alto": SY0 + 230, "centro": int((SY0 + SY1 - hh) / 2) + 50}[pos]
+    etichetta(d, (c.get("serie") or RUBRICHE.get(c.get("rubrica"), "Il consiglio del giorno")).upper(), SX0, y0 - 96)
+    def draw(dd, col, dx, dy):
+        yy = block(dd, c["hook"], fh, y0 + dy, col or WHITE, maxw=SW, gap=1.12, x=SX0 + dx)
+        if sl: block(dd, c["sub"], fs, yy + 26 + dy, col or S()["luce"], maxw=SW, x=SX0 + dx)
+    shadow_text(im, draw); return im, SY1
+
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     if "--evidenza" in sys.argv:
