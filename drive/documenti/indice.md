@@ -27,7 +27,7 @@ Pagina Instagram e Facebook sugli oli essenziali, in italiano, con l'obiettivo d
 - [Brand guidelines](https://docs.google.com/document/d/14s5HRWj4k85o14GEI_fgGZu_337M0tdEUPadq81AfEM/edit)
 - [Specifiche dei template v4.3](https://docs.google.com/document/d/1nGbHoSnLJq73PKzXrUeYCc0NIJbttMe84GsvtIfGbYs/edit)
 - [Social e copy](https://docs.google.com/document/d/1UFXndtX4Lt2isujG4r2GWpd0Ku_Qq-TFGupU307mazI/edit)
-- [Attività automatiche – istruzioni](https://docs.google.com/document/d/1vp0Xa4yx5fCxinrdUndi3k0rP_Eo5Qwy7b2MeO8LhK0/edit)
+- [Attività automatiche – istruzioni](https://docs.google.com/document/d/1lvGlizVZGPFLm8_cThLTUOaxPJYUeV6Nyvxoi_IrPZ0/edit)
 - [Funnel verso l'ebook – cosa fare](https://docs.google.com/document/d/1YF-TlC2ficQw_QYE2M7CbSpX80OybvmBlCcUXheoLNY/edit)
 
 ## Calendario automatico

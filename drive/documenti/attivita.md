@@ -15,6 +15,7 @@ Tutte girano con approvazione automatica e mandano una notifica sul telefono.
 
 ## Novità del 10/11
 
+- TikTok a mano: ogni reel che non va su Metricool (reel di mezzogiorno di martedì e venerdì, pillola della sera da domenica a venerdì) arriva nel messaggio di mezzogiorno con il link per scaricarlo e la didascalia TikTok pronta; orari consigliati 18:30 per il reel, 21:00 per la pillola. Metricool continua a pubblicare in automatico il reel di mezzogiorno di domenica, lunedì, mercoledì, giovedì e sabato.
 - Template v5.1: tre stili di post (atmosfera, botanico, testo) con il titolo in punti diversi; il reel di mezzogiorno e la pillola prendono la posizione libera (campo "pos").
 - I post del feed escono anche su Facebook (didascalia_fb.txt con tutto il testo delle slide). Il contenuto dei post è sempre diverso da quello dei reel.
 - Le istruzioni complete del giro di mezzogiorno sono nel repository GitHub (istruzioni/mezzogiorno.txt): l'attività le legge da lì.
