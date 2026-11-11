@@ -27,7 +27,7 @@ Pagina Instagram e Facebook sugli oli essenziali, in italiano, con l'obiettivo d
 - [Brand guidelines](https://docs.google.com/document/d/14s5HRWj4k85o14GEI_fgGZu_337M0tdEUPadq81AfEM/edit)
 - [Specifiche dei template v4.3](https://docs.google.com/document/d/1nGbHoSnLJq73PKzXrUeYCc0NIJbttMe84GsvtIfGbYs/edit)
 - [Social e copy](https://docs.google.com/document/d/1UFXndtX4Lt2isujG4r2GWpd0Ku_Qq-TFGupU307mazI/edit)
-- [Formule degli hook](https://docs.google.com/document/d/1UvfCPk9S_SGSG4JUNzjgY4dZHciI2N3KuW37Nsk9zc0/edit)
+- [Formule degli hook](https://docs.google.com/document/d/1AnptN97MTFc1TEEoYIZRGAegtoS9EKgYVVjFXwUjoF8/edit)
 - [Attività automatiche – istruzioni](https://docs.google.com/document/d/1LWO3wNEfVZqSiFQE873KPj3hgJYFBSlyeIABxYoNATM/edit)
 - [Funnel verso l'ebook – cosa fare](https://docs.google.com/document/d/1YF-TlC2ficQw_QYE2M7CbSpX80OybvmBlCcUXheoLNY/edit)
 
