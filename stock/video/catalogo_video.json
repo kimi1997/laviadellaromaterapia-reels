@@ -2,7 +2,7 @@
  "licenza": "Mixkit Free License e Coverr License: uso gratuito anche commerciale, nessuna attribuzione obbligatoria; vietato rivendere le clip da sole. Nessuna persona riconoscibile, nessun marchio, nessuna clip generata con AI.",
  "formato": "1080x1920, 30 fps, 7 s, senza audio, ritagliate al centro da clip orizzontali",
  "qualita": "alta = da 4K o verticale nativo; media = da 1080p; bassa = da 720p (morbida a schermo intero: usarla dietro testo o pannelli)",
- "aggiunte": "2026-11-11",
+ "aggiunte": "2026-11-11 (30 + 58 clip)",
  "categorie": {
   "candele": [
    {
@@ -86,6 +86,30 @@
     "qualita": "bassa",
     "durata": 7,
     "url": "https://mixkit.co/free-stock-video/20945/"
+   },
+   {
+    "file": "video_lavanda_mk17848.mp4",
+    "categoria": "lavanda",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/17848/",
+    "qualita": "bassa",
+    "durata": 7
+   },
+   {
+    "file": "video_lavanda_mk24991.mp4",
+    "categoria": "lavanda",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/24991/",
+    "qualita": "bassa",
+    "durata": 7
+   },
+   {
+    "file": "video_lavanda_mk7626.mp4",
+    "categoria": "lavanda",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/7626/",
+    "qualita": "bassa",
+    "durata": 7
    }
   ],
   "agrumi": [
@@ -178,6 +202,46 @@
     "qualita": "media",
     "durata": 7,
     "url": "https://coverr.co/videos/coverr-hot-water-being-poured-into-a-cup-of-tea-8891"
+   },
+   {
+    "file": "video_te_mk13198.mp4",
+    "categoria": "te",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/13198/",
+    "qualita": "bassa",
+    "durata": 7
+   },
+   {
+    "file": "video_te_mk22268.mp4",
+    "categoria": "te",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/22268/",
+    "qualita": "bassa",
+    "durata": 7
+   },
+   {
+    "file": "video_te_mk9267.mp4",
+    "categoria": "te",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/9267/",
+    "qualita": "bassa",
+    "durata": 7
+   },
+   {
+    "file": "video_te_mk9369.mp4",
+    "categoria": "te",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/9369/",
+    "qualita": "bassa",
+    "durata": 7
+   },
+   {
+    "file": "video_te_cv5270.mp4",
+    "categoria": "te",
+    "fonte": "Coverr",
+    "url": "https://coverr.co/videos/a-transparent-cup-with-a-hot-beverage-5270",
+    "qualita": "media",
+    "durata": 7
    }
   ],
   "erbe": [
@@ -196,6 +260,38 @@
     "qualita": "bassa",
     "durata": 7,
     "url": "https://mixkit.co/free-stock-video/26339/"
+   },
+   {
+    "file": "video_erbe_mk34604.mp4",
+    "categoria": "erbe",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/34604/",
+    "qualita": "bassa",
+    "durata": 7
+   },
+   {
+    "file": "video_erbe_mk34684.mp4",
+    "categoria": "erbe",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/34684/",
+    "qualita": "bassa",
+    "durata": 7
+   },
+   {
+    "file": "video_erbe_cv8427.mp4",
+    "categoria": "erbe",
+    "fonte": "Coverr",
+    "url": "https://coverr.co/videos/a-green-leaf-8427",
+    "qualita": "media",
+    "durata": 7
+   },
+   {
+    "file": "video_erbe_cv3991.mp4",
+    "categoria": "erbe",
+    "fonte": "Coverr",
+    "url": "https://coverr.co/videos/rays-of-the-sun-shining-through-a-leaf-3991",
+    "qualita": "media",
+    "durata": 7
    }
   ],
   "gocce": [
@@ -232,6 +328,86 @@
     "qualita": "alta",
     "durata": 7,
     "url": "https://mixkit.co/free-stock-video/26111/"
+   },
+   {
+    "file": "video_natura_mk35013.mp4",
+    "categoria": "natura",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/35013/",
+    "qualita": "bassa",
+    "durata": 7
+   },
+   {
+    "file": "video_natura_mk50847.mp4",
+    "categoria": "natura",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/50847/",
+    "qualita": "alta",
+    "durata": 7
+   },
+   {
+    "file": "video_natura_mk50867.mp4",
+    "categoria": "natura",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/50867/",
+    "qualita": "alta",
+    "durata": 7
+   },
+   {
+    "file": "video_natura_mk50870.mp4",
+    "categoria": "natura",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/50870/",
+    "qualita": "alta",
+    "durata": 7
+   },
+   {
+    "file": "video_natura_mk529.mp4",
+    "categoria": "natura",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/529/",
+    "qualita": "alta",
+    "durata": 7
+   },
+   {
+    "file": "video_natura_mk9843.mp4",
+    "categoria": "natura",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/9843/",
+    "qualita": "bassa",
+    "durata": 7
+   },
+   {
+    "file": "video_natura_mk9904.mp4",
+    "categoria": "natura",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/9904/",
+    "qualita": "bassa",
+    "durata": 7
+   },
+   {
+    "file": "video_natura_cv8688.mp4",
+    "categoria": "natura",
+    "fonte": "Coverr",
+    "url": "https://coverr.co/videos/foggy-forest-8688",
+    "qualita": "media",
+    "durata": 7
+   },
+   {
+    "file": "video_natura_cv3180.mp4",
+    "categoria": "natura",
+    "fonte": "Coverr",
+    "url": "https://coverr.co/videos/forest-covered-by-a-thick-fog-3180",
+    "qualita": "media",
+    "durata": 7
+   },
+   {
+    "file": "video_natura_cv1188.mp4",
+    "categoria": "natura",
+    "fonte": "Coverr",
+    "url": "https://coverr.co/videos/moss-and-grass-in-the-forest-1188",
+    "qualita": "media",
+    "durata": 7
    }
   ],
   "autunno": [
@@ -250,6 +426,46 @@
     "qualita": "bassa",
     "durata": 7,
     "url": "https://mixkit.co/free-stock-video/33237/"
+   },
+   {
+    "file": "video_autunno_mk14911.mp4",
+    "categoria": "autunno",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/14911/",
+    "qualita": "bassa",
+    "durata": 7
+   },
+   {
+    "file": "video_autunno_mk25127.mp4",
+    "categoria": "autunno",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/25127/",
+    "qualita": "bassa",
+    "durata": 7
+   },
+   {
+    "file": "video_autunno_cv9217.mp4",
+    "categoria": "autunno",
+    "fonte": "Coverr",
+    "url": "https://coverr.co/videos/autumn-leaves-on-a-sunny-day-9217",
+    "qualita": "media",
+    "durata": 7
+   },
+   {
+    "file": "video_autunno_cv5508.mp4",
+    "categoria": "autunno",
+    "fonte": "Coverr",
+    "url": "https://coverr.co/videos/beautiful-forest-in-autumn-5508",
+    "qualita": "media",
+    "durata": 7
+   },
+   {
+    "file": "video_autunno_cv9040.mp4",
+    "categoria": "autunno",
+    "fonte": "Coverr",
+    "url": "https://coverr.co/videos/golden-autumn-scenery-visible-from-a-window-9040",
+    "qualita": "media",
+    "durata": 7
    }
   ],
   "eucalipto": [
@@ -260,6 +476,268 @@
     "qualita": "bassa",
     "durata": 7,
     "url": "https://mixkit.co/free-stock-video/11000/"
+   }
+  ],
+  "pioggia": [
+   {
+    "file": "video_pioggia_mk18310.mp4",
+    "categoria": "pioggia",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/18310/",
+    "qualita": "media",
+    "durata": 7
+   },
+   {
+    "file": "video_pioggia_mk21144.mp4",
+    "categoria": "pioggia",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/21144/",
+    "qualita": "bassa",
+    "durata": 7
+   },
+   {
+    "file": "video_pioggia_mk25375.mp4",
+    "categoria": "pioggia",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/25375/",
+    "qualita": "bassa",
+    "durata": 7
+   },
+   {
+    "file": "video_pioggia_mk106.mp4",
+    "categoria": "pioggia",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/106/",
+    "qualita": "media",
+    "durata": 7
+   },
+   {
+    "file": "video_pioggia_cv6463.mp4",
+    "categoria": "pioggia",
+    "fonte": "Coverr",
+    "url": "https://coverr.co/videos/rain-on-a-red-flower-6463",
+    "qualita": "media",
+    "durata": 7
+   },
+   {
+    "file": "video_pioggia_cv7585.mp4",
+    "categoria": "pioggia",
+    "fonte": "Coverr",
+    "url": "https://coverr.co/videos/raindrops-on-tree-branches-7585",
+    "qualita": "media",
+    "durata": 7
+   }
+  ],
+  "inverno": [
+   {
+    "file": "video_inverno_mk2206.mp4",
+    "categoria": "inverno",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/2206/",
+    "qualita": "media",
+    "durata": 7
+   },
+   {
+    "file": "video_inverno_mk3311.mp4",
+    "categoria": "inverno",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/3311/",
+    "qualita": "alta",
+    "durata": 7
+   },
+   {
+    "file": "video_inverno_mk3352.mp4",
+    "categoria": "inverno",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/3352/",
+    "qualita": "alta",
+    "durata": 7
+   },
+   {
+    "file": "video_inverno_mk3358.mp4",
+    "categoria": "inverno",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/3358/",
+    "qualita": "alta",
+    "durata": 7
+   },
+   {
+    "file": "video_inverno_cv6321.mp4",
+    "categoria": "inverno",
+    "fonte": "Coverr",
+    "url": "https://coverr.co/videos/forest-covered-in-snow-6321",
+    "qualita": "media",
+    "durata": 7
+   }
+  ],
+  "fiori": [
+   {
+    "file": "video_fiori_mk3237.mp4",
+    "categoria": "fiori",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/3237/",
+    "qualita": "media",
+    "durata": 7
+   },
+   {
+    "file": "video_fiori_mk34515.mp4",
+    "categoria": "fiori",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/34515/",
+    "qualita": "bassa",
+    "durata": 7
+   },
+   {
+    "file": "video_fiori_mk3717.mp4",
+    "categoria": "fiori",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/3717/",
+    "qualita": "alta",
+    "durata": 7
+   },
+   {
+    "file": "video_fiori_mk40294.mp4",
+    "categoria": "fiori",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/40294/",
+    "qualita": "alta",
+    "durata": 7
+   },
+   {
+    "file": "video_fiori_mk7111.mp4",
+    "categoria": "fiori",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/7111/",
+    "qualita": "bassa",
+    "durata": 7
+   }
+  ],
+  "spa": [
+   {
+    "file": "video_spa_mk46258.mp4",
+    "categoria": "spa",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/46258/",
+    "qualita": "bassa",
+    "durata": 7
+   },
+   {
+    "file": "video_spa_mk46259.mp4",
+    "categoria": "spa",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/46259/",
+    "qualita": "bassa",
+    "durata": 7
+   },
+   {
+    "file": "video_spa_mk47057.mp4",
+    "categoria": "spa",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/47057/",
+    "qualita": "bassa",
+    "durata": 7
+   },
+   {
+    "file": "video_spa_mk2807.mp4",
+    "categoria": "spa",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/2807/",
+    "qualita": "alta",
+    "durata": 7
+   }
+  ],
+  "vapore": [
+   {
+    "file": "video_vapore_mk45600.mp4",
+    "categoria": "vapore",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/45600/",
+    "qualita": "bassa",
+    "durata": 7
+   },
+   {
+    "file": "video_vapore_mk50936.mp4",
+    "categoria": "vapore",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/50936/",
+    "qualita": "alta",
+    "durata": 7
+   },
+   {
+    "file": "video_vapore_mk50943.mp4",
+    "categoria": "vapore",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/50943/",
+    "qualita": "media",
+    "durata": 7
+   },
+   {
+    "file": "video_vapore_mk50950.mp4",
+    "categoria": "vapore",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/50950/",
+    "qualita": "alta",
+    "durata": 7
+   },
+   {
+    "file": "video_vapore_mk50951.mp4",
+    "categoria": "vapore",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/50951/",
+    "qualita": "alta",
+    "durata": 7
+   },
+   {
+    "file": "video_vapore_mk50956.mp4",
+    "categoria": "vapore",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/50956/",
+    "qualita": "alta",
+    "durata": 7
+   }
+  ],
+  "miele": [
+   {
+    "file": "video_miele_mk2802.mp4",
+    "categoria": "miele",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/2802/",
+    "qualita": "alta",
+    "durata": 7
+   },
+   {
+    "file": "video_miele_cv3948.mp4",
+    "categoria": "miele",
+    "fonte": "Coverr",
+    "url": "https://coverr.co/videos/pouring-honey-3948",
+    "qualita": "media",
+    "durata": 7
+   }
+  ],
+  "cielo": [
+   {
+    "file": "video_cielo_mk3350.mp4",
+    "categoria": "cielo",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/3350/",
+    "qualita": "alta",
+    "durata": 7
+   },
+   {
+    "file": "video_cielo_mk6850.mp4",
+    "categoria": "cielo",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/6850/",
+    "qualita": "bassa",
+    "durata": 7
+   },
+   {
+    "file": "video_cielo_mk31629.mp4",
+    "categoria": "cielo",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/31629/",
+    "qualita": "bassa",
+    "durata": 7
    }
   ]
  }
