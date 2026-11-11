@@ -38,4 +38,5 @@ Adattate all'italiano e alla nostra pagina dalle 26 formule della libreria open 
 
 - Ogni reel (mezzogiorno e pillola) usa una formula: scegli quella che si adatta meglio al tema, non ripetere la stessa formula due giorni di fila sulla stessa fascia e prova tutte le formule adatte nell'arco di due settimane.
 - Settimana di test 3 (23-29/11, hook a domanda): solo le formule 10, 12, 16, 17.
-- Scrivi l'id nel campo "formula" del contenuto e aggiungi una riga a hook_log.csv: data;fascia;formula;hook (fascia = mezzogiorno o sera).
+- Per ogni reel scrivi 3 hook candidati (formule diverse o varianti della stessa) e valutali tutti insieme con `python3 tools/ig_it/hookscore_it.py <file con un hook per riga>`. Usa il primo in classifica; se il primo è sotto 60, riscrivi i candidati una volta partendo dalla proprietà più debole indicata dallo script. A parità di punteggio (meno di 5 punti di differenza) scegli tu: lo script non sa distinguere tra hook discreti.
+- Scrivi l'id nel campo "formula" del contenuto e aggiungi una riga a hook_log.csv: data;fascia;formula;hook;punteggio (fascia = mezzogiorno o sera; punteggio = quello di hookscore_it.py).

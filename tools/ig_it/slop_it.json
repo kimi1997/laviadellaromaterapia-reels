@@ -1,0 +1,574 @@
+{
+ "version": "1.0-it",
+ "note": "Lessico italiano per humanize_it.py e detect_it.py (11/11/2026), adattato da slop.json di instagram-agent-skill (MIT). Le sostituzioni restano grammaticali; 'essenziale' non è mai trattato come parola da togliere (è il nostro argomento).",
+ "invisible": [
+  {
+   "cp": "U+200B",
+   "name": "ZERO WIDTH SPACE",
+   "action": "delete"
+  },
+  {
+   "cp": "U+200C",
+   "name": "ZERO WIDTH NON-JOINER",
+   "action": "delete"
+  },
+  {
+   "cp": "U+200D",
+   "name": "ZERO WIDTH JOINER",
+   "action": "delete"
+  },
+  {
+   "cp": "U+2060",
+   "name": "WORD JOINER",
+   "action": "delete"
+  },
+  {
+   "cp": "U+FEFF",
+   "name": "ZERO WIDTH NO-BREAK SPACE / BOM",
+   "action": "delete"
+  },
+  {
+   "cp": "U+00AD",
+   "name": "SOFT HYPHEN",
+   "action": "delete"
+  },
+  {
+   "cp": "U+180E",
+   "name": "MONGOLIAN VOWEL SEPARATOR",
+   "action": "delete"
+  },
+  {
+   "cp": "U+061C",
+   "name": "ARABIC LETTER MARK",
+   "action": "delete"
+  },
+  {
+   "cp": "U+200E",
+   "name": "LEFT-TO-RIGHT MARK",
+   "action": "delete"
+  },
+  {
+   "cp": "U+200F",
+   "name": "RIGHT-TO-LEFT MARK",
+   "action": "delete"
+  },
+  {
+   "cp": "U+E0000-U+E007F",
+   "name": "TAG CHARACTERS (invisible ASCII smuggling)",
+   "action": "delete"
+  },
+  {
+   "cp": "U+00A0",
+   "name": "NO-BREAK SPACE",
+   "action": "space"
+  },
+  {
+   "cp": "U+202F",
+   "name": "NARROW NO-BREAK SPACE",
+   "action": "space"
+  },
+  {
+   "cp": "U+2009",
+   "name": "THIN SPACE",
+   "action": "space"
+  },
+  {
+   "cp": "U+2007",
+   "name": "FIGURE SPACE",
+   "action": "space"
+  },
+  {
+   "cp": "U+2003",
+   "name": "EM SPACE",
+   "action": "space"
+  },
+  {
+   "cp": "U+2002",
+   "name": "EN SPACE",
+   "action": "space"
+  },
+  {
+   "cp": "U+2063",
+   "name": "INVISIBLE SEPARATOR",
+   "action": "delete"
+  }
+ ],
+ "typographic": [
+  {
+   "from": "—",
+   "name": "EM DASH",
+   "to": ", "
+  },
+  {
+   "from": "–",
+   "name": "EN DASH",
+   "to": "-"
+  },
+  {
+   "from": "‘",
+   "name": "LEFT SINGLE QUOTE",
+   "to": "'"
+  },
+  {
+   "from": "’",
+   "name": "RIGHT SINGLE QUOTE",
+   "to": "'"
+  },
+  {
+   "from": "“",
+   "name": "LEFT DOUBLE QUOTE",
+   "to": "\""
+  },
+  {
+   "from": "”",
+   "name": "RIGHT DOUBLE QUOTE",
+   "to": "\""
+  },
+  {
+   "from": "…",
+   "name": "HORIZONTAL ELLIPSIS",
+   "to": "..."
+  },
+  {
+   "from": "′",
+   "name": "PRIME",
+   "to": "'"
+  },
+  {
+   "from": "·",
+   "name": "MIDDLE DOT",
+   "to": "-"
+  },
+  {
+   "from": "•",
+   "name": "BULLET",
+   "to": "-"
+  },
+  {
+   "from": "→",
+   "name": "RIGHTWARDS ARROW",
+   "to": "->"
+  }
+ ],
+ "words": [
+  {
+   "find": "immergiti",
+   "replace": "entra",
+   "family": "verbi"
+  },
+  {
+   "find": "immergersi",
+   "replace": "entrare",
+   "family": "verbi"
+  },
+  {
+   "find": "addentrarsi",
+   "replace": "entrare",
+   "family": "verbi"
+  },
+  {
+   "find": "approfondire",
+   "replace": "guardare meglio",
+   "family": "verbi"
+  },
+  {
+   "find": "elevare",
+   "replace": "migliorare",
+   "family": "verbi"
+  },
+  {
+   "find": "eleva",
+   "replace": "migliora",
+   "family": "verbi"
+  },
+  {
+   "find": "potenziare",
+   "replace": "aumentare",
+   "family": "verbi"
+  },
+  {
+   "find": "potenzia",
+   "replace": "aumenta",
+   "family": "verbi"
+  },
+  {
+   "find": "sbloccare",
+   "replace": "trovare",
+   "family": "verbi"
+  },
+  {
+   "find": "sblocca",
+   "replace": "trova",
+   "family": "verbi"
+  },
+  {
+   "find": "valorizzare",
+   "replace": "far notare",
+   "family": "verbi"
+  },
+  {
+   "find": "ottimizzare",
+   "replace": "migliorare",
+   "family": "verbi"
+  },
+  {
+   "find": "intraprendere",
+   "replace": "iniziare",
+   "family": "verbi"
+  },
+  {
+   "find": "abbracciare",
+   "replace": "accogliere",
+   "family": "verbi"
+  },
+  {
+   "find": "plasmare",
+   "replace": "dare forma a",
+   "family": "verbi"
+  },
+  {
+   "find": "fondamentale",
+   "replace": "importante",
+   "family": "aggettivi"
+  },
+  {
+   "find": "cruciale",
+   "replace": "importante",
+   "family": "aggettivi"
+  },
+  {
+   "find": "imprescindibile",
+   "replace": "importante",
+   "family": "aggettivi"
+  },
+  {
+   "find": "straordinariamente",
+   "replace": "molto",
+   "family": "avverbi"
+  },
+  {
+   "find": "incredibilmente",
+   "replace": "molto",
+   "family": "avverbi"
+  },
+  {
+   "find": "profondamente",
+   "replace": "molto",
+   "family": "avverbi"
+  },
+  {
+   "find": "letteralmente",
+   "replace": "",
+   "family": "avverbi"
+  },
+  {
+   "find": "assolutamente",
+   "replace": "",
+   "family": "avverbi"
+  },
+  {
+   "find": "decisamente",
+   "replace": "",
+   "family": "avverbi"
+  },
+  {
+   "find": "sinergia",
+   "replace": "incontro",
+   "family": "nomi"
+  },
+  {
+   "find": "sinergico",
+   "replace": "che lavora insieme",
+   "family": "aggettivi"
+  },
+  {
+   "find": "paradigma",
+   "replace": "modo",
+   "family": "nomi"
+  },
+  {
+   "find": "panorama",
+   "replace": "mondo",
+   "family": "nomi"
+  },
+  {
+   "find": "ecosistema",
+   "replace": "insieme",
+   "family": "nomi"
+  },
+  {
+   "find": "rivoluzionario",
+   "replace": "nuovo",
+   "family": "aggettivi"
+  },
+  {
+   "find": "rivoluzionaria",
+   "replace": "nuova",
+   "family": "aggettivi"
+  },
+  {
+   "find": "innovativo",
+   "replace": "nuovo",
+   "family": "aggettivi"
+  },
+  {
+   "find": "innovativa",
+   "replace": "nuova",
+   "family": "aggettivi"
+  },
+  {
+   "find": "unico nel suo genere",
+   "replace": "diverso",
+   "family": "aggettivi"
+  }
+ ],
+ "phrases": [
+  {
+   "find": "nel mondo frenetico di oggi",
+   "replace": "oggi",
+   "family": "aperture"
+  },
+  {
+   "find": "nella frenesia quotidiana",
+   "replace": "nelle giornate piene",
+   "family": "aperture"
+  },
+  {
+   "find": "al giorno d'oggi",
+   "replace": "oggi",
+   "family": "aperture"
+  },
+  {
+   "find": "in un mondo in cui",
+   "replace": "oggi che",
+   "family": "aperture"
+  },
+  {
+   "find": "nell'era digitale",
+   "replace": "oggi",
+   "family": "aperture"
+  },
+  {
+   "find": "scopri il potere di",
+   "replace": "prova",
+   "family": "promesse"
+  },
+  {
+   "find": "scopri il potere del",
+   "replace": "prova il",
+   "family": "promesse"
+  },
+  {
+   "find": "scopri il potere della",
+   "replace": "prova la",
+   "family": "promesse"
+  },
+  {
+   "find": "scopri la magia di",
+   "replace": "prova",
+   "family": "promesse"
+  },
+  {
+   "find": "lasciati avvolgere da",
+   "replace": "goditi",
+   "family": "promesse"
+  },
+  {
+   "find": "lasciati avvolgere dal",
+   "replace": "goditi il",
+   "family": "promesse"
+  },
+  {
+   "find": "lasciati avvolgere dalla",
+   "replace": "goditi la",
+   "family": "promesse"
+  },
+  {
+   "find": "lasciati trasportare",
+   "replace": "goditi",
+   "family": "promesse"
+  },
+  {
+   "find": "un vero e proprio",
+   "replace": "un",
+   "family": "riempitivi"
+  },
+  {
+   "find": "una vera e propria",
+   "replace": "una",
+   "family": "riempitivi"
+  },
+  {
+   "find": "veri e propri",
+   "replace": "",
+   "family": "riempitivi"
+  },
+  {
+   "find": "vere e proprie",
+   "replace": "",
+   "family": "riempitivi"
+  },
+  {
+   "find": "in conclusione",
+   "replace": "",
+   "family": "riempitivi"
+  },
+  {
+   "find": "in sintesi",
+   "replace": "",
+   "family": "riempitivi"
+  },
+  {
+   "find": "è importante notare che",
+   "replace": "",
+   "family": "riempitivi"
+  },
+  {
+   "find": "vale la pena notare che",
+   "replace": "",
+   "family": "riempitivi"
+  },
+  {
+   "find": "è bene sapere che",
+   "replace": "",
+   "family": "riempitivi"
+  },
+  {
+   "find": "senza ombra di dubbio",
+   "replace": "",
+   "family": "riempitivi"
+  },
+  {
+   "find": "a 360 gradi",
+   "replace": "",
+   "family": "riempitivi"
+  },
+  {
+   "find": "a tutto tondo",
+   "replace": "",
+   "family": "riempitivi"
+  },
+  {
+   "find": "un'esperienza sensoriale unica",
+   "replace": "un momento tutto tuo",
+   "family": "promesse"
+  },
+  {
+   "find": "esperienza sensoriale unica",
+   "replace": "momento tutto tuo",
+   "family": "promesse"
+  },
+  {
+   "find": "coccola per i sensi",
+   "replace": "piccolo piacere",
+   "family": "promesse"
+  },
+  {
+   "find": "viaggio sensoriale",
+   "replace": "momento",
+   "family": "promesse"
+  },
+  {
+   "find": "angolo di paradiso",
+   "replace": "angolo tranquillo",
+   "family": "promesse"
+  },
+  {
+   "find": "oasi di pace",
+   "replace": "angolo tranquillo",
+   "family": "promesse"
+  },
+  {
+   "find": "game changer",
+   "replace": "svolta",
+   "family": "anglicismi"
+  },
+  {
+   "find": "must have",
+   "replace": "da avere",
+   "family": "anglicismi"
+  },
+  {
+   "find": "prendersi cura di sé",
+   "replace": "pensare a sé",
+   "family": "promesse"
+  },
+  {
+   "find": "benessere a 360 gradi",
+   "replace": "benessere",
+   "family": "promesse"
+  },
+  {
+   "find": "il segreto per",
+   "replace": "il modo per",
+   "family": "promesse"
+  },
+  {
+   "find": "ti cambierà la vita",
+   "replace": "ti piacerà",
+   "family": "promesse"
+  }
+ ],
+ "structures": [
+  {
+   "id": "non-solo",
+   "regex": "(?i)\\bnon (?:è )?solo\\b[^.!?\\n]{2,80}\\bma anche\\b",
+   "name": "\"Non solo X ma anche Y\"",
+   "fix": "Due frasi, o togli la metà più debole."
+  },
+  {
+   "id": "non-e-x-e-y",
+   "regex": "(?i)\\bnon (?:è|si tratta di) (?:solo |soltanto )?[^.!?\\n]{2,60}[,.] (?:è|si tratta di)\\b",
+   "name": "\"Non è X, è Y\"",
+   "fix": "Di' subito Y. Il ribaltamento è il segnale."
+  },
+  {
+   "id": "il-risultato",
+   "regex": "(?im)^\\s*(?:il risultato|il bello|la sorpresa|il trucco)\\?\\s*$",
+   "name": "Riga con domanda retorica di una parola",
+   "fix": "Rispondi nella stessa frase invece di preparare il colpo di scena."
+  },
+  {
+   "id": "triade",
+   "regex": "(?i)\\b\\w+, \\w+ e \\w+\\.",
+   "name": "Triade da tre",
+   "fix": "Due o quattro elementi: il tre è il ritmo di default dei modelli."
+  },
+  {
+   "id": "emoji-ai",
+   "regex": "[\\U0001F680\\U0001F525\\U0001F4A1\\U0001F3AF\\U0001F4AF]",
+   "name": "Emoji razzo / fuoco / lampadina / bersaglio / 100",
+   "fix": "Al massimo un emoji per riga, tra quelli del brand (🌿 💧 🪻 🍋 ✨ 🌙)."
+  },
+  {
+   "id": "muro-hashtag",
+   "regex": "(?:#\\w+[ \\t]*){7,}",
+   "name": "Muro di hashtag (7+)",
+   "fix": "Regola del progetto: 4-6 su Instagram, 3-5 su TikTok e Facebook."
+  },
+  {
+   "id": "ecco-cosa",
+   "regex": "(?i)\\becco (?:cosa|tutto quello che) (?:devi sapere|ho imparato|c'è da sapere)\\b",
+   "name": "\"Ecco cosa devi sapere\"",
+   "fix": "Di' la cosa, salta l'annuncio."
+  },
+  {
+   "id": "come-ai",
+   "regex": "(?i)\\bcome (?:intelligenza artificiale|modello linguistico|ia)\\b",
+   "name": "Traccia di assistente AI",
+   "fix": "Togli la frase."
+  },
+  {
+   "id": "cta-spinta",
+   "regex": "(?i)\\b(?:che aspetti|non lasciarti sfuggire|corri a|affrettati|solo per oggi)\\b",
+   "name": "Invito commerciale (\"che aspetti?\", \"corri a\")",
+   "fix": "Tono non commerciale: chiudi con la domanda della rubrica o con l'invito a salvare."
+  },
+  {
+   "id": "elisir",
+   "regex": "(?i)\\belisir\\b",
+   "name": "\"Elisir\"",
+   "fix": "Parola da pubblicità: di' cosa fa la miscela, in parole semplici."
+  }
+ ]
+}
