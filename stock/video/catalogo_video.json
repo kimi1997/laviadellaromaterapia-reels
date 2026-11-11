@@ -1,0 +1,266 @@
+{
+ "licenza": "Mixkit Free License e Coverr License: uso gratuito anche commerciale, nessuna attribuzione obbligatoria; vietato rivendere le clip da sole. Nessuna persona riconoscibile, nessun marchio, nessuna clip generata con AI.",
+ "formato": "1080x1920, 30 fps, 7 s, senza audio, ritagliate al centro da clip orizzontali",
+ "qualita": "alta = da 4K o verticale nativo; media = da 1080p; bassa = da 720p (morbida a schermo intero: usarla dietro testo o pannelli)",
+ "aggiunte": "2026-11-11",
+ "categorie": {
+  "candele": [
+   {
+    "file": "video_candele_mk6925.mp4",
+    "categoria": "candele",
+    "fonte": "Mixkit",
+    "qualita": "bassa",
+    "durata": 7,
+    "url": "https://mixkit.co/free-stock-video/6925/"
+   },
+   {
+    "file": "video_candele_mk17426.mp4",
+    "categoria": "candele",
+    "fonte": "Mixkit",
+    "qualita": "bassa",
+    "durata": 7,
+    "url": "https://mixkit.co/free-stock-video/17426/"
+   },
+   {
+    "file": "video_candele_mk3453.mp4",
+    "categoria": "candele",
+    "fonte": "Mixkit",
+    "qualita": "alta",
+    "durata": 7,
+    "url": "https://mixkit.co/free-stock-video/3453/"
+   },
+   {
+    "file": "video_candele_mk48498.mp4",
+    "categoria": "candele",
+    "fonte": "Mixkit",
+    "qualita": "bassa",
+    "durata": 7,
+    "url": "https://mixkit.co/free-stock-video/48498/"
+   },
+   {
+    "file": "video_candele_mk3458.mp4",
+    "categoria": "candele",
+    "fonte": "Mixkit",
+    "qualita": "alta",
+    "durata": 7,
+    "url": "https://mixkit.co/free-stock-video/3458/"
+   }
+  ],
+  "lavanda": [
+   {
+    "file": "video_lavanda_mk1244.mp4",
+    "categoria": "lavanda",
+    "fonte": "Mixkit",
+    "qualita": "alta",
+    "durata": 7,
+    "url": "https://mixkit.co/free-stock-video/1244/"
+   },
+   {
+    "file": "video_lavanda_mk566.mp4",
+    "categoria": "lavanda",
+    "fonte": "Mixkit",
+    "qualita": "alta",
+    "durata": 7,
+    "url": "https://mixkit.co/free-stock-video/566/"
+   },
+   {
+    "file": "video_lavanda_mk24990.mp4",
+    "categoria": "lavanda",
+    "fonte": "Mixkit",
+    "qualita": "bassa",
+    "durata": 7,
+    "url": "https://mixkit.co/free-stock-video/24990/"
+   },
+   {
+    "file": "video_lavanda_mk16020.mp4",
+    "categoria": "lavanda",
+    "fonte": "Mixkit",
+    "qualita": "bassa",
+    "durata": 7,
+    "url": "https://mixkit.co/free-stock-video/16020/"
+   },
+   {
+    "file": "video_lavanda_mk20945.mp4",
+    "categoria": "lavanda",
+    "fonte": "Mixkit",
+    "qualita": "bassa",
+    "durata": 7,
+    "url": "https://mixkit.co/free-stock-video/20945/"
+   }
+  ],
+  "agrumi": [
+   {
+    "file": "video_agrumi_mk3697.mp4",
+    "categoria": "agrumi",
+    "fonte": "Mixkit",
+    "qualita": "alta",
+    "durata": 7,
+    "url": "https://mixkit.co/free-stock-video/3697/"
+   },
+   {
+    "file": "video_agrumi_mk3699.mp4",
+    "categoria": "agrumi",
+    "fonte": "Mixkit",
+    "qualita": "alta",
+    "durata": 7,
+    "url": "https://mixkit.co/free-stock-video/3699/"
+   },
+   {
+    "file": "video_agrumi_mk42945.mp4",
+    "categoria": "agrumi",
+    "fonte": "Mixkit",
+    "qualita": "alta",
+    "durata": 7,
+    "url": "https://mixkit.co/free-stock-video/42945/"
+   },
+   {
+    "file": "video_agrumi_mk28814.mp4",
+    "categoria": "agrumi",
+    "fonte": "Mixkit",
+    "qualita": "bassa",
+    "durata": 7,
+    "url": "https://mixkit.co/free-stock-video/28814/"
+   },
+   {
+    "file": "video_agrumi_mk50806.mp4",
+    "categoria": "agrumi",
+    "fonte": "Mixkit",
+    "qualita": "alta",
+    "durata": 7,
+    "url": "https://mixkit.co/free-stock-video/50806/"
+   },
+   {
+    "file": "video_agrumi_mk966.mp4",
+    "categoria": "agrumi",
+    "fonte": "Mixkit",
+    "qualita": "alta",
+    "durata": 4.2,
+    "url": "https://mixkit.co/free-stock-video/966/"
+   },
+   {
+    "file": "video_agrumi_cv655.mp4",
+    "categoria": "agrumi",
+    "fonte": "Coverr",
+    "qualita": "media",
+    "durata": 7,
+    "url": "https://coverr.co/videos/coverr-cutting-an-orange-655"
+   }
+  ],
+  "te": [
+   {
+    "file": "video_te_mk14908.mp4",
+    "categoria": "te",
+    "fonte": "Mixkit",
+    "qualita": "bassa",
+    "durata": 7,
+    "url": "https://mixkit.co/free-stock-video/14908/"
+   },
+   {
+    "file": "video_te_mk20823.mp4",
+    "categoria": "te",
+    "fonte": "Mixkit",
+    "qualita": "bassa",
+    "durata": 5.0,
+    "url": "https://mixkit.co/free-stock-video/20823/"
+   },
+   {
+    "file": "video_te_mk20824.mp4",
+    "categoria": "te",
+    "fonte": "Mixkit",
+    "qualita": "bassa",
+    "durata": 5.0,
+    "url": "https://mixkit.co/free-stock-video/20824/"
+   },
+   {
+    "file": "video_te_cv8891.mp4",
+    "categoria": "te",
+    "fonte": "Coverr",
+    "qualita": "media",
+    "durata": 7,
+    "url": "https://coverr.co/videos/coverr-hot-water-being-poured-into-a-cup-of-tea-8891"
+   }
+  ],
+  "erbe": [
+   {
+    "file": "video_erbe_mk36241.mp4",
+    "categoria": "erbe",
+    "fonte": "Mixkit",
+    "qualita": "bassa",
+    "durata": 7,
+    "url": "https://mixkit.co/free-stock-video/36241/"
+   },
+   {
+    "file": "video_erbe_mk26339.mp4",
+    "categoria": "erbe",
+    "fonte": "Mixkit",
+    "qualita": "bassa",
+    "durata": 7,
+    "url": "https://mixkit.co/free-stock-video/26339/"
+   }
+  ],
+  "gocce": [
+   {
+    "file": "video_gocce_mk51414.mp4",
+    "categoria": "gocce",
+    "fonte": "Mixkit",
+    "qualita": "alta",
+    "durata": 7,
+    "url": "https://mixkit.co/free-stock-video/51414/"
+   },
+   {
+    "file": "video_gocce_mk51415.mp4",
+    "categoria": "gocce",
+    "fonte": "Mixkit",
+    "qualita": "alta",
+    "durata": 7,
+    "url": "https://mixkit.co/free-stock-video/51415/"
+   },
+   {
+    "file": "video_gocce_mk51417.mp4",
+    "categoria": "gocce",
+    "fonte": "Mixkit",
+    "qualita": "alta",
+    "durata": 7,
+    "url": "https://mixkit.co/free-stock-video/51417/"
+   }
+  ],
+  "natura": [
+   {
+    "file": "video_natura_mk26111.mp4",
+    "categoria": "natura",
+    "fonte": "Mixkit",
+    "qualita": "alta",
+    "durata": 7,
+    "url": "https://mixkit.co/free-stock-video/26111/"
+   }
+  ],
+  "autunno": [
+   {
+    "file": "video_autunno_mk45620.mp4",
+    "categoria": "autunno",
+    "fonte": "Mixkit",
+    "qualita": "bassa",
+    "durata": 7,
+    "url": "https://mixkit.co/free-stock-video/45620/"
+   },
+   {
+    "file": "video_autunno_mk33237.mp4",
+    "categoria": "autunno",
+    "fonte": "Mixkit",
+    "qualita": "bassa",
+    "durata": 7,
+    "url": "https://mixkit.co/free-stock-video/33237/"
+   }
+  ],
+  "eucalipto": [
+   {
+    "file": "video_eucalipto_mk11000.mp4",
+    "categoria": "eucalipto",
+    "fonte": "Mixkit",
+    "qualita": "bassa",
+    "durata": 7,
+    "url": "https://mixkit.co/free-stock-video/11000/"
+   }
+  ]
+ }
+}
