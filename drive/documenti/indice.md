@@ -1,6 +1,6 @@
 # La via dell'aromaterapia – Indice del progetto
 
-Aggiornato al 10 novembre 2026 · Responsabile: Michele
+Aggiornato all'11 novembre 2026 · Responsabile: Michele
 
 Pagina Instagram e Facebook sugli oli essenziali, in italiano, con l'obiettivo di vendere ebook scritti da noi. Ogni giorno escono in automatico quattro contenuti alternati: un post (carosello) alle 9, il reel della rubrica alle 12, un altro post alle 16 e la "pillola della sera" alle 19:30. Il sabato alle 19:30 al posto della pillola esce un carosello; dalle 18:30 cinque giorni a settimana lo stesso reel va anche su TikTok; il lunedì arriva il report. Dal 10 novembre i post escono anche su Facebook e i contenuti usano i template v5.1 della brand identity (titoli in Lora, colori e foto secondo la stagione, zona sicura per Instagram e TikTok, copertina di 2 secondi, controllo dei testi). Dal 9 novembre al 6 dicembre corre un piano di test di 4 settimane, una variabile per volta, deciso con l'audit del 7 novembre. Posizionamento: "oli essenziali spiegati da chi non te li vende".
 
@@ -13,7 +13,7 @@ Pagina Instagram e Facebook sugli oli essenziali, in italiano, con l'obiettivo d
 | [03 Analisi e strategia](https://drive.google.com/drive/folders/1pAAdLS0NuqHlO6LXqnw0Xxil7dBXBYuI) | Piano editoriale, Audit social del 7/11, Analisi community con buyer persona, Analisi competitor con screenshot |
 | [04 Masterplan](https://drive.google.com/drive/folders/10TjrHpeTIFJPuzdliLBMTdJoBX97tC5H) | Il Masterplan: attività automatiche, account, brand, piano, problemi e decisioni |
 | [05 Automazione](https://drive.google.com/drive/folders/1IbfjG0tA1zg1btQuHMHbZ3q6qMUCpAxM) | Istruzioni delle 4 attività automatiche, script reel.py v5.1 (reel, post, stagioni), esempi di contenuti |
-| [06 Social e copy](https://drive.google.com/drive/folders/1ubBoFuoa-9_DXERF6Kiz0pgz7KlGyUH1) | Bio, struttura delle didascalie, hashtag, piano di test, community |
+| [06 Social e copy](https://drive.google.com/drive/folders/1ubBoFuoa-9_DXERF6Kiz0pgz7KlGyUH1) | Bio, struttura delle didascalie, hashtag, formule degli hook, piano di test, community |
 | [07 Performance](https://drive.google.com/drive/folders/1_9adyIVDhe0khXYZj8y8yWsptD-jI6IB) | I report settimanali "Report AAAA-MM-GG", dal 9 novembre 2026 |
 | [08 Lead magnet e funnel](https://drive.google.com/drive/folders/1khxduwTPPXcMn88gU9dsG4BFMSW4rC8_) | "La tabella delle gocce" (PDF gratuito), funnel verso l'ebook con bio, landing e messaggi pronti |
 
@@ -27,7 +27,8 @@ Pagina Instagram e Facebook sugli oli essenziali, in italiano, con l'obiettivo d
 - [Brand guidelines](https://docs.google.com/document/d/14s5HRWj4k85o14GEI_fgGZu_337M0tdEUPadq81AfEM/edit)
 - [Specifiche dei template v4.3](https://docs.google.com/document/d/1nGbHoSnLJq73PKzXrUeYCc0NIJbttMe84GsvtIfGbYs/edit)
 - [Social e copy](https://docs.google.com/document/d/1UFXndtX4Lt2isujG4r2GWpd0Ku_Qq-TFGupU307mazI/edit)
-- [Attività automatiche – istruzioni](https://docs.google.com/document/d/1lvGlizVZGPFLm8_cThLTUOaxPJYUeV6Nyvxoi_IrPZ0/edit)
+- [Formule degli hook](https://docs.google.com/document/d/1UvfCPk9S_SGSG4JUNzjgY4dZHciI2N3KuW37Nsk9zc0/edit)
+- [Attività automatiche – istruzioni](https://docs.google.com/document/d/1LWO3wNEfVZqSiFQE873KPj3hgJYFBSlyeIABxYoNATM/edit)
 - [Funnel verso l'ebook – cosa fare](https://docs.google.com/document/d/1YF-TlC2ficQw_QYE2M7CbSpX80OybvmBlCcUXheoLNY/edit)
 
 ## Calendario automatico

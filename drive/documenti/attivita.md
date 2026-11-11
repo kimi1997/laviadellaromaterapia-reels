@@ -13,6 +13,13 @@ Dal 7/11 pomeriggio: un solo giro pesante al giorno per risparmiare utilizzo di 
 
 Tutte girano con approvazione automatica e mandano una notifica sul telefono.
 
+## Novità dell'11/11
+
+- Formule degli hook: ogni reel (mezzogiorno e pillola) usa una delle 18 formule del documento "Formule degli hook", adattate dalla libreria open source instagram-agent-skill; la formula usata finisce in hook_log.csv.
+- Report del lunedì con il metodo dell'audit: classifica per "volte la mediana" e condivisioni ogni 100 persone raggiunte, tenuta a 3 secondi, confronto tra i 5 reel migliori e i 5 peggiori, risultati per formula.
+- TikTok nel report: la domenica il giro di mezzogiorno salva le statistiche TikTok di Metricool (tiktok/statistiche.csv) e il lunedì il report le legge.
+- Le istruzioni complete del report sono su GitHub (istruzioni/report.txt), come quelle di mezzogiorno.
+
 ## Novità del 10/11
 
 - TikTok a mano: ogni reel che non va su Metricool (reel di mezzogiorno di martedì e venerdì, pillola della sera da domenica a venerdì) arriva nel messaggio di mezzogiorno con il link per scaricarlo e la didascalia TikTok pronta; orari consigliati 18:30 per il reel, 21:00 per la pillola. Metricool continua a pubblicare in automatico il reel di mezzogiorno di domenica, lunedì, mercoledì, giovedì e sabato.
