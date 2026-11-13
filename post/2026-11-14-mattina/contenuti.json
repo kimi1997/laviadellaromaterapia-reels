@@ -1,0 +1,34 @@
+{
+ "tipo": "post",
+ "pilastro": "pianta",
+ "titolo": "Timo: 5 curiosità sulla piccola erba del coraggio",
+ "sub": "Dai templi greci al miele",
+ "stile": "botanico",
+ "slides": [
+  {
+   "title": "Un nome che sa di fumo",
+   "body": "Il nome viene dal greco thymon. Secondo un'ipotesi molto diffusa è legato a un verbo che significa bruciare in offerta: nei templi greci il timo si bruciava come incenso."
+  },
+  {
+   "title": "L'erba del coraggio",
+   "body": "Nel Medioevo, si racconta, le dame ricamavano un rametto di timo sulle sciarpe dei cavalieri in partenza, come augurio di coraggio."
+  },
+  {
+   "title": "Il miele dell'Imetto",
+   "body": "Il miele di timo del monte Imetto, vicino ad Atene, era famoso già nell'antichità. Le api adorano i suoi fiorellini rosa e lilla."
+  },
+  {
+   "title": "Piccolo e tenace",
+   "body": "Il timo comune è un arbusto mediterraneo alto pochi centimetri. Ama il sole e i terreni poveri e sassosi, dove altre piante faticano a crescere."
+  },
+  {
+   "title": "Stessa pianta, profumi diversi",
+   "body": "Esistono diversi chemotipi di timo: piante della stessa specie che producono oli dal profumo diverso, più pungente o più dolce, a seconda di dove crescono."
+  }
+ ],
+ "domanda": "Dove hai annusato il timo per la prima volta?",
+ "foto": {
+  "cover": "erbe_6694137.jpg",
+  "end": "erbe_10083955.jpg"
+ }
+}
