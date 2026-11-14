@@ -2,7 +2,7 @@
  "licenza": "Mixkit Free License e Coverr License: uso gratuito anche commerciale, nessuna attribuzione obbligatoria; vietato rivendere le clip da sole. Nessuna persona riconoscibile, nessun marchio, nessuna clip generata con AI.",
  "formato": "1080x1920, 30 fps, 7 s, senza audio, ritagliate al centro da clip orizzontali",
  "qualita": "alta = da 4K o verticale nativo; media = da 1080p; bassa = da 720p (morbida a schermo intero: usarla dietro testo o pannelli)",
- "aggiunte": "2026-11-11 (30 + 58 clip)",
+ "aggiunte": "2026-11-11 (30 + 58 clip); 2026-11-14 (4 clip di mani al lavoro per la rubrica ricetta)",
  "categorie": {
   "candele": [
    {
@@ -736,6 +736,40 @@
     "categoria": "cielo",
     "fonte": "Mixkit",
     "url": "https://mixkit.co/free-stock-video/31629/",
+    "qualita": "bassa",
+    "durata": 7
+   }
+  ],
+  "mani": [
+   {
+    "file": "video_mani_mk2808.mp4",
+    "categoria": "mani",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/2808/",
+    "qualita": "media",
+    "durata": 7
+   },
+   {
+    "file": "video_mani_mk2803.mp4",
+    "categoria": "mani",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/2803/",
+    "qualita": "alta",
+    "durata": 7
+   },
+   {
+    "file": "video_mani_mk14626.mp4",
+    "categoria": "mani",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/14626/",
+    "qualita": "bassa",
+    "durata": 7
+   },
+   {
+    "file": "video_mani_mk15554.mp4",
+    "categoria": "mani",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/15554/",
     "qualita": "bassa",
     "durata": 7
    }

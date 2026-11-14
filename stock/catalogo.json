@@ -456,6 +456,28 @@
     "tono": "chiaro",
     "url": "https://www.pexels.com/photo/5705068/"
    }
+  ],
+  "mani": [
+   {
+    "file": "mani_mk2808.jpg",
+    "fonte": "Mixkit (fotogramma della clip)",
+    "url": "https://mixkit.co/free-stock-video/2808/"
+   },
+   {
+    "file": "mani_mk2803.jpg",
+    "fonte": "Mixkit (fotogramma della clip)",
+    "url": "https://mixkit.co/free-stock-video/2803/"
+   },
+   {
+    "file": "mani_mk14626.jpg",
+    "fonte": "Mixkit (fotogramma della clip)",
+    "url": "https://mixkit.co/free-stock-video/14626/"
+   },
+   {
+    "file": "mani_mk15554.jpg",
+    "fonte": "Mixkit (fotogramma della clip)",
+    "url": "https://mixkit.co/free-stock-video/15554/"
+   }
   ]
  }
 }

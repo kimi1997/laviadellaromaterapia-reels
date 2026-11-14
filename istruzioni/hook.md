@@ -29,7 +29,7 @@ Adattate all'italiano e alla nostra pagina dalle 26 formule della libreria open 
 | 17 | Testa a testa | {A} o {B}? Uno dei due vince netto. | Lavanda o camomilla per la sera? | blend, non ce l'ho |
 | 18 | Si parte dall'azione | {Già nel gesto}. Guarda cosa succede. | 3 gocce sul sale grosso. Guarda. | fai da te |
 | 20 | Permesso | Non ti serve {ciò che tutti dicono}. | Non ti servono 20 oli. Te ne bastano 3. | kit, errore da principiante |
-| 22 | Detto al contrario | {Detto noto, capovolto}. | Meno gocce, più profumo. | mito, momento |
+| 22 | Detto al contrario | {Detto noto, capovolto}. | Meno gocce, più profumo. | mito, emozioni |
 | 23 | Il dato | {N}% di {gruppo} {fatto sorprendente}. | Solo con dati certi, altrimenti un'altra formula. | mito, scheda |
 | 24 | La rivelazione | Questo è {la cosa}. | Questo è il blend dell'autunno. | blend, rituale, scheda |
 | 26 | Il superlativo | Il modo più {veloce/semplice} per {risultato} è {risposta}. | Il modo più semplice per profumare l'armadio. | fai da te, casa profumata |
