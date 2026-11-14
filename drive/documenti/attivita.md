@@ -1,6 +1,6 @@
 # Attività automatiche – istruzioni
 
-Aggiornato al 10 novembre 2026 (template v5.1, post anche su Facebook, istruzioni di mezzogiorno su GitHub); versione del 9 novembre sera (post del feed, brand identity e template v5). La versione in uso è quella salvata nelle attività pianificate su Claude: questo documento ne è il riassunto ufficiale e va aggiornato a ogni modifica.
+Aggiornato al 14 novembre 2026 (nuovi formati emozioni, riflessione e ricetta, reel.py v9, test ripartito il 16/11); versione del 10 novembre (template v5.1, post anche su Facebook, istruzioni di mezzogiorno su GitHub); versione del 9 novembre sera (post del feed, brand identity e template v5). La versione in uso è quella salvata nelle attività pianificate su Claude: questo documento ne è il riassunto ufficiale e va aggiornato a ogni modifica.
 
 | Attività | Quando | Cosa fa | Connettori |
 | --- | --- | --- | --- |
@@ -41,7 +41,7 @@ Tutte girano con approvazione automatica e mandano una notifica sul telefono.
 - Script reel.py v4.3: copertina di 2 secondi con zoom del 7% e testo che si muove dal primo fotogramma, tagli secchi tra le scene, durata 20-30 s (rubrica) e 12-18 s (pillola), controllo automatico dei testi prima del video (`python3 reel.py contenuti.json --controllo` deve dire OK).
 - Hook di massimo 7 parole con un numero o una tensione; massimo 25 parole per schermata; chiusura che rimanda all'inizio (loop).
 - Didascalie con 4-6 hashtag di nicchia e le parole che la gente cerca nella prima riga.
-- Piano di test, una variabile a settimana: 9-15/11 base; 16-22/11 durata 15-20 s (campo "durata": [15, 20]); 23-29/11 hook a domanda; 30/11-6/12 CTA "Commenta TABELLA e te la mando" (campo "cta_sub"), con la tabella mandata a mano in direct.
+- Piano di test, ripartito il 16/11 (decisione del 14/11): 9-15/11 vecchia base (solo confronto); 16-22/11 nuova base con i formati emozioni, riflessione e ricetta; 23-29/11 durata 15-20 s (campo "durata": [15, 20]); 30/11-6/12 hook a domanda; 7-13/12 CTA "Commenta TABELLA e te la mando" (campo "cta_sub"), con la tabella mandata a mano in direct.
 - Il messaggio di mezzogiorno indica la settimana di test, propone la storia del giorno e ricorda i 15 minuti di community.
 - Il report del lunedì confronta ogni settimana di test con la base, giudica una rubrica solo dopo 6 contenuti da almeno 300 visualizzazioni e usa come metro skip rate sotto il 60%, 5 salvataggi a contenuto e le email.
 
@@ -59,9 +59,9 @@ Tutte girano con approvazione automatica e mandano una notifica sul telefono.
 
 | Giorno | Codice | Rubrica | Contenuto richiesto |
 | --- | --- | --- | --- |
-| Lunedì | momento | Un olio per ogni momento | 4 oli, ognuno con momento e modo d'uso |
-| Martedì | comesifa | Come si fa | 3-5 consigli sulle domande pratiche di chi inizia |
-| Mercoledì | blend | Il blend della settimana | Ricetta con 2-4 oli e gocce (4-8 in totale) + 2-3 consigli d'uso, tra cui l'alternativa se manca un olio |
+| Lunedì | emozioni (dal 16/11, prima momento) | 4 oli, 4 emozioni | 4 oli, ognuno con uno stato d'animo; a schermo solo nome e frase, gocce in didascalia; sfondi video |
+| Martedì | riflessione (dal 16/11, prima comesifa) | Un pensiero profumato | 2-4 frasi brevi e intime al centro, su video calmo (natura, pioggia, cielo) |
+| Mercoledì | ricetta (dal 16/11, prima blend) | Fatto a mano | Ingredienti + 3 passi (verbo e una riga) su clip di mani al lavoro; si crea un oggetto (roll-on, spray, sacchetti, pigne) |
 | Giovedì | faidate | Fai da te per la casa | 3-5 consigli |
 | Venerdì | mito | Vero o falso? | 1-3 credenze con verdetto VERO / FALSO / DIPENDE e spiegazione |
 | Sabato | rituale | Il rituale di stagione | 3 passi + versione carosello con 4-6 slide |

@@ -1,6 +1,6 @@
 # Social e copy – bio, didascalie e hashtag
 
-Versione 2.3 · 10 novembre 2026 (post del feed anche su Facebook, tre stili v5.1); versione 2.2 del 9 novembre (post del feed, tono di voce del brand); versione 2 del 7 novembre, sera (dopo l'audit social, in 03 Analisi e strategia). La versione 1 del 6 novembre è nel cestino del Drive.
+Versione 2.4 · 14 novembre 2026 (nuovi formati del lunedì, martedì e mercoledì, test ripartito); versione 2.3 del 10 novembre (post del feed anche su Facebook, tre stili v5.1); versione 2.2 del 9 novembre (post del feed, tono di voce del brand); versione 2 del 7 novembre, sera (dopo l'audit social, in 03 Analisi e strategia). La versione 1 del 6 novembre è nel cestino del Drive.
 
 ## Tono di voce (dal brand)
 
@@ -78,14 +78,15 @@ Niente hashtag generici enormi (#benessere, #essentialoils, #aromaterapia da sol
 | Chiusura (CTA) | Massimo 10 parole, chiude il cerchio con l'hook ("Il terzo? Riguardalo e salvalo") |
 | Durata | Rubrica 20-30 secondi, pillola 12-18 |
 
-## Piano di test (4 settimane, una variabile per volta)
+## Piano di test (ripartito il 16/11, una variabile per volta)
 
 | Settimana | Cosa cambia |
 | --- | --- |
-| 9-15/11 | Niente: base |
-| 16-22/11 | Reel di mezzogiorno di 15-20 secondi |
-| 23-29/11 | Hook a domanda ("Hai la lavanda e non sai usarla?") |
-| 30/11-6/12 | CTA "Commenta TABELLA e te la mando" (risposta in direct con il link della tabella) |
+| 9-15/11 | Vecchia base (momento, comesifa, blend): solo confronto |
+| 16-22/11 | Nuova base: emozioni (lun), riflessione (mar), ricetta (mer) con sfondi video |
+| 23-29/11 | Reel di mezzogiorno di 15-20 secondi |
+| 30/11-6/12 | Hook a domanda ("Hai la lavanda e non sai usarla?") |
+| 7-13/12 | CTA "Commenta TABELLA e te la mando" (risposta in direct con il link della tabella) |
 
 ## Community: 15 minuti al giorno (12:15-12:30)
 
