@@ -2,7 +2,7 @@
  "licenza": "Mixkit Free License e Coverr License: uso gratuito anche commerciale, nessuna attribuzione obbligatoria; vietato rivendere le clip da sole. Nessuna persona riconoscibile, nessun marchio, nessuna clip generata con AI.",
  "formato": "1080x1920, 30 fps, 7 s, senza audio, ritagliate al centro da clip orizzontali",
  "qualita": "alta = da 4K o verticale nativo; media = da 1080p; bassa = da 720p (morbida a schermo intero: usarla dietro testo o pannelli)",
- "aggiunte": "2026-11-11 (30 + 58 clip); 2026-11-14 (4 clip di mani al lavoro per la rubrica ricetta)",
+ "aggiunte": "2026-11-11 (30 + 58 clip); 2026-11-14 (4 clip di mani al lavoro per la rubrica ricetta); 2026-11-15 (11 clip v2 dagli esempi di Michele + 17 clip reali in stile: luce, lettura, te, pioggia, autunno, candele, natura, gocce, erbe)",
  "categorie": {
   "candele": [
    {
@@ -44,6 +44,14 @@
     "qualita": "alta",
     "durata": 7,
     "url": "https://mixkit.co/free-stock-video/3458/"
+   },
+   {
+    "file": "video_candele_mk101559.mp4",
+    "categoria": "candele",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/101559/",
+    "qualita": "alta",
+    "durata": 7
    }
   ],
   "lavanda": [
@@ -110,6 +118,14 @@
     "url": "https://mixkit.co/free-stock-video/7626/",
     "qualita": "bassa",
     "durata": 7
+   },
+   {
+    "file": "video_lavanda_v2k_01.mp4",
+    "categoria": "lavanda",
+    "fonte": "Dalla foto v2 di Michele, movimento lento di camera",
+    "qualita": "alta",
+    "durata": 7,
+    "v2": true
    }
   ],
   "agrumi": [
@@ -242,6 +258,22 @@
     "url": "https://coverr.co/videos/a-transparent-cup-with-a-hot-beverage-5270",
     "qualita": "media",
     "durata": 7
+   },
+   {
+    "file": "video_te_v2k_01.mp4",
+    "categoria": "te",
+    "fonte": "Dalla foto v2 di Michele, movimento lento di camera",
+    "qualita": "alta",
+    "durata": 7,
+    "v2": true
+   },
+   {
+    "file": "video_te_mk13197.mp4",
+    "categoria": "te",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/13197/",
+    "qualita": "media",
+    "durata": 7
    }
   ],
   "erbe": [
@@ -292,6 +324,14 @@
     "url": "https://coverr.co/videos/rays-of-the-sun-shining-through-a-leaf-3991",
     "qualita": "media",
     "durata": 7
+   },
+   {
+    "file": "video_erbe_mk33422.mp4",
+    "categoria": "erbe",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/33422/",
+    "qualita": "media",
+    "durata": 7
    }
   ],
   "gocce": [
@@ -318,6 +358,22 @@
     "qualita": "alta",
     "durata": 7,
     "url": "https://mixkit.co/free-stock-video/51417/"
+   },
+   {
+    "file": "video_gocce_v2_01.mp4",
+    "categoria": "gocce",
+    "fonte": "Michele (generata con IA)",
+    "qualita": "media",
+    "durata": 5,
+    "v2": true
+   },
+   {
+    "file": "video_gocce_cvMzMzh.mp4",
+    "categoria": "gocce",
+    "fonte": "Coverr (IA)",
+    "url": "https://coverr.co/videos/close-up-golden-facial-oil-drop-from-luxury-serum-dropper",
+    "qualita": "alta",
+    "durata": 4
    }
   ],
   "natura": [
@@ -408,6 +464,14 @@
     "url": "https://coverr.co/videos/moss-and-grass-in-the-forest-1188",
     "qualita": "media",
     "durata": 7
+   },
+   {
+    "file": "video_natura_cvh3s7.mp4",
+    "categoria": "natura",
+    "fonte": "Coverr (IA)",
+    "url": "https://coverr.co/videos/two-little-wooden-chairs-facing-sunrise-in-a-wild-meadow",
+    "qualita": "alta",
+    "durata": 4
    }
   ],
   "autunno": [
@@ -465,6 +529,46 @@
     "fonte": "Coverr",
     "url": "https://coverr.co/videos/golden-autumn-scenery-visible-from-a-window-9040",
     "qualita": "media",
+    "durata": 7
+   },
+   {
+    "file": "video_autunno_v2k_01.mp4",
+    "categoria": "autunno",
+    "fonte": "Dalla foto v2 di Michele, movimento lento di camera",
+    "qualita": "alta",
+    "durata": 7,
+    "v2": true
+   },
+   {
+    "file": "video_autunno_cv4247.mp4",
+    "categoria": "autunno",
+    "fonte": "Coverr",
+    "url": "https://coverr.co/videos/view-of-an-autumn-garden-from-a-window-inside-an-apartment",
+    "qualita": "alta",
+    "durata": 7
+   },
+   {
+    "file": "video_autunno_cvWayth.mp4",
+    "categoria": "autunno",
+    "fonte": "Coverr (IA)",
+    "url": "https://coverr.co/videos/golden-sunrise-through-autumn-beech-forest",
+    "qualita": "alta",
+    "durata": 4
+   },
+   {
+    "file": "video_autunno_mk101562.mp4",
+    "categoria": "autunno",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/101562/",
+    "qualita": "alta",
+    "durata": 7
+   },
+   {
+    "file": "video_autunno_mk101579.mp4",
+    "categoria": "autunno",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/101579/",
+    "qualita": "alta",
     "durata": 7
    }
   ],
@@ -525,6 +629,14 @@
     "fonte": "Coverr",
     "url": "https://coverr.co/videos/raindrops-on-tree-branches-7585",
     "qualita": "media",
+    "durata": 7
+   },
+   {
+    "file": "video_pioggia_cvlZ8w.mp4",
+    "categoria": "pioggia",
+    "fonte": "Coverr (IA)",
+    "url": "https://coverr.co/videos/rainy-day-cozy-coffee-by-the-window",
+    "qualita": "alta",
     "durata": 7
    }
   ],
@@ -771,6 +883,132 @@
     "fonte": "Mixkit",
     "url": "https://mixkit.co/free-stock-video/15554/",
     "qualita": "bassa",
+    "durata": 7
+   },
+   {
+    "file": "video_mani_v2k_01.mp4",
+    "categoria": "mani",
+    "fonte": "Dalla foto v2 di Michele, movimento lento di camera",
+    "qualita": "alta",
+    "durata": 7,
+    "v2": true
+   }
+  ],
+  "bottiglie": [
+   {
+    "file": "video_bottiglie_v2k_01.mp4",
+    "categoria": "bottiglie",
+    "fonte": "Dalla foto v2 di Michele, movimento lento di camera",
+    "qualita": "alta",
+    "durata": 7,
+    "v2": true
+   }
+  ],
+  "casa": [
+   {
+    "file": "video_casa_v2k_01.mp4",
+    "categoria": "casa",
+    "fonte": "Dalla foto v2 di Michele, movimento lento di camera",
+    "qualita": "alta",
+    "durata": 7,
+    "v2": true
+   },
+   {
+    "file": "video_casa_v2k_02.mp4",
+    "categoria": "casa",
+    "fonte": "Dalla foto v2 di Michele, movimento lento di camera",
+    "qualita": "alta",
+    "durata": 7,
+    "v2": true
+   }
+  ],
+  "diffusore": [
+   {
+    "file": "video_diffusore_v2k_01.mp4",
+    "categoria": "diffusore",
+    "fonte": "Dalla foto v2 di Michele, movimento lento di camera",
+    "qualita": "alta",
+    "durata": 7,
+    "v2": true
+   }
+  ],
+  "luna": [
+   {
+    "file": "video_luna_v2k_01.mp4",
+    "categoria": "luna",
+    "fonte": "Dalla foto v2 di Michele, movimento lento di camera",
+    "qualita": "alta",
+    "durata": 7,
+    "v2": true
+   }
+  ],
+  "tessuti": [
+   {
+    "file": "video_tessuti_v2k_01.mp4",
+    "categoria": "tessuti",
+    "fonte": "Dalla foto v2 di Michele, movimento lento di camera",
+    "qualita": "alta",
+    "durata": 7,
+    "v2": true
+   }
+  ],
+  "lettura": [
+   {
+    "file": "video_lettura_mk1724.mp4",
+    "categoria": "lettura",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/1724/",
+    "qualita": "alta",
+    "durata": 7
+   },
+   {
+    "file": "video_lettura_mk45772.mp4",
+    "categoria": "lettura",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/45772/",
+    "qualita": "media",
+    "durata": 7
+   },
+   {
+    "file": "video_lettura_mk50731.mp4",
+    "categoria": "lettura",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/50731/",
+    "qualita": "alta",
+    "durata": 7
+   }
+  ],
+  "luce": [
+   {
+    "file": "video_luce_cv3256.mp4",
+    "categoria": "luce",
+    "fonte": "Coverr",
+    "url": "https://coverr.co/videos/sunlight-shining-through-green-leaves",
+    "qualita": "alta",
+    "durata": 7
+   },
+   {
+    "file": "video_luce_cv7850.mp4",
+    "categoria": "luce",
+    "fonte": "Coverr",
+    "url": "https://coverr.co/videos/touching-plants",
+    "qualita": "alta",
+    "durata": 7
+   },
+   {
+    "file": "video_luce_cv8213.mp4",
+    "categoria": "luce",
+    "fonte": "Coverr",
+    "url": "https://coverr.co/videos/hand-moving-near-a-window",
+    "qualita": "alta",
+    "durata": 7
+   },
+   {
+    "file": "video_luce_mk8864.mp4",
+    "categoria": "luce",
+    "fonte": "Mixkit",
+    "url": "https://mixkit.co/free-stock-video/8864/",
+    "qualita": "media",
     "durata": 7
    }
   ]

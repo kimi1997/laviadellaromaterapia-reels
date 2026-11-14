@@ -23,6 +23,12 @@
   ],
   "autunno": [
    {
+    "file": "autunno_v2_01.jpg",
+    "fonte": "Michele (generata con IA), ritaglio 9:16",
+    "v2": true,
+    "tono": "chiaro"
+   },
+   {
     "file": "autunno_14014291.jpg",
     "pexels_id": "14014291",
     "tono": "chiaro",
@@ -68,6 +74,24 @@
    }
   ],
   "bottiglie": [
+   {
+    "file": "bottiglie_v2_03.jpg",
+    "fonte": "Michele (generata con IA), ritaglio 9:16",
+    "v2": true,
+    "tono": "chiaro"
+   },
+   {
+    "file": "bottiglie_v2_02.jpg",
+    "fonte": "Michele (generata con IA), ritaglio 9:16",
+    "v2": true,
+    "tono": "chiaro"
+   },
+   {
+    "file": "bottiglie_v2_01.jpg",
+    "fonte": "Michele (generata con IA), ritaglio 9:16",
+    "v2": true,
+    "tono": "chiaro"
+   },
    {
     "file": "bottiglie_18708752.jpg",
     "pexels_id": "18708752",
@@ -167,6 +191,12 @@
   ],
   "candele": [
    {
+    "file": "candele_v2_01.jpg",
+    "fonte": "Michele (generata con IA), ritaglio 9:16",
+    "v2": true,
+    "tono": "chiaro"
+   },
+   {
     "file": "candele_36563156.jpg",
     "pexels_id": "36563156",
     "tono": "scuro",
@@ -187,6 +217,18 @@
   ],
   "casa": [
    {
+    "file": "casa_v2_02.jpg",
+    "fonte": "Michele (generata con IA), ritaglio 9:16",
+    "v2": true,
+    "tono": "chiaro"
+   },
+   {
+    "file": "casa_v2_01.jpg",
+    "fonte": "Michele (generata con IA), ritaglio 9:16",
+    "v2": true,
+    "tono": "chiaro"
+   },
+   {
     "file": "casa_10568358.jpg",
     "pexels_id": "10568358",
     "tono": "chiaro",
@@ -200,6 +242,12 @@
    }
   ],
   "diffusore": [
+   {
+    "file": "diffusore_v2_01.jpg",
+    "fonte": "Michele (generata con IA), ritaglio 9:16",
+    "v2": true,
+    "tono": "chiaro"
+   },
    {
     "file": "diffusore_6914718.jpg",
     "pexels_id": "6914718",
@@ -233,6 +281,12 @@
   ],
   "erbe": [
    {
+    "file": "erbe_v2_01.jpg",
+    "fonte": "Michele (generata con IA), ritaglio 9:16",
+    "v2": true,
+    "tono": "chiaro"
+   },
+   {
     "file": "erbe_10083955.jpg",
     "pexels_id": "10083955",
     "tono": "scuro",
@@ -258,6 +312,12 @@
    }
   ],
   "eucalipto": [
+   {
+    "file": "eucalipto_v2_01.jpg",
+    "fonte": "Michele (generata con IA), ritaglio 9:16",
+    "v2": true,
+    "tono": "chiaro"
+   },
    {
     "file": "eucalipto_4134558.jpg",
     "pexels_id": "4134558",
@@ -299,6 +359,12 @@
   ],
   "lavanda": [
    {
+    "file": "lavanda_v2_01.jpg",
+    "fonte": "Michele (generata con IA), ritaglio 9:16",
+    "v2": true,
+    "tono": "chiaro"
+   },
+   {
     "file": "lavanda_10592224.jpg",
     "pexels_id": "10592224",
     "tono": "scuro",
@@ -325,6 +391,12 @@
   ],
   "limone": [
    {
+    "file": "limone_v2_01.jpg",
+    "fonte": "Michele (generata con IA), ritaglio 9:16",
+    "v2": true,
+    "tono": "chiaro"
+   },
+   {
     "file": "limone_11295023.jpg",
     "pexels_id": "11295023",
     "tono": "scuro",
@@ -344,6 +416,12 @@
    }
   ],
   "luna": [
+   {
+    "file": "luna_v2_01.jpg",
+    "fonte": "Michele (generata con IA), ritaglio 9:16",
+    "v2": true,
+    "tono": "chiaro"
+   },
    {
     "file": "luna_12863822.jpg",
     "pexels_id": "12863822",
@@ -385,6 +463,12 @@
   ],
   "rosmarino": [
    {
+    "file": "rosmarino_v2_01.jpg",
+    "fonte": "Michele (generata con IA), ritaglio 9:16",
+    "v2": true,
+    "tono": "chiaro"
+   },
+   {
     "file": "rosmarino_4750309.jpg",
     "pexels_id": "4750309",
     "tono": "scuro",
@@ -398,6 +482,12 @@
    }
   ],
   "te": [
+   {
+    "file": "te_v2_01.jpg",
+    "fonte": "Michele (generata con IA), ritaglio 9:16",
+    "v2": true,
+    "tono": "chiaro"
+   },
    {
     "file": "te_11285384.jpg",
     "pexels_id": "11285384",
@@ -418,6 +508,12 @@
    }
   ],
   "tessuti": [
+   {
+    "file": "tessuti_v2_01.jpg",
+    "fonte": "Michele (generata con IA), ritaglio 9:16",
+    "v2": true,
+    "tono": "chiaro"
+   },
    {
     "file": "tessuti_11541395.jpg",
     "pexels_id": "11541395",
@@ -459,6 +555,12 @@
   ],
   "mani": [
    {
+    "file": "mani_v2_01.jpg",
+    "fonte": "Michele (generata con IA), ritaglio 9:16",
+    "v2": true,
+    "tono": "chiaro"
+   },
+   {
     "file": "mani_mk2808.jpg",
     "fonte": "Mixkit (fotogramma della clip)",
     "url": "https://mixkit.co/free-stock-video/2808/"
@@ -479,5 +581,6 @@
     "url": "https://mixkit.co/free-stock-video/15554/"
    }
   ]
- }
+ },
+ "v2": "Dal 15/11 le foto con _v2_ nel nome sono la nuova linea visiva della pagina (luce calda, lino, legno, flaconi ambrati, solo mani), dagli esempi di Michele generati con l'IA: lo script le sceglie per prime. Etichette ripulite dalle scritte."
 }
