@@ -176,7 +176,7 @@ Dopo: "Nella tradizione mediterranea il rosmarino era la pianta del ricordo: se 
 
 ## Formati
 
-Ogni giorno su Instagram reel e post si alternano: post alle 9, reel alle 12, post alle 16, pillola alle 19:30. Ogni formato ha un suo compito e un suo aspetto.
+Ogni giorno su Instagram escono 2 reel e 1 post, in alternanza: reel alle 12:00, post alle 16:00, pillola alle 19:30. Ogni formato ha un suo compito e un suo aspetto.
 
 Posizione dei titoli: ogni stile di post e ogni rubrica di reel ha il titolo sempre nello stesso punto (filo conduttore), ma due contenuti vicini sul profilo non hanno mai il titolo nello stesso punto. Rubriche: emozioni, ricetta, mito, pillola in alto; riflessione, rituale al centro; storia, scheda in basso; se coincide con il post vicino, il reel prende la posizione libera.
 
@@ -184,8 +184,8 @@ Posizione dei titoli: ogni stile di post e ogni rubrica di reel ha il titolo sem
 | --- | --- | --- | --- |
 | Reel della rubrica | ogni giorno alle 12 (anche su TikTok alle 18:30, 5 giorni su 7) | Il consiglio pratico del giorno, una rubrica per giorno | 1080×1920, 20-30 s; copertina a tutta foto con hook in Poppins, schede con foto in alto e pannello crema, chiusura viola-notte con logo |
 | Pillola della sera | dom-ven alle 19:30 | Un'idea veloce collegata al reel di mezzogiorno | 1080×1920, 12-18 s, stessa grafica dei reel con il nome della serie in copertina |
-| Post del feed | ogni giorno alle 9 e alle 16, su Instagram (carosello) e Facebook (copertina + testo in didascalia) | Curiosità a sé, sempre diverse dai reel: essere umano, sensi, strategia, emozioni, natura e cosmo, piante | 1080×1350 in tre stili: atmosfera (foto d'atmosfera, titolo al centro), botanico (piante o oli, titolo in alto), testo (solo testo, titolo in basso); 4-6 slide, chiusura con la domanda |
-| Carosello del rituale | sabato alle 19:30 | Il rituale di stagione da salvare | 1080×1350, stesso stile dei post del feed con etichetta IL RITUALE DI STAGIONE |
+| Post del feed | ogni giorno alle 16:00 (uno solo), su Instagram (carosello) e Facebook (copertina + testo in didascalia) | Curiosità a sé, sempre diverse dai reel: essere umano, sensi, strategia, emozioni, natura e cosmo, piante | 1080×1350 in tre stili: atmosfera (foto d'atmosfera, titolo al centro), botanico (piante o oli, titolo in alto), testo (solo testo, titolo in basso); 4-6 slide, chiusura con la domanda |
+| Carosello del rituale | sabato alle 16:00 (è il post del giorno) | Il rituale di stagione da salvare | 1080×1350, stesso stile dei post del feed con etichetta IL RITUALE DI STAGIONE |
 | Riassunto Facebook | ogni giorno alle 12 | Il reel in un'immagine per la pagina Facebook | 1080×1350: foto in alto, pannello con etichetta, titolo Lora e i punti del reel |
 | Storie | a mano, ogni giorno | Domanda o sondaggio del giorno, vicinanza | sfondo crema o foto con velo, testo Poppins, una sola domanda |
 

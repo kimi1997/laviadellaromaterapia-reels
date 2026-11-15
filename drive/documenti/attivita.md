@@ -4,9 +4,9 @@ Aggiornato al 15 novembre 2026 (stock v2 e nuova linea visiva, rubrica storia di
 
 | Attività | Quando | Cosa fa | Connettori |
 | --- | --- | --- | --- |
-| Reel giornaliero oli essenziali (giro pesante) | Ogni giorno 11:57 (Roma) | Crea e pubblica il reel delle 12 + riassunto Facebook; crea la pillola della sera (dom-ven) o il carosello (sab) e li lascia pronti su GitHub; dom, lun, mer, gio, sab programma TikTok su Metricool per le 18:30 (max 19 al mese) | Windsor.ai, Metricool, GitHub |
-| Reel della sera oli essenziali (giro leggero) | Ogni giorno 19:23 | Pubblica soltanto: la pillola (dom-ven) o il carosello (sab) preparati a mezzogiorno | Windsor.ai, GitHub |
-| Post del feed oli essenziali (9:00 e 16:00) | Ogni giorno 8:53 e 15:53 | Pubblica soltanto il post preparato il giorno prima (cartella post/ su GitHub): carosello su Instagram e copertina con tutto il testo in didascalia sulla pagina Facebook | Windsor.ai, GitHub |
+| Reel giornaliero oli essenziali (giro pesante) | Ogni giorno 11:57 (Roma) | Crea e pubblica il reel delle 12 + riassunto Facebook; crea la pillola della sera (ogni giorno) e il post di domani (il sabato anche il carosello del rituale, che è il post delle 16:00) e li lascia pronti su GitHub; dom, lun, mer, gio, sab programma TikTok su Metricool per le 18:30 (max 19 al mese) | Windsor.ai, Metricool, GitHub |
+| Reel della sera oli essenziali (giro leggero) | Ogni giorno 19:23 | Pubblica soltanto la pillola (ogni giorno, sabato compreso) preparata a mezzogiorno | Windsor.ai, GitHub |
+| Post del feed oli essenziali (16:00) | Ogni giorno 15:53 | Pubblica soltanto il post preparato il giorno prima (cartella post/ su GitHub): carosello su Instagram e copertina con tutto il testo in didascalia sulla pagina Facebook | Windsor.ai, GitHub |
 | Report settimanale Instagram oli essenziali | Lunedì 8:43 | Numeri degli ultimi 28 giorni in 07 Performance + riepilogo, con l'esito della settimana di test; il primo lunedì del mese pulisce GitHub (media più vecchi di 30 giorni) | Windsor.ai, GitHub, Google Drive |
 
 Dal 7/11 pomeriggio: un solo giro pesante al giorno per risparmiare utilizzo di Claude. Dal 9/11, con i post del feed, le esecuzioni sono 29 a settimana (7 pesanti e 22 leggere). Le vecchie attività "Carosello del sabato" e "TikTok" separata non esistono più; il vecchio reel giornaliero è disattivato ([SOSTITUITA]).
@@ -15,6 +15,7 @@ Tutte girano con approvazione automatica e mandano una notifica sul telefono.
 
 ## Novità del 15/11
 
+- Ritmo giornaliero: 2 reel e 1 post, tutti i giorni (reel 12:00, post 16:00, pillola 19:30). Il post delle 9:00 è eliminato; il sabato il carosello del rituale è il post delle 16:00 e la pillola esce anche il sabato. Con 2 reel e 1 post non si può alternare alla perfezione: due reel si toccano solo tra la sera e il mezzogiorno del giorno dopo.
 - Giovedì "storia": si alternano tre filoni (storia dell'aromaterapia, Feng Shui, tradizioni della festa); la festa prende un giovedì ogni due o tre: 19/11 A, 26/11 F, 3/12 T, 10/12 A, 17/12 F, 24/12 T, 31/12 T, 7/1 F, poi A e F a settimane alterne.
 - Calendario stagionale e feste: stagioni come base e due momenti per stagione (mood stagionale e assaggio della festa successiva). Fasi: A 16-30/11 autunno con assaggi di Natale; B 1-7/12 inverno e Avvento; C 8-24/12 Natale; D 25-31/12 Capodanno; E 1-6/1 Befana. Temi, ricette, oli e foto seguono la fase; il messaggio di mezzogiorno indica "Fase: ...". Ricette di festa solo con spezie intere e oli per diffusore, sacchetti, pigne e spray.
 - Nuova linea visiva (stock v2): foto e clip con luce calda, lino, flaconi ambrati senza scritte e solo mani; lo script le sceglie per prime. Catalogo e prompt per crearne altre in Drive 02 > Stock v2 e nel repository.
@@ -100,9 +101,9 @@ Tutte girano con approvazione automatica e mandano una notifica sul telefono.
 - ACCESSORI: solo strumenti pensati per gli oli essenziali o materiali naturali assorbenti; mai prodotti nati per altro.
 - NEUTRALITÀ: nessun marchio, nessuna miscela commerciale, nessun gergo da rete.
 
-## 1b. Post del feed (creati a mezzogiorno per il giorno dopo, pubblicati alle 9:00 e alle 16:00)
+## 1b. Post del feed (creati a mezzogiorno per il giorno dopo, pubblicati alle 16:00, uno solo al giorno)
 
-Su Instagram reel e post si alternano: post alle 9:00, reel alle 12, post alle 16:00, reel alle 19:30. I post sono caroselli a sé, mai sullo stesso olio o tema dei reel vicini.
+Ritmo dal 15/11 (richiesta di Michele): 2 reel e 1 post al giorno, sempre in alternanza su Instagram: reel alle 12:00, post alle 16:00, pillola (reel) alle 19:30. Il post delle 9:00 non esiste più. I post sono caroselli a sé, mai sullo stesso olio o tema dei reel vicini.
 
 | Pilastro | Di cosa parla |
 | --- | --- |
@@ -113,7 +114,7 @@ Su Instagram reel e post si alternano: post alle 9:00, reel alle 12, post alle 1
 | Natura e cosmo (cosmo) | Luna, stagioni, elementi, energie e tradizioni: sempre come racconto, mai come promessa |
 | Piante aromatiche (pianta) | Curiosità su una pianta: nome, botanica, storia, leggende, distillazione (niente ricette) |
 
-Rotazione (mattina / pomeriggio): lunedì umano / cosmo · martedì sensi / pianta · mercoledì emozione / pianta · giovedì strategia / sensi · venerdì cosmo / umano · sabato pianta / emozione · domenica strategia / pianta.
+Rotazione (un post al giorno, alle 16:00): lunedì umano · martedì pianta · mercoledì emozione · giovedì sensi · venerdì cosmo · sabato il carosello del rituale (preparato il sabato stesso a mezzogiorno) · domenica strategia.
 
 Stili: atmosfera (umano, emozione, cosmo; titolo al centro, campo facoltativo "parola"), botanico (pianta; titolo in alto), testo (sensi, strategia; titolo in basso); campo "stile" per cambiarlo. I due post dello stesso giorno hanno stili diversi.
 
@@ -138,7 +139,7 @@ Formato: titolo max 9 parole, 4-6 slide di testo (max 45 parole l'una), domanda 
 3. Scrive contenuti.json con rubrica "pillola", il campo "serie" (mostrato in copertina) e 1-3 consigli; sceglie una copertina diversa da quella di mezzogiorno.
 4. Genera il reel (12-18 secondi) con le foto stock, controlla tutti i fotogrammi.
 5. Didascalia con gancio, 2-4 righe, una domanda, "Ogni sera alle 19:30 una nuova pillola" e 4-6 hashtag con #pilloladellasera.
-6. Carica su GitHub reels/reel_AAAA-MM-GG-sera.mp4 e sera/AAAA-MM-GG/didascalia.txt e aggiorna temi.csv. Alle 19:23 il giro leggero pubblica una sola volta su Instagram, scrive pubblicato.txt e avvisa Michele. Il sabato niente pillola: alle 19:30 esce il carosello.
+6. Carica su GitHub reels/reel_AAAA-MM-GG-sera.mp4 e sera/AAAA-MM-GG/didascalia.txt e aggiorna temi.csv. Alle 19:23 il giro leggero pubblica una sola volta su Instagram (ogni giorno, sabato compreso), scrive pubblicato.txt e avvisa Michele. Il sabato niente pillola: alle 19:30 esce il carosello.
 
 ## 3. TikTok (dentro il giro di mezzogiorno)
 
