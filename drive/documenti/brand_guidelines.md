@@ -62,6 +62,15 @@ Gli stili del gruppo Typography sono pensati per una tela larga 1080 px (reel 10
 
 **Movimento.** Nei reel: copertina di 2 secondi con zoom deciso e testo che si assesta, poi zoom lentissimo e tagli secchi tra le scene. Mai zoom tremolanti, mai transizioni vistose.
 
+## Nuova linea visiva (dal 15/11)
+Decisione di Michele: foto e video di stock "v2" sono la base di reel, pillole, caroselli e post, per avvicinarci ai profili che oggi vanno meglio.
+- **Atmosfera**: luce calda di finestra, lino, legno chiaro, tessuti crema e beige, accenti verde salvia e ambra; sensazione di casa vissuta e calma, mai da catalogo.
+- **Soggetti**: flaconi ambrati con etichette bianche senza scritte, contagocce, diffusore in ceramica chiara, rametti freschi (eucalipto, rosmarino, lavanda), tazza di tè, libro, candele, balcone al tramonto.
+- **Persone**: solo mani, mai volti.
+- **Da evitare**: etichette con testo leggibile o marchi, flaconi lucidi da pubblicità, luce fredda o blu, effetti troppo saturi.
+- **Come si usa**: lo script sceglie prima i file con "_v2" nel nome; le foto vecchie restano di riserva con tono caldo. Archivio, catalogo e prompt per generare altre immagini sono in stock/ e in Drive 02 > Stock v2.
+- **Sfondi video**: emozioni, riflessione, ricetta e storia (lunedì-giovedì) e la pillola hanno sempre clip vere; il resto della settimana usa le foto.
+
 ## Le stagioni
 
 Colori, fondi e foto seguono la stagione dell'anno (stagioni meteorologiche, ora di Roma). Lo script la sceglie da solo in base alla data.

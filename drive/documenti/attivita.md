@@ -62,10 +62,12 @@ Tutte girano con approvazione automatica e mandano una notifica sul telefono.
 | Lunedì | emozioni (dal 16/11, prima momento) | 4 oli, 4 emozioni | 4 oli, ognuno con uno stato d'animo; a schermo solo nome e frase, gocce in didascalia; sfondi video |
 | Martedì | riflessione (dal 16/11, prima comesifa) | Un pensiero profumato | 2-4 frasi brevi e intime al centro, su video calmo (natura, pioggia, cielo) |
 | Mercoledì | ricetta (dal 16/11, prima blend) | Fatto a mano | Ingredienti + 3 passi (verbo e una riga) su clip di mani al lavoro; si crea un oggetto (roll-on, spray, sacchetti, pigne) |
-| Giovedì | faidate | Fai da te per la casa | 3-5 consigli |
+| Giovedì | storia (dal 19/11, prima faidate) | Storia e Feng Shui | 3-4 tappe brevi su video: storia dell'aromaterapia (Egitto, Avicenna, Gattefossé 1937) e Feng Shui come tradizione (Qi, cinque elementi, Ba Gua, oli e stanze come ispirazione), mai come scienza o cura |
 | Venerdì | mito | Vero o falso? | 1-3 credenze con verdetto VERO / FALSO / DIPENDE e spiegazione |
 | Sabato | rituale | Il rituale di stagione | 3 passi + versione carosello con 4-6 slide |
 | Domenica | scheda | La scheda dell'olio | Profumo, abbinamenti, 3 usi, "Se non ce l'hai" + 0-2 consigli |
+
+**Regole di sicurezza dei contenuti (15/11)**: nessuna assunzione interna di oli, nessun uso intimo, nessun protocollo per malattie, nessun linguaggio medico, nessun marchio e nessuna frase tipo "oli certificati, contattaci". I materiali ricevuti da Michele sono ispirazione per i temi, mai testi da copiare.
 
 **Serie ricorrenti**: "Non ce l'ho? Usa questo", "La tabella da salvare", "Il tuo kit, finalmente chiaro", "La valigia aromatica".
 
