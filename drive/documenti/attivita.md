@@ -15,6 +15,7 @@ Tutte girano con approvazione automatica e mandano una notifica sul telefono.
 
 ## Novità del 15/11
 
+- Giovedì "storia": si alternano tre filoni (storia dell'aromaterapia, Feng Shui, tradizioni della festa); la festa prende un giovedì ogni due o tre: 19/11 A, 26/11 F, 3/12 T, 10/12 A, 17/12 F, 24/12 T, 31/12 T, 7/1 F, poi A e F a settimane alterne.
 - Calendario stagionale e feste: stagioni come base e due momenti per stagione (mood stagionale e assaggio della festa successiva). Fasi: A 16-30/11 autunno con assaggi di Natale; B 1-7/12 inverno e Avvento; C 8-24/12 Natale; D 25-31/12 Capodanno; E 1-6/1 Befana. Temi, ricette, oli e foto seguono la fase; il messaggio di mezzogiorno indica "Fase: ...". Ricette di festa solo con spezie intere e oli per diffusore, sacchetti, pigne e spray.
 - Nuova linea visiva (stock v2): foto e clip con luce calda, lino, flaconi ambrati senza scritte e solo mani; lo script le sceglie per prime. Catalogo e prompt per crearne altre in Drive 02 > Stock v2 e nel repository.
 - Giovedì: la rubrica "faidate" diventa "storia" (Storia e Feng Shui), con tappe su video; i fai da te restano in ricetta (mercoledì), pillola del giovedì e post.
