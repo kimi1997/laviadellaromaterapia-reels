@@ -1,0 +1,12 @@
+{"tipo": "post", "pilastro": "umano", "stile": "atmosfera", "parola": "CURIOSITÀ",
+ "titolo": "Cosa c'è in una goccia: 5 cose da sapere",
+ "sub": "Quello che la ricerca ha capito",
+ "slides": [
+  {"title": "Una miscela, non una sostanza", "body": "Un olio essenziale non è una sola molecola: è una miscela di decine, a volte centinaia, di molecole diverse. Insieme creano il profumo che riconosci."},
+  {"title": "Molecole che volano", "body": "Sono molecole volatili: evaporano facilmente anche a temperatura ambiente. Per questo senti il profumo appena apri il flacone."},
+  {"title": "Aria e luce le cambiano", "body": "Ossigeno, luce e calore trasformano piano alcune molecole. Ecco perché si usano flaconi scuri, ben chiusi, lontano dalla finestra e dai termosifoni accesi."},
+  {"title": "Ogni raccolto è diverso", "body": "La composizione cambia con il clima, il terreno, l'annata e il momento della raccolta. Due rosmarini di campi diversi possono profumare in modo diverso."},
+  {"title": "Studi da mettere d'accordo", "body": "Per anni le ricerche sugli oli erano difficili da confrontare: ogni laboratorio usava un metodo diverso. Oggi si lavora sempre più con metodi condivisi."}
+ ],
+ "domanda": "Dove tieni i tuoi oli, in casa?",
+ "foto": {"cover": "bottiglie_v2_03.jpg", "end": "autunno"}}
