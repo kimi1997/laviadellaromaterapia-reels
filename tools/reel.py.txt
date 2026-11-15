@@ -2314,6 +2314,33 @@ def _testi(c):
 
 NUOVI_FORMATI = tuple(NUOVI_FORMATI) + ("storia",)
 
+# ===== v13 (15/11): le copertine seguono sempre la nuova linea (decisione di Michele) =====
+# La copertina dei reel e' sempre una foto "_v2". Le parole chiave si cercano solo in hook e sub (non nei dati della scheda),
+# solo a inizio parola ("stasera" non e' "sera"). Se la categoria non ha foto v2 si passa a una categoria v2 vicina.
+# Campo facoltativo "recenti": copertine degli ultimi contenuti da non ripetere (se tutte le v2 sono usate, si riparte).
+import re as _re
+_COV_ALT = {"incenso": "candele", "arancio": "limone", "bagno": "tessuti", "natale": "candele", "viaggio": "casa", "agrumi": "limone"}
+def _v2_cats(): return {f.split("_")[0] for f in os.listdir(STOCK_DIR) if f.endswith(".jpg") and _is_v2(f)}
+
+def photos_for(c):
+    r = c.get("rubrica", "comesifa"); dflt = list(RUB_FOTO.get(r, RUB_FOTO["comesifa"]))
+    txt = (c.get("hook", "") + " " + c.get("sub", "")).lower()
+    for k, cat in KEYWORDS.items():
+        if _re.search(r"\b" + _re.escape(k), txt): dflt[0] = cat; break
+    f = c.get("foto") or {}; seed = c.get("hook", "") + c.get("data", "")
+    recenti = {x for x in (c.get("recenti") or os.environ.get("COPERTINE_RECENTI", "").split(",")) if x}
+    spec = f.get("cover")
+    if spec and spec.endswith(".jpg") and os.path.exists(os.path.join(STOCK_DIR, spec)): cov = spec
+    else:
+        v2 = _v2_cats(); cat = spec or dflt[0]
+        if cat not in v2: cat = _COV_ALT.get(cat) if _COV_ALT.get(cat) in v2 else (RUB_FOTO.get(r, ("bottiglie",))[0] if RUB_FOTO.get(r, ("bottiglie",))[0] in v2 else "bottiglie")
+        cands = [x for x in stock_files(cat) if _is_v2(x) and x.split("_")[0] == cat]
+        pool = [x for x in cands if x not in recenti] or cands
+        cov = pool[int(hashlib.md5((seed + "c").encode()).hexdigest(), 16) % len(pool)] if pool else pick_photo(cat, seed + "c")
+    sce = pick_photo(f.get("scene", dflt[1]), seed + "s", (cov,))
+    cta = f.get("cta") and pick_photo(f["cta"], seed + "t", (cov, sce)) or pick_photo(foto_stagione(c), c.get("hook", "") + "t", (cov, sce))
+    return cov, sce, cta
+
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     if "--evidenza" in sys.argv:
