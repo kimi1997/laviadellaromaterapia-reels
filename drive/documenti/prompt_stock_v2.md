@@ -258,6 +258,53 @@ Da evitare (se lo strumento ha il campo "negative prompt"): text, letters, writi
 - Foto: Photorealistic lifestyle photo, vertical 9:16. Warm natural window light, low golden sun with soft raking shadows, airy and calm. Palette: cream, beige, warm sand, light oak wood, natural linen, soft green from fresh sprigs, amber glass. Shallow depth of field, soft film look, gentle highlights, no harsh contrast. Small amber glass essential oil bottles (5-30 ml) with plain black or wooden caps, labels blank or only a plain cream paper label with no writing. Only hands and forearms, never a face. No text, no letters, no logos, no brand names anywhere. Open small suitcase with folded clothes, a cotton pouch and a tiny amber roll-on bottle tucked in, sunlit bedroom.
 - Movimento: Light shifts slowly.
 
+### Natale, inverno, Capodanno e Befana (aggiunti il 15/11 per il calendario stagionale)
+
+**natale_n03**
+
+- Foto: Photorealistic lifestyle photo, vertical 9:16. Warm natural window light, low golden sun with soft raking shadows, airy and calm. Palette: cream, beige, warm sand, light oak wood, natural linen, soft green from fresh sprigs, amber glass. Shallow depth of field, soft film look, gentle highlights, no harsh contrast. Small amber glass essential oil bottles (5-30 ml) with plain black or wooden caps, labels blank or only a plain cream paper label with no writing. Only hands and forearms, never a face. No text, no letters, no logos, no brand names anywhere. Hands pressing whole cloves into an orange to make a pomander, cinnamon sticks and a linen cloth on a light oak table, amber bottle in the background.
+- Movimento: Hands press one clove at a time, steam from a mug drifts behind.
+
+**natale_n04**
+
+- Foto: Photorealistic lifestyle photo, vertical 9:16. Warm natural window light, low golden sun with soft raking shadows, airy and calm. Palette: cream, beige, warm sand, light oak wood, natural linen, soft green from fresh sprigs, amber glass. Shallow depth of field, soft film look, gentle highlights, no harsh contrast. Small amber glass essential oil bottles (5-30 ml) with plain black or wooden caps, labels blank or only a plain cream paper label with no writing. Only hands and forearms, never a face. No text, no letters, no logos, no brand names anywhere. Small linen sachets filled with dried orange peel and cinnamon sticks on a wooden tray, hands tying one with twine, amber bottle beside.
+- Movimento: Hands pull the twine tight, warm light flickers.
+
+**natale_n05**
+
+- Foto: Photorealistic lifestyle photo, vertical 9:16. Warm natural window light, low golden sun with soft raking shadows, airy and calm. Palette: cream, beige, warm sand, light oak wood, natural linen, soft green from fresh sprigs, amber glass. Shallow depth of field, soft film look, gentle highlights, no harsh contrast. Small amber glass essential oil bottles (5-30 ml) with plain black or wooden caps, labels blank or only a plain cream paper label with no writing. Only hands and forearms, never a face. No text, no letters, no logos, no brand names anywhere. Four cream candles on a light oak table in a row, one lit, fir sprig and an amber bottle, soft dusk window behind (Advent mood).
+- Movimento: The flame flickers gently, light shifts slowly.
+
+**inverno_i02**
+
+- Foto: Photorealistic lifestyle photo, vertical 9:16. Warm natural window light, low golden sun with soft raking shadows, airy and calm. Palette: cream, beige, warm sand, light oak wood, natural linen, soft green from fresh sprigs, amber glass. Shallow depth of field, soft film look, gentle highlights, no harsh contrast. Small amber glass essential oil bottles (5-30 ml) with plain black or wooden caps, labels blank or only a plain cream paper label with no writing. Only hands and forearms, never a face. No text, no letters, no logos, no brand names anywhere. Wool blanket and a cup of herbal tea on a windowsill, frost on the glass, ceramic diffuser and amber bottle beside, soft morning light.
+- Movimento: Mist rises from the cup and from the diffuser, frost light glimmers.
+
+**inverno_i03**
+
+- Foto: Photorealistic lifestyle photo, vertical 9:16. Warm natural window light, low golden sun with soft raking shadows, airy and calm. Palette: cream, beige, warm sand, light oak wood, natural linen, soft green from fresh sprigs, amber glass. Shallow depth of field, soft film look, gentle highlights, no harsh contrast. Small amber glass essential oil bottles (5-30 ml) with plain black or wooden caps, labels blank or only a plain cream paper label with no writing. Only hands and forearms, never a face. No text, no letters, no logos, no brand names anywhere. Hands wrapped in a chunky knit sweater holding a small amber bottle near a cream candle, cosy living room, dusk.
+- Movimento: Candle flame sways, hands almost still.
+
+**capodanno_c01**
+
+- Foto: Photorealistic lifestyle photo, vertical 9:16. Warm natural window light, low golden sun with soft raking shadows, airy and calm. Palette: cream, beige, warm sand, light oak wood, natural linen, soft green from fresh sprigs, amber glass. Shallow depth of field, soft film look, gentle highlights, no harsh contrast. Small amber glass essential oil bottles (5-30 ml) with plain black or wooden caps, labels blank or only a plain cream paper label with no writing. Only hands and forearms, never a face. No text, no letters, no logos, no brand names anywhere. Open blank notebook with a pen, a lit cream candle and a small amber bottle on a light oak table, soft fairy lights blurred behind (new year reflection). Pages stay blank, no writing.
+- Movimento: Candle flickers, fairy lights twinkle softly.
+
+**capodanno_c02**
+
+- Foto: Photorealistic lifestyle photo, vertical 9:16. Warm natural window light, low golden sun with soft raking shadows, airy and calm. Palette: cream, beige, warm sand, light oak wood, natural linen, soft green from fresh sprigs, amber glass. Shallow depth of field, soft film look, gentle highlights, no harsh contrast. Small amber glass essential oil bottles (5-30 ml) with plain black or wooden caps, labels blank or only a plain cream paper label with no writing. Only hands and forearms, never a face. No text, no letters, no logos, no brand names anywhere. Window at night with soft distant city lights, a ceramic diffuser and an amber bottle on the sill, linen curtain, calm midnight mood.
+- Movimento: Mist rises, lights twinkle slowly outside.
+
+**befana_b01**
+
+- Foto: Photorealistic lifestyle photo, vertical 9:16. Warm natural window light, low golden sun with soft raking shadows, airy and calm. Palette: cream, beige, warm sand, light oak wood, natural linen, soft green from fresh sprigs, amber glass. Shallow depth of field, soft film look, gentle highlights, no harsh contrast. Small amber glass essential oil bottles (5-30 ml) with plain black or wooden caps, labels blank or only a plain cream paper label with no writing. Only hands and forearms, never a face. No text, no letters, no logos, no brand names anywhere. Woolen stocking hung by a rustic fireplace holding mandarins and oranges, amber bottle on the mantel, warm firelight, no text.
+- Movimento: Firelight dances on the fruit, slow camera push.
+
+**befana_b02**
+
+- Foto: Photorealistic lifestyle photo, vertical 9:16. Warm natural window light, low golden sun with soft raking shadows, airy and calm. Palette: cream, beige, warm sand, light oak wood, natural linen, soft green from fresh sprigs, amber glass. Shallow depth of field, soft film look, gentle highlights, no harsh contrast. Small amber glass essential oil bottles (5-30 ml) with plain black or wooden caps, labels blank or only a plain cream paper label with no writing. Only hands and forearms, never a face. No text, no letters, no logos, no brand names anywhere. Hands placing a mandarin into a knitted stocking on a wooden table, orange peels and cloves beside, amber bottle, warm morning light.
+- Movimento: Hands place the mandarin and smooth the stocking.
+
 ## Già pronte da stock reale gratuito (15/11)
 
 17 clip Mixkit e Coverr scelte per questo stile, ritagliate in verticale e con la stessa correzione colore: luce (mani alla finestra, mano nel grano, foglie controluce), lettura (mani e libro), te, pioggia, autunno, candele, natura, gocce, erbe. Sono già nel repository (stock/video) e nel catalogo.

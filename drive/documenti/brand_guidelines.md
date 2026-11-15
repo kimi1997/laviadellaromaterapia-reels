@@ -82,6 +82,8 @@ Colori, fondi e foto seguono la stagione dell'anno (stagioni meteorologiche, ora
 | Primavera | marzo-maggio | cipria #E8B0BF | #F8D9E1 | #FCF6F7 | lavanda, fiori, erbe fresche |
 | Estate | giugno-agosto | agrume #E9C255 | #FBE7A6 | #FCFAF1 | limoni, agrumi, luce piena |
 
+**Feste dentro le stagioni (dal 15/11).** Ogni stagione ha due momenti che si alternano: il mood della stagione e un assaggio della festa che arriva. Autunno (foglie, pioggia, ambra e marrone, cose calde) con ogni tanto un assaggio di Natale fino al 30/11; dal 1/12 inverno con Avvento e Natale; dal 25/12 Capodanno; 1-6 gennaio Befana. Le palette restano quelle della stagione; le feste le porta il soggetto delle foto (candele, arancia e cannella, abete, luci calde, calza della Befana). Calendario completo nelle istruzioni di mezzogiorno su GitHub.
+
 Restano uguali tutto l'anno: logo, viola-notte, viola, il velo scuro sulle foto, i caratteri. Così il profilo cambia atmosfera con le stagioni ma resta riconoscibile.
 
 ## Palette con i codici esatti
