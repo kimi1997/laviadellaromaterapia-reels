@@ -1,6 +1,6 @@
 # Brand guidelines – La via dell'aromaterapia
 
-Versione 3.1 · 10 novembre 2026 (template v5.1: tre stili di post, posizioni dei titoli, post anche su Facebook); versione 3 del 9 novembre (template v5, stagioni). Fonte principale: il Design System su Claude (https://claude.ai/artifact/QVSAuBzba7aVqBjYyLUrvy); questo documento ne è la copia nel Drive.
+Versione 3.2 · 15 novembre 2026 (nuova linea visiva, rubrica storia); versione 3.1 · 10 novembre 2026 (template v5.1: tre stili di post, posizioni dei titoli, post anche su Facebook); versione 3 del 9 novembre (template v5, stagioni). Fonte principale: il Design System su Claude (https://claude.ai/artifact/QVSAuBzba7aVqBjYyLUrvy); questo documento ne è la copia nel Drive.
 
 Oli essenziali spiegati da chi non te li vende: una pagina che parla di profumi, sensi ed emozioni come farebbe un'amica esperta, con la calma di una spa.
 
@@ -56,7 +56,7 @@ Regole: oro e lilla non sono mai testo su crema. Sulle foto il testo è sempre c
 
 Gli stili del gruppo Typography sono pensati per una tela larga 1080 px (reel 1080×1920, post 1080×1350).
 
-**Foto.** Solo foto vere, mai illustrazioni disegnate o immagini che sembrano fatte con l'intelligenza artificiale. Soggetti: piante, fiori, flaconi senza etichette leggibili, diffusori, candele, tessuti, tazze, luce naturale, luna. Toni caldi, luce morbida, profondità di campo ridotta. Niente marchi, niente persone riconoscibili, niente oggetti nati per altro (profumatori da auto, deodoranti commerciali). Oggi le foto vengono da Pexels (licenza libera); il prossimo passo sono brevi video girati in casa, solo mani e oggetti.
+**Foto.** Mai illustrazioni disegnate. Dal 15/11 la base è la nuova linea visiva qui sotto (foto e video con luce calda, anche generati con l'intelligenza artificiale, purché senza etichette leggibili, senza volti e senza aspetto da catalogo); le foto vere di stock restano di riserva. Soggetti: piante, fiori, flaconi senza etichette leggibili, diffusori, candele, tessuti, tazze, luce naturale, luna. Toni caldi, luce morbida, profondità di campo ridotta. Niente marchi, niente persone riconoscibili, niente oggetti nati per altro (profumatori da auto, deodoranti commerciali). Oggi le foto vengono da Pexels (licenza libera); il prossimo passo sono brevi video girati in casa, solo mani e oggetti.
 
 **Forme.** Angoli morbidi (pannello a 70 px, righe a 36 px, etichette a pillola), linee oro sottili, numeri grandi in trasparenza. Niente ombre forti, niente sfumature arcobaleno, niente emoji dentro le grafiche (nelle didascalie al massimo una per riga).
 
@@ -176,7 +176,7 @@ Dopo: "Nella tradizione mediterranea il rosmarino era la pianta del ricordo: se 
 
 Ogni giorno su Instagram reel e post si alternano: post alle 9, reel alle 12, post alle 16, pillola alle 19:30. Ogni formato ha un suo compito e un suo aspetto.
 
-Posizione dei titoli: ogni stile di post e ogni rubrica di reel ha il titolo sempre nello stesso punto (filo conduttore), ma due contenuti vicini sul profilo non hanno mai il titolo nello stesso punto. Rubriche: momento, faidate, scheda in basso; comesifa, mito, pillola in alto; blend, rituale al centro; se coincide con il post vicino, il reel prende la posizione libera.
+Posizione dei titoli: ogni stile di post e ogni rubrica di reel ha il titolo sempre nello stesso punto (filo conduttore), ma due contenuti vicini sul profilo non hanno mai il titolo nello stesso punto. Rubriche: emozioni, ricetta, mito, pillola in alto; riflessione, rituale al centro; storia, scheda in basso; se coincide con il post vicino, il reel prende la posizione libera.
 
 | Formato | Quando | Compito | Aspetto |
 | --- | --- | --- | --- |
