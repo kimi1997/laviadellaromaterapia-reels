@@ -1,6 +1,6 @@
 # Attività automatiche – istruzioni
 
-Aggiornato al 14 novembre 2026 (nuovi formati emozioni, riflessione e ricetta, reel.py v9, test ripartito il 16/11); versione del 10 novembre (template v5.1, post anche su Facebook, istruzioni di mezzogiorno su GitHub); versione del 9 novembre sera (post del feed, brand identity e template v5). La versione in uso è quella salvata nelle attività pianificate su Claude: questo documento ne è il riassunto ufficiale e va aggiornato a ogni modifica.
+Aggiornato al 15 novembre 2026 (stock v2 e nuova linea visiva, rubrica storia di giovedì, regole di sicurezza sui temi, reel.py v12); 14 novembre: nuovi formati emozioni, riflessione e ricetta, reel.py v9, test ripartito il 16/11; versione del 10 novembre (template v5.1, post anche su Facebook, istruzioni di mezzogiorno su GitHub); versione del 9 novembre sera (post del feed, brand identity e template v5). La versione in uso è quella salvata nelle attività pianificate su Claude: questo documento ne è il riassunto ufficiale e va aggiornato a ogni modifica.
 
 | Attività | Quando | Cosa fa | Connettori |
 | --- | --- | --- | --- |
@@ -12,6 +12,13 @@ Aggiornato al 14 novembre 2026 (nuovi formati emozioni, riflessione e ricetta, r
 Dal 7/11 pomeriggio: un solo giro pesante al giorno per risparmiare utilizzo di Claude. Dal 9/11, con i post del feed, le esecuzioni sono 29 a settimana (7 pesanti e 22 leggere). Le vecchie attività "Carosello del sabato" e "TikTok" separata non esistono più; il vecchio reel giornaliero è disattivato ([SOSTITUITA]).
 
 Tutte girano con approvazione automatica e mandano una notifica sul telefono.
+
+## Novità del 15/11
+
+- Nuova linea visiva (stock v2): foto e clip con luce calda, lino, flaconi ambrati senza scritte e solo mani; lo script le sceglie per prime. Catalogo e prompt per crearne altre in Drive 02 > Stock v2 e nel repository.
+- Giovedì: la rubrica "faidate" diventa "storia" (Storia e Feng Shui), con tappe su video; i fai da te restano in ricetta (mercoledì), pillola del giovedì e post.
+- Nuovi temi dai materiali di Michele (vie d'ingresso dei profumi, interior design e aromaterapia, ricerca sugli oli, Feng Shui) solo come ispirazione, con regole di sicurezza: niente assunzione interna, niente uso intimo, niente protocolli per malattie, niente marchi né frasi tipo "oli certificati, contattaci".
+- reel.py v12: opzione "solo_clip" nel JSON per reel fatti solo di clip video; rubrica "storia".
 
 ## Novità dell'11/11
 
