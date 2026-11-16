@@ -1,0 +1,26 @@
+name: TikTok pillola della sera
+on:
+  schedule:
+    - cron: "20 18 * * *"   # 19:20 ora di Roma in inverno (UTC+1); in estate diventa 20:20
+  workflow_dispatch:
+    inputs:
+      quale: {description: "sera o mezzogiorno", default: "sera"}
+      data: {description: "AAAA-MM-GG (vuoto = oggi)", default: ""}
+      modo: {description: "inbox o direct", default: "inbox"}
+      dry_run: {description: "true = prova senza chiamare TikTok", default: "false"}
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main}
+      - name: Carica su TikTok
+        env:
+          TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
+          TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
+          TIKTOK_REFRESH_TOKEN: ${{ secrets.TIKTOK_REFRESH_TOKEN }}
+        run: |
+          ARGS="--quale ${{ github.event.inputs.quale || 'sera' }} --modo ${{ github.event.inputs.modo || 'inbox' }}"
+          [ -n "${{ github.event.inputs.data }}" ] && ARGS="$ARGS --data ${{ github.event.inputs.data }}"
+          [ "${{ github.event.inputs.dry_run }}" = "true" ] && ARGS="$ARGS --dry-run"
+          python3 tools/tiktok_post.py $ARGS
