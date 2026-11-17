@@ -1,0 +1,3 @@
+id: 18103368683453381
+ora: 2026-11-17 10:51 CET
+note: ripubblicata su richiesta, link jsDelivr
